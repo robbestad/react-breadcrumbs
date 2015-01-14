@@ -4,6 +4,8 @@
 
 Demo at [opensourceprojects.robbestad.com][2]
 
+Source on [github][5]
+
 ## Installation
 
     % npm install react-breadcrumbs --save
@@ -40,3 +42,4 @@ The breadcrumbs are set up with a div with the class name "breadcrumbs".
 [2]: http://opensourceprojects.robbestad.com/#/breadcrumbs
 [3]: https://github.com/svenanders/react-breadcrumbs/issues/1
 [4]: https://github.com/rackt/react-router
+[5]: https://github.com/svenanders/react-breadcrumbs

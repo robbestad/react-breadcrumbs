@@ -32,6 +32,10 @@ route configuration. It requires that you have a name="" parameter
 in your routes for every route. It will use the displayName parameter
 for the Breadcrumb link. 
 
+## Styling
+
+The breadcrumbs are set up with the class name "breadcrumbs".
+
 [1]: https://facebook.github.io/react
 [2]: http://opensourceprojects.robbestad.com/
 [3]: https://github.com/svenanders/react-breadcrumbs/issues/1

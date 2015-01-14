@@ -53,6 +53,6 @@ module.exports = React.createClass({
                 );
             }
         });
-        return React.createElement("ul", {className: "breadcrumbs"}, breadcrumbs);
+        return React.createElement("div", {className: "breadcrumbs"}, breadcrumbs);
     }
 });

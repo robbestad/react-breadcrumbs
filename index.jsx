@@ -53,6 +53,6 @@ module.exports = React.createClass({
                 );
             }
         });
-        return <ul className="breadcrumbs">{breadcrumbs}</ul>;
+        return <div className="breadcrumbs">{breadcrumbs}</div>;
     }
 });

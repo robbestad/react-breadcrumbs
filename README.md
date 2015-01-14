@@ -1,6 +1,6 @@
 # React Breadcrumbs 
 
-[React][1] Component 
+[React][1] Component for [React-Router][4]. 
 
 Demo at [opensourceprojects.robbestad.com][2]
 
@@ -23,7 +23,16 @@ Demo at [opensourceprojects.robbestad.com][2]
       }
     });
 
+Optionally, you can add this prop to replace the default separator:
+
+    <Breadcrumbs separator=" | " />
+
+The breadcrumbs will automatically populate based on your 
+route configuration. It requires that you have a name="" parameter
+in your routes for every route. It will use the displayName parameter
+for the Breadcrumb link. 
+
 [1]: https://facebook.github.io/react
-[2]: http://www.robbestad.com/stickydiv
+[2]: http://opensourceprojects.robbestad.com/
 [3]: https://github.com/svenanders/react-breadcrumbs/issues/1
-[4]: https://gist.github.com/z5h/d95304d8d8e1fb6d0619
+[4]: https://github.com/rackt/react-router

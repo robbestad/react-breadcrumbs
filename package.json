@@ -1,6 +1,6 @@
 {
   "name": "react-breadcrumbs",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,10 @@
     "url": "https://github.com/svenanders/react-breadcrumbs.git"
   },
   "keywords": [
-    "react-component"
+    "react-component",
+    "breadcrumbs",
+    "react",
+    "trail"
   ],
   "author": "Sven Anders Robbestad <anders@robbestad.com>",
   "license": "ISC",

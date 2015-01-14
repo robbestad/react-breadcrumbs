@@ -15,6 +15,9 @@ module.exports = React.createClass({
     displayName: "Breadcrumbs",
     render: function () {
         var separator = " > ";
+        if("undefined" != typeof this.props.separator){
+          separator=this.props.separator;
+        }
         var breadcrumbs = [];
         var _this = this;
         var routes = this.getRoutes();

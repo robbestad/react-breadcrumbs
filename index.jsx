@@ -34,25 +34,25 @@ module.exports = React.createClass({
             }
             if (missingParams === true) {
                 breadcrumbs.push(
-                    React.createElement("span", {key: "missing" + i}, 
-                        name, " ", separator
-                    )
+                    <span key={"missing" + i}>
+                        {name} {separator}
+                    </span>
                 );
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = React.createElement(Link, {to: route.name}, name);
+                    link = <Link to={route.name}>{name}</Link>;
                 } else {
                     separator = "";
                 }
 
                 breadcrumbs.push(
-                    React.createElement("span", {key: route.name + '' + breadcrumbs.length}, 
-          link, " ", separator
-                    )
+                    <span key={route.name + '' + breadcrumbs.length}>
+          {link} {separator}
+                    </span>
                 );
             }
         });
-        return React.createElement("ul", {className: "breadcrumbs"}, breadcrumbs);
+        return <ul className="breadcrumbs">{breadcrumbs}</ul>;
     }
 });

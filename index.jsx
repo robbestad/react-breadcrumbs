@@ -4,13 +4,15 @@
 if ("undefined" == typeof React)
     var React = require('react');
 
-var ReactRouter = require("react-router");
+if ("undefined" == typeof ReactRouter)
+    var ReactRouter = require("react-router");
+
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
-module.exports = React.createClass({
+var Breadcrumbs = React.createClass({
     mixins: [ReactRouter.State],
     displayName: "Breadcrumbs",
     render: function () {
@@ -56,3 +58,6 @@ module.exports = React.createClass({
         return <div className="breadcrumbs">{breadcrumbs}</div>;
     }
 });
+
+if ("undefined" !== typeof module)
+    module.exports = Breadcrumbs;

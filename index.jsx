@@ -23,6 +23,12 @@ var Breadcrumbs = React.createClass({
         var breadcrumbs = [];
         var _this = this;
         var routes = this.getRoutes();
+        // Convert Object to array (can sometimes happen)
+        if('object' == typeof routes){
+            var arr = Object.keys(routes).map(function (key) {return routes[key]});
+            routes=arr;
+        } 
+        
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
             if ("undefined" == typeof route.name) {

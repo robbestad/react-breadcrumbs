@@ -21,7 +21,7 @@ major: lint test
 
 publish:
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
-	git commit -am "new release"
+	git commit -am "new release" --allow-empty
 	git push --tags origin HEAD:master
 	npm publish
 

@@ -10,7 +10,7 @@ test:
 lint:
 	jsxhint -c .jshintrc ./index.js
 
-patch: lint test
+patch: lint
 	@$(call release,patch)
 
 minor: lint test

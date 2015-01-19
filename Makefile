@@ -1,4 +1,5 @@
 BIN = ./node_modules/.bin
+uglify = /usr/local/lib/node_modules/uglify-js/bin/uglifyjs
 
 install link:
 	@npm $@
@@ -19,7 +20,7 @@ release-major: lint test
 	@$(call release,major)
 
 publish:
-	uglify index.js > dist/react-breadcrumbs.min.js
+	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 	git commit -am "new release"
 	git push --tags origin HEAD:master
 	npm publish

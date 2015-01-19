@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 "use strict";
 
-if ("undefined" == typeof React)
+if ("undefined" === typeof React)
     var React = require('react');
 
 if ("undefined" == typeof ReactRouter)

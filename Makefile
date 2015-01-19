@@ -10,13 +10,13 @@ test:
 lint:
 	jsxhint -c .jshintrc ./index.js
 
-release-patch: lint test
+patch: lint test
 	@$(call release,patch)
 
-release-minor: lint test
+minor: lint test
 	@$(call release,minor)
 
-release-major: lint test
+major: lint test
 	@$(call release,major)
 
 publish:

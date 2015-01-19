@@ -1,11 +1,8 @@
 /** @jsx React.DOM */
 "use strict";
 
-if ("undefined" === typeof React)
-    var React = require('react');
-
-if ("undefined" == typeof ReactRouter)
-    var ReactRouter = require("react-router");
+var React = React || require('react');
+var ReactRouter = ReactRouter || require('react-router');
 
 var Router = ReactRouter;
 var Route = ReactRouter.Route;

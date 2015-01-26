@@ -35,6 +35,11 @@ var Breadcrumbs = React.createClass({
             } else {
                 missingParams = false;
                 name = route.handler.displayName;
+                if (i == arr.length - 1) {
+                    if('undefined' !== typeof _this.props.displayName){
+                        name=_this.props.displayName;
+                    }
+                }
                 link = name;
             }
             if (missingParams === true) {

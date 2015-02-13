@@ -15,17 +15,20 @@ var Breadcrumbs = React.createClass({
     render: function () {
         var separator = " > ";
         if("undefined" != typeof this.props.separator){
-          separator=this.props.separator;
+            separator=this.props.separator;
+        }
+        var displayMissing = true;
+        if("undefined" != typeof this.props.displayMissing){
+            displayMissing = this.props.displayMissing;
         }
         var breadcrumbs = [];
         var _this = this;
         var routes = this.getRoutes();
-
         // Convert Object to array (can sometimes happen)
         if('object' == typeof routes){
             var arr = Object.keys(routes).map(function (key) {return routes[key]});
             routes=arr;
-        } 
+        }
 
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
@@ -43,9 +46,9 @@ var Breadcrumbs = React.createClass({
                 }
                 link = name;
             }
-            if (missingParams === true) {
+            if (missingParams === true && displayMissing) {
                 breadcrumbs.push(
-                    React.createElement("span", {key: "missing" + i}, 
+                    React.createElement("span", {key: "missing" + i},
                         name, " ", separator
                     )
                 );
@@ -58,8 +61,8 @@ var Breadcrumbs = React.createClass({
                 }
 
                 breadcrumbs.push(
-                    React.createElement("span", {key: route.name + '' + breadcrumbs.length}, 
-          link, " ", separator
+                    React.createElement("span", {key: route.name + '' + breadcrumbs.length},
+                        link, " ", separator
                     )
                 );
             }

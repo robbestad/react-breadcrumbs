@@ -4,19 +4,16 @@ uglify = /usr/local/lib/node_modules/uglify-js/bin/uglifyjs
 install link:
 	@npm $@
 
-test:
-	@$(BIN)/mocha -t 5000 -b -R spec spec.js
-
 lint:
 	jsxhint -c .jshintrc ./index.js
 
 patch: lint
 	@$(call release,patch)
 
-minor: lint test
+minor: lint 
 	@$(call release,minor)
 
-major: lint test
+major: lint 
 	@$(call release,major)
 
 publish:

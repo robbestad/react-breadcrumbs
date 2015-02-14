@@ -17,6 +17,10 @@ var Breadcrumbs = React.createClass({
         if("undefined" != typeof this.props.separator){
           separator=this.props.separator;
         }
+        var displayMissing = true;
+        if("undefined" != typeof this.props.displayMissing){
+            displayMissing = this.props.displayMissing;
+        }
         var breadcrumbs = [];
         var _this = this;
         var routes = this.getRoutes();
@@ -42,7 +46,7 @@ var Breadcrumbs = React.createClass({
                 }
                 link = name;
             }
-            if (missingParams === true) {
+            if (missingParams === true && displayMissing) {
                 breadcrumbs.push(
                     <span key={"missing" + i}>
                         {name} {separator}

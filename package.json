@@ -22,7 +22,7 @@
     "url": "https://github.com/svenanders/react-breadcrumbs/issues"
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^0.12.2",
     "react-router": "^0.11.6"
   }

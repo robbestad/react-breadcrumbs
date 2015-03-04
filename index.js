@@ -32,20 +32,25 @@ var Breadcrumbs = React.createClass({
 
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
-            if ("undefined" == typeof route.name) {
-                name = "Missing name parameter in router";
-                missingParams = true;
-                link = name;
-            } else {
-                missingParams = false;
-                name = route.handler.displayName;
-                if (i == arr.length - 1) {
-                    if('undefined' !== typeof _this.props.displayName){
-                        name=_this.props.displayName;
-                    }
+
+            name = route.handler.displayName;
+            if (i == arr.length - 1) {
+                if('undefined' !== typeof _this.props.displayName){
+                    name=_this.props.displayName;
                 }
-                link = name;
             }
+            if("undefined" == typeof name){
+                if ("undefined" == typeof route.name) {
+                    name = "Missing name parameter in router";
+                    missingParams = true;
+                } else {
+                    name = route.name
+                }
+            } else if("function" == typeof name){
+                name = name(_this);
+            }
+            link = name;
+
             if (missingParams === true && displayMissing) {
                 breadcrumbs.push(
                     React.createElement("span", {key: "missing" + i},

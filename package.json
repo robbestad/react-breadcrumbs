@@ -1,18 +1,20 @@
 {
   "name": "react-breadcrumbs",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
   "npmName": "react-breadcrumbs",
-  "npmFileMap": [{
-    "basePath": "/dist/",
-    "files": [
-      "*.js"
-    ]
-  }],
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/svenanders/react-breadcrumbs.git"

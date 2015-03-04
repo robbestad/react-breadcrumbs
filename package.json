@@ -29,8 +29,8 @@
     "url": "https://github.com/svenanders/react-breadcrumbs/issues"
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
-  "devDependencies": {
+  "peerDependencies": {
     "react": "^0.12.2",
-    "react-router": "^0.11.6"
+    "react-router": "^0.12.x"
   }
 }

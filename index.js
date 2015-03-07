@@ -59,7 +59,7 @@ var Breadcrumbs = React.createClass({
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = React.createElement(Link, {to: route.name}, name);
+                    link = React.createElement(Link, {to: 'undefined' === typeof route.name?'/':route.name}, name);
                 } else {
                     separator = "";
                 }

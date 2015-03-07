@@ -27,8 +27,8 @@ var Breadcrumbs = React.createClass({
         if('object' == typeof routes){
             var arr = Object.keys(routes).map(function (key) {return routes[key]});
             routes=arr;
-        } 
-        
+        }
+
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
             if ("undefined" == typeof route.name) {
@@ -54,7 +54,7 @@ var Breadcrumbs = React.createClass({
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = <Link to={route.name}>{name}</Link>;
+                    link = <Link to={'undefined' === typeof route.name?'/':route.name}>{name}</Link>;
                 } else {
                     separator = "";
                 }

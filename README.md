@@ -34,6 +34,12 @@ route configuration. It requires that you have a name="" parameter
 in your routes for every route. It will use the displayName parameter
 for the Breadcrumb link. 
 
+Another optional is _breadcrumbName_:
+
+    <Breadcrumbs breadcrumbName="My breadcrumb name" />
+
+The point of this property is to provide a method to set a breaadcrumb name for the final breadcrumb. 
+
 ## Styling
 
 The breadcrumbs are set up with a div with the class name "breadcrumbs".

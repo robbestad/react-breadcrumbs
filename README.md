@@ -40,6 +40,12 @@ Another optional is _breadcrumbName_:
 
 The point of this property is to provide a method to set a breaadcrumb name for the final breadcrumb. 
 
+You can also exclude specific routes if you want to:
+
+    <Breadcrumbs excludes={['App']} />
+
+This will print all breadcrumbs, except for the one where the route name is `App`.
+
 ## Styling
 
 The breadcrumbs are set up with a div with the class name "breadcrumbs".

@@ -2,18 +2,22 @@
 
 var React = require('react');
 var ReactRouter = require('react-router');
+var contains = require('lodash.contains')
 
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
+
+
 var Breadcrumbs = React.createClass({
     propTypes: {
         separator: React.PropTypes.string,
         displayMissing: React.PropTypes.string,
         displayName: React.PropTypes.string,
-        breadcrumbName: React.PropTypes.string
+        breadcrumbName: React.PropTypes.string,
+        excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     mixins: [ReactRouter.State],
     displayName: "Breadcrumbs",
@@ -34,6 +38,8 @@ var Breadcrumbs = React.createClass({
             var arr = Object.keys(routes).map(function (key) {return routes[key]});
             routes=arr;
         }
+
+        var excludes = this.props.excludes || [];
 
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
@@ -56,6 +62,10 @@ var Breadcrumbs = React.createClass({
             }
             link = name;
 
+            // Don't add the excluded routes
+            if (contains(excludes, name)) {
+                return;
+            }
 
             if (missingParams === true && displayMissing) {
                 breadcrumbs.push(

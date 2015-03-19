@@ -34,5 +34,8 @@
   "peerDependencies": {
     "react": "^0.12.2",
     "react-router": "^0.12.x"
+  },
+  "dependencies": {
+    "lodash.contains": "^2.4.1"
   }
 }

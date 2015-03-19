@@ -17,7 +17,7 @@ var Breadcrumbs = React.createClass({
         displayMissing: React.PropTypes.string,
         displayName: React.PropTypes.string,
         breadcrumbName: React.PropTypes.string,
-        excludes: React.ProptTypes.arrayOf(React.propTypes.string)
+        excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     mixins: [ReactRouter.State],
     displayName: "Breadcrumbs",

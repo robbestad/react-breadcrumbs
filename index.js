@@ -9,6 +9,12 @@ var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
 var Breadcrumbs = React.createClass({
+    propTypes: {
+        separator: React.PropTypes.string,
+        displayMissing: React.PropTypes.string,
+        displayName: React.PropTypes.string,
+        breadcrumbName: React.PropTypes.string
+    },
     mixins: [ReactRouter.State],
     displayName: "Breadcrumbs",
     render: function () {
@@ -62,6 +68,11 @@ var Breadcrumbs = React.createClass({
                     link = React.createElement(Link, {to: 'undefined' === typeof route.name?'/':route.name}, name);
                 } else {
                     separator = "";
+
+                    if("undefined" != typeof _this.props.breadcrumbName){
+                        route.name=_this.props.breadcrumbName;
+                        link=_this.props.breadcrumbName;
+                    }
                 }
 
                 breadcrumbs.push(

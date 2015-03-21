@@ -2,7 +2,7 @@
 
 [React][1] Component for [React-Router][4]. 
 
-Demo at [opensourceprojects.robbestad.com][2]
+Demo at [learnreact.robbestad.com][2]
 
 Source on [github][5]
 

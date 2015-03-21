@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
-    "react": "^0.12.2",
-    "react-router": "^0.12.x"
+    "react": "^0.13.x",
+    "react-router": "^0.13.x"
   },
   "dependencies": {
     "lodash.contains": "^2.4.1"

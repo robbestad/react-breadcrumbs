@@ -9,8 +9,6 @@ var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
-
-
 var Breadcrumbs = React.createClass({
     propTypes: {
         separator: React.PropTypes.string,
@@ -19,7 +17,9 @@ var Breadcrumbs = React.createClass({
         breadcrumbName: React.PropTypes.string,
         excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
-    mixins: [ReactRouter.State],
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
+    },
     displayName: "Breadcrumbs",
     render: function () {
         var separator = " > ";
@@ -32,7 +32,7 @@ var Breadcrumbs = React.createClass({
         }
         var breadcrumbs = [];
         var _this = this;
-        var routes = this.getRoutes();
+        var routes = this.context.router.getCurrentRoutes();
         // Convert Object to array (can sometimes happen)
         if('object' == typeof routes){
             var arr = Object.keys(routes).map(function (key) {return routes[key]});

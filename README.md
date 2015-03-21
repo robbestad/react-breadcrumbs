@@ -10,8 +10,11 @@ Source on [github][5]
 
     % npm install react-breadcrumbs --save
 
-## Usage
+## Versioning
 
+  The aim is to correlate with react-router. 
+
+## Usage
 
     var Breadcrumbs = require('react-breadcrumbs');
 

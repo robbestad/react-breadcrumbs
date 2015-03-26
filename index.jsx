@@ -3,7 +3,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var contains = require('lodash.contains')
-
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
@@ -33,6 +32,8 @@ var Breadcrumbs = React.createClass({
         var breadcrumbs = [];
         var _this = this;
         var routes = this.context.router.getCurrentRoutes();
+        var params = this.context.router.getCurrentParams();
+
         // Convert Object to array (can sometimes happen)
         if('object' == typeof routes){
             var arr = Object.keys(routes).map(function (key) {return routes[key]});
@@ -76,7 +77,8 @@ var Breadcrumbs = React.createClass({
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = <Link to={'undefined' === typeof route.name?'/':route.name}>{name}</Link>;
+                    link = <Link to={'undefined' === typeof route.name ? '/' : 
+                        route.name, params:params}>{name}</Link>;
                 } else {
                     separator = "";
 
@@ -97,5 +99,4 @@ var Breadcrumbs = React.createClass({
     }
 });
 
-if ("undefined" !== typeof module)
-    module.exports = Breadcrumbs;
+if ("undefined" !== typeof module) module.exports = Breadcrumbs;

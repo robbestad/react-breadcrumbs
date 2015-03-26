@@ -2,7 +2,7 @@
 
 var React = require('react');
 var ReactRouter = require('react-router');
-var contains = require('lodash.contains')
+var contains = require('lodash').contains;
 
 var Router = ReactRouter;
 var Route = ReactRouter.Route;

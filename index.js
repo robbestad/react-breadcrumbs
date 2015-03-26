@@ -33,8 +33,8 @@ var Breadcrumbs = React.createClass({
         var breadcrumbs = [];
         var _this = this;
         var routes = this.context.router.getCurrentRoutes();
-
         var params = this.context.router.getCurrentParams();
+
         // Convert Object to array (can sometimes happen)
         if ("object" == typeof routes) {
             var arr = Object.keys(routes).map(function (key) {
@@ -84,14 +84,8 @@ var Breadcrumbs = React.createClass({
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = React.createElement(
-                        Link,
-                        {
-                            to: "undefined" === typeof route.name ? "/" : route.name,
-                            params: params
-                        },
-                        name
-                    );
+                    link = React.createElement(Link, { to: "undefined" === typeof route.name ? "/" : route.name,
+                        params: params }, name);
                 } else {
                     separator = "";
 

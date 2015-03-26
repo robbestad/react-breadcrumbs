@@ -16,8 +16,10 @@ minor: lint
 major: lint 
 	@$(call release,major)
 
-jsx:	lint
-	gulp	
+jsx:
+	@$(call lint)
+	gulp
+	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 
 publish:
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js

@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var contains = require('lodash.contains')
+
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
@@ -77,8 +78,12 @@ var Breadcrumbs = React.createClass({
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
-                    link = <Link to={'undefined' === typeof route.name ? '/' : 
-                        route.name, params:params}>{name}</Link>;
+                    link = React.createElement(
+                        Link,
+                        { to: "undefined" === typeof route.name ? "/" : route.name,
+                        params: params },
+                        name
+                    );
                 } else {
                     separator = "";
 

@@ -3,8 +3,9 @@
   "predef": [ "-React" ],
   "unused": "vars",
   "asi": true,
+  "node": true,
   "expr": true,
-  "globalstrict": true,
+  "globalstrict": false,
   "browser": true,
   "unused":false,
   "globals": {

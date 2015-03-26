@@ -1,11 +1,20 @@
 {
   "name": "react-breadcrumbs",
-  "version": "0.2.9",
+  "version": "0.13.0",
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
+  "npmName": "react-breadcrumbs",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/svenanders/react-breadcrumbs.git"
@@ -23,7 +32,16 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
-    "react": "^0.12.2",
-    "react-router": "^0.11.6"
+    "react": "^0.13.x",
+    "react-router": "^0.13.x"
+  },
+  "dependencies": {
+    "lodash.contains": "^2.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-babel": "^4.0.0",
+    "gulp-jsx": "^0.9.0",
+    "gulp-rename": "^1.2.0"
   }
 }

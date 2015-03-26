@@ -16,6 +16,9 @@ minor: lint
 major: lint 
 	@$(call release,major)
 
+jsx:	lint
+	gulp	
+
 publish:
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 	git commit -am "new release" --allow-empty

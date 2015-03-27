@@ -16,14 +16,17 @@ minor: lint
 major: lint 
 	@$(call release,major)
 
-jsx:
+jsx: 
 	@$(call lint)
-	gulp
+	gulp	
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 
 publish:
+	@$(call jsx)
+	@(sh bin/authors)
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
-	git commit -am "new release" --allow-empty
+	git commit -am "`npm view . version`" --allow-empty
+	@$(call release,patch)
 	git push --tags origin HEAD:master
 	npm publish
 

@@ -25,7 +25,7 @@ publish:
 	@$(call jsx)
 	@(sh bin/authors)
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
-	git commit -am "`npm view . version`" --allow-empty
+	git commit -am "0.13.4" --allow-empty
 	@$(call release,patch)
 	git push --tags origin HEAD:master
 	npm publish

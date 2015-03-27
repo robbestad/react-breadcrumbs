@@ -88,7 +88,7 @@ var Breadcrumbs = React.createClass({
                     separator = "";
 
                     if("undefined" != typeof _this.props.breadcrumbName){
-                        route.name=_this.props.breadcrumbName;
+                        //route.name=_this.props.breadcrumbName;
                         link=_this.props.breadcrumbName;
                     }
                 }

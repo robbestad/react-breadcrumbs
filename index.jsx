@@ -1,9 +1,12 @@
+"use strict";
+
 var React = require('react');
 var ReactRouter = require('react-router');
 var contains = require('lodash').contains;
 
-var Router = ReactRouter.Router;
+var Router = ReactRouter;
 var Route = ReactRouter.Route;
+var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
 var Breadcrumbs = React.createClass({
@@ -12,10 +15,13 @@ var Breadcrumbs = React.createClass({
         displayMissing: React.PropTypes.string,
         displayName: React.PropTypes.string,
         breadcrumbName: React.PropTypes.string,
+        wrapperElement: React.PropTypes.string,
+        itemElement: React.PropTypes.string,
+        customClass: React.PropTypes.string,
         excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     contextTypes: {
-        router: React.PropTypes.object.isRequired
+        router: React.PropTypes.func.isRequired
     },
     displayName: "Breadcrumbs",
     render: function () {
@@ -27,15 +33,28 @@ var Breadcrumbs = React.createClass({
         if("undefined" != typeof this.props.displayMissing){
             displayMissing = this.props.displayMissing;
         }
+        var wrapperElement = "div";
+        if ("undefined" != typeof this.props.wrapperElement) {
+            wrapperElement = this.props.wrapperElement;
+        }
+        var itemElement = "span";
+        if ("undefined" != typeof this.props.itemElement) {
+            itemElement = this.props.itemElement;
+        }
+
+        var customClass = "breadcrumbs";
+        if ("undefined" != typeof this.props.customClass) {
+            customClass = this.props.customClass;
+        }
+
         var breadcrumbs = [];
         var _this = this;
-        var routes = this.context.router.state.branch;
-        var params = this.context.router.state.params;
+        var routes = this.context.router.getCurrentRoutes();
+        var params = this.context.router.getCurrentParams();
 
         // Convert Object to array (can sometimes happen)
         if('object' == typeof routes){
-            var arr = Object.keys(routes).map(function (key) {return routes[key]});
-            routes=arr;
+            routes = Object.keys(routes).map(function (key) {return routes[key]});
         }
 
         var excludes = this.props.excludes || [];
@@ -43,7 +62,7 @@ var Breadcrumbs = React.createClass({
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
 
-            name = route.component.displayName;
+            name = route.handler.displayName;
             if (i == arr.length - 1) {
                 if('undefined' !== typeof _this.props.displayName){
                     name=_this.props.displayName;
@@ -67,18 +86,20 @@ var Breadcrumbs = React.createClass({
             }
 
             if (missingParams === true && displayMissing) {
-                breadcrumbs.push(
-                    <span key={"missing" + i}>
-                        {name} {separator}
-                    </span>
-                );
+                breadcrumbs.push(React.createElement(
+                  itemElement,
+                  { key: "missing" + i },
+                  name,
+                  " ",
+                  separator
+                ));
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
                     link = React.createElement(
                         Link,
                         { to: "undefined" === typeof route.name ? "/" : route.name,
-                            params: params },
+                        params: params },
                         name
                     );
                 } else {
@@ -90,14 +111,12 @@ var Breadcrumbs = React.createClass({
                     }
                 }
 
-                breadcrumbs.push(
-                    <span key={route.name + '' + breadcrumbs.length}>
-          {link} {separator}
-                    </span>
-                );
+                var crumbItem = React.createElement(itemElement, {key: route.name + '' + breadcrumbs.length}, {link}, {separator});
+                breadcrumbs.push(crumbItem);
             }
         });
-        return <div className="breadcrumbs">{breadcrumbs}</div>;
+        return React.createElement(wrapperElement, {className: customClass}, {breadcrumbs});
+
     }
 });
 

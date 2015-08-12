@@ -15,6 +15,9 @@ var Breadcrumbs = React.createClass({
         displayMissing: React.PropTypes.string,
         displayName: React.PropTypes.string,
         breadcrumbName: React.PropTypes.string,
+        wrapperElement: React.PropTypes.string,
+        itemElement: React.PropTypes.string,
+        customClass: React.PropTypes.string,
         excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     contextTypes: {
@@ -30,6 +33,19 @@ var Breadcrumbs = React.createClass({
         if ("undefined" != typeof this.props.displayMissing) {
             displayMissing = this.props.displayMissing;
         }
+        var wrapperElement = "div";
+        if ("undefined" != typeof this.props.wrapperElement) {
+            wrapperElement = this.props.wrapperElement;
+        }
+        var itemElement = "span";
+        if ("undefined" != typeof this.props.itemElement) {
+            itemElement = this.props.itemElement;
+        }
+        var customClass = "breadcrumbs";
+        if ("undefined" != typeof this.props.customClass) {
+            customClass = this.props.customClass;
+        }
+
         var breadcrumbs = [];
         var _this = this;
         var routes = this.context.router.getCurrentRoutes();
@@ -75,7 +91,7 @@ var Breadcrumbs = React.createClass({
 
             if (missingParams === true && displayMissing) {
                 breadcrumbs.push(React.createElement(
-                    "span",
+                    itemElement,
                     { key: "missing" + i },
                     name,
                     " ",
@@ -96,7 +112,7 @@ var Breadcrumbs = React.createClass({
                 }
 
                 breadcrumbs.push(React.createElement(
-                    "span",
+                    itemElement,
                     { key: route.name + "" + breadcrumbs.length },
                     link,
                     " ",
@@ -105,8 +121,8 @@ var Breadcrumbs = React.createClass({
             }
         });
         return React.createElement(
-            "div",
-            { className: "breadcrumbs" },
+            wrapperElement,
+            { className: customClass },
             breadcrumbs
         );
     }

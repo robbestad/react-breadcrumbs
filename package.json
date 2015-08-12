@@ -39,7 +39,8 @@
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-jsx": "^0.9.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "uglifyjs": "^2.4.10"
   },
   "dependencies": {
     "lodash": "^3.6.0"

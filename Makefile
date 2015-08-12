@@ -1,5 +1,5 @@
 BIN = ./node_modules/.bin
-uglify = /usr/local/lib/node_modules/uglify-js/bin/uglifyjs
+uglify = ./node_modules/uglifyjs/bin/uglifyjs
 
 install link:
 	@npm $@

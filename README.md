@@ -19,6 +19,8 @@ Source on [github][5]
   the 1.0.0-beta1. Please take care that you use the one that 
   matches your installed version of React-Router.
 
+  *NB!* The _master_ branch mirrors the _0.13_ branch
+
 ## Usage
 
     var Breadcrumbs = require('react-breadcrumbs');

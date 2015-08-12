@@ -14,6 +14,11 @@ Source on [github][5]
 
   The aim is to correlate with react-router. 
 
+  Note: There are now two branches of react-breadcrumbs,
+  a version for the 0.13-branch of react-router and one for 
+  the 1.0.0-beta1. Please take care that you use the one that 
+  matches your installed version of React-Router.
+
 ## Usage
 
     var Breadcrumbs = require('react-breadcrumbs');

@@ -4,8 +4,9 @@ var React = require("react");
 var ReactRouter = require("react-router");
 var contains = require("lodash").contains;
 
-var Router = ReactRouter.Router;
+var Router = ReactRouter;
 var Route = ReactRouter.Route;
+var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
 
 var Breadcrumbs = React.createClass({
@@ -20,7 +21,7 @@ var Breadcrumbs = React.createClass({
         excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     contextTypes: {
-        router: React.PropTypes.object.isRequired
+        router: React.PropTypes.func.isRequired
     },
     displayName: "Breadcrumbs",
     render: function render() {
@@ -40,6 +41,7 @@ var Breadcrumbs = React.createClass({
         if ("undefined" != typeof this.props.itemElement) {
             itemElement = this.props.itemElement;
         }
+
         var customClass = "breadcrumbs";
         if ("undefined" != typeof this.props.customClass) {
             customClass = this.props.customClass;
@@ -47,15 +49,14 @@ var Breadcrumbs = React.createClass({
 
         var breadcrumbs = [];
         var _this = this;
-        var routes = this.context.router.state.branch;
-        var params = this.context.router.state.params;
+        var routes = this.context.router.getCurrentRoutes();
+        var params = this.context.router.getCurrentParams();
 
         // Convert Object to array (can sometimes happen)
         if ("object" == typeof routes) {
-            var arr = Object.keys(routes).map(function (key) {
+            routes = Object.keys(routes).map(function (key) {
                 return routes[key];
             });
-            routes = arr;
         }
 
         var excludes = this.props.excludes || [];
@@ -65,7 +66,7 @@ var Breadcrumbs = React.createClass({
                 link,
                 missingParams = false;
 
-            name = route.component.displayName;
+            name = route.handler.displayName;
             if (i == arr.length - 1) {
                 if ("undefined" !== typeof _this.props.displayName) {
                     name = _this.props.displayName;
@@ -89,13 +90,7 @@ var Breadcrumbs = React.createClass({
             }
 
             if (missingParams === true && displayMissing) {
-                breadcrumbs.push(React.createElement(
-                    itemElement,
-                    { key: "missing" + i },
-                    name,
-                    " ",
-                    separator
-                ));
+                breadcrumbs.push(React.createElement(itemElement, { key: "missing" + i }, name, " ", separator));
             }
             if (missingParams === false) {
                 if (i != arr.length - 1) {
@@ -110,20 +105,11 @@ var Breadcrumbs = React.createClass({
                     }
                 }
 
-                breadcrumbs.push(React.createElement(
-                    itemElement,
-                    { key: route.name + "" + breadcrumbs.length },
-                    link,
-                    " ",
-                    separator
-                ));
+                var crumbItem = React.createElement(itemElement, { key: route.name + "" + breadcrumbs.length }, { link: link }, { separator: separator });
+                breadcrumbs.push(crumbItem);
             }
         });
-        return React.createElement(
-            wrapperElement,
-            { className: customClass },
-            breadcrumbs
-        );
+        return React.createElement(wrapperElement, { className: customClass }, { breadcrumbs: breadcrumbs });
     }
 });
 

@@ -10,6 +10,16 @@ Source on [github][5]
 
     % npm install react-breadcrumbs --save
 
+Semver:
+
+0.13 branch
+
+    % npm install react-breadcrumbs@0.13.x --save
+
+1.0.0 beta branch
+
+    % npm install react-breadcrumbs@1.0.x --save
+
 ## Versioning
 
   The aim is to correlate with react-router. 

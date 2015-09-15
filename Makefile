@@ -21,12 +21,13 @@ jsx:
 	gulp	
 	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 
-publish:
+prepublish: 
 	@$(call jsx)
 	@(sh bin/authors)
-	@$(uglify) index.js > dist/react-breadcrumbs.min.js
 	git commit -am "`npm view . version`" --allow-empty
 	@$(call release,patch)
+	
+publish:
 	git push --tags origin HEAD:master
 	npm publish
 

@@ -1,10 +1,8 @@
-"use strict";
-
 var React = require('react');
 var ReactRouter = require('react-router');
 var contains = require('lodash').contains;
 
-var Router = ReactRouter;
+var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var RouteHandler = ReactRouter.RouteHandler;
 var Link = ReactRouter.Link;
@@ -21,7 +19,7 @@ var Breadcrumbs = React.createClass({
         excludes: React.PropTypes.arrayOf(React.PropTypes.string)
     },
     contextTypes: {
-        router: React.PropTypes.func.isRequired
+        router: React.PropTypes.object.isRequired
     },
     displayName: "Breadcrumbs",
     render: function () {
@@ -49,8 +47,8 @@ var Breadcrumbs = React.createClass({
 
         var breadcrumbs = [];
         var _this = this;
-        var routes = this.context.router.getCurrentRoutes();
-        var params = this.context.router.getCurrentParams();
+        var routes = this.context.router.state.branch;
+        var params = this.context.router.state.params;
 
         // Convert Object to array (can sometimes happen)
         if('object' == typeof routes){
@@ -62,7 +60,7 @@ var Breadcrumbs = React.createClass({
         routes.forEach(function (route, i, arr) {
             var name, link, missingParams = false;
 
-            name = route.handler.displayName;
+            name = route.component.displayName;
             if (i == arr.length - 1) {
                 if('undefined' !== typeof _this.props.displayName){
                     name=_this.props.displayName;
@@ -99,7 +97,7 @@ var Breadcrumbs = React.createClass({
                     link = React.createElement(
                         Link,
                         { to: "undefined" === typeof route.name ? "/" : route.name,
-                        params: params },
+                            params: params },
                         name
                     );
                 } else {

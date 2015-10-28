@@ -10,6 +10,16 @@ Source on [github][5]
 
     % npm install react-breadcrumbs --save
 
+Semver:
+
+0.13 branch
+
+    % npm install react-breadcrumbs@0.13.x --save
+
+1.0.0 beta branch
+
+    % npm install react-breadcrumbs@1.0.x --save
+
 ## Versioning
 
   The aim is to correlate with react-router. 
@@ -18,6 +28,8 @@ Source on [github][5]
   a version for the 0.13-branch of react-router and one for 
   the 1.0.0-beta1. Please take care that you use the one that 
   matches your installed version of React-Router.
+
+  *NB!* The _master_ branch mirrors the _0.13_ branch
 
 ## Usage
 
@@ -53,6 +65,27 @@ You can also exclude specific routes if you want to:
     <Breadcrumbs excludes={['App']} />
 
 This will print all breadcrumbs, except for the one where the route name is `App`.
+
+    <Breadcrumbs displayMissing="true|false" displayMissingText="This title is missing" />
+    
+This property set allows you determine if you want to display routes in the hierarchy with missing display names.
+default = true. When true, uses the displayMissingText property as an override to the default text.
+
+    <Breadcrumbs wrapperElement="div" itemElement="span />
+    
+These properties allow you to override the defauly ol and li elements to specify an alternate set based on your styling
+and markup needs.
+
+    <Breadcrumbs customClass="breadcrumbs" />
+
+This property allows you to override the default class set on the breadcrumbs node so you can specify your own.
+
+    <Breadcrumbs hideNoPath="true|false" />
+    
+In some cases React-Router may not have a path in the parent node. This is a valid use case when you want to wrap components
+with other components but they are not true routes. For these you can use the "hideNoPath" property (default=true) to either
+hide or show these in the breadcrumbs.
+    
 
 ## Styling
 

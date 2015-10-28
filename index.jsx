@@ -1,121 +1,130 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var contains = require('lodash').contains;
+/**
+ * @class Breadcrumbs
+ * @description New breadcrumbs class based on ES6 structure.
+ * @exports Breadcrumbs
+ * @version 1.0
+ * @extends component
+ * @requires react
+ * @requires react-router
+ * @requires lodash
+ *
+ */
+import React from 'react'
+import {Router, Route, Link} from 'react-router'
 
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var RouteHandler = ReactRouter.RouteHandler;
-var Link = ReactRouter.Link;
+class Breadcrumbs extends React.Component {
 
-var Breadcrumbs = React.createClass({
-    propTypes: {
-        separator: React.PropTypes.string,
-        displayMissing: React.PropTypes.string,
-        displayName: React.PropTypes.string,
-        breadcrumbName: React.PropTypes.string,
-        wrapperElement: React.PropTypes.string,
-        itemElement: React.PropTypes.string,
-        customClass: React.PropTypes.string,
-        excludes: React.PropTypes.arrayOf(React.PropTypes.string)
-    },
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    displayName: "Breadcrumbs",
-    render: function () {
-        var separator = " > ";
-        if("undefined" != typeof this.props.separator){
-            separator=this.props.separator;
-        }
-        var displayMissing = true;
-        if("undefined" != typeof this.props.displayMissing){
-            displayMissing = this.props.displayMissing;
-        }
-        var wrapperElement = "div";
-        if ("undefined" != typeof this.props.wrapperElement) {
-            wrapperElement = this.props.wrapperElement;
-        }
-        var itemElement = "span";
-        if ("undefined" != typeof this.props.itemElement) {
-            itemElement = this.props.itemElement;
-        }
+  constructor() {
+    this.displayName = "Breadcrumbs";
+  }
 
-        var customClass = "breadcrumbs";
-        if ("undefined" != typeof this.props.customClass) {
-            customClass = this.props.customClass;
-        }
+  _getDisplayName(route) {
+    let name = null;
 
-        var breadcrumbs = [];
-        var _this = this;
-        var routes = this.context.router.state.branch;
-        var params = this.context.router.state.params;
-
-        // Convert Object to array (can sometimes happen)
-        if('object' == typeof routes){
-            routes = Object.keys(routes).map(function (key) {return routes[key]});
-        }
-
-        var excludes = this.props.excludes || [];
-
-        routes.forEach(function (route, i, arr) {
-            var name, link, missingParams = false;
-
-            name = route.component.displayName;
-            if (i == arr.length - 1) {
-                if('undefined' !== typeof _this.props.displayName){
-                    name=_this.props.displayName;
-                }
-            }
-            if("undefined" == typeof name){
-                if ("undefined" == typeof route.name) {
-                    name = "Missing name parameter in router";
-                    missingParams = true;
-                } else {
-                    name = route.name
-                }
-            } else if("function" == typeof name){
-                name = name(_this);
-            }
-            link = name;
-
-            // Don't add the excluded routes
-            if (contains(excludes, name)) {
-                return;
-            }
-
-            if (missingParams === true && displayMissing) {
-                breadcrumbs.push(React.createElement(
-                  itemElement,
-                  { key: "missing" + i },
-                  name,
-                  " ",
-                  separator
-                ));
-            }
-            if (missingParams === false) {
-                if (i != arr.length - 1) {
-                    link = React.createElement(
-                        Link,
-                        { to: "undefined" === typeof route.name ? "/" : route.name,
-                            params: params },
-                        name
-                    );
-                } else {
-                    separator = "";
-
-                    if("undefined" != typeof _this.props.breadcrumbName){
-                        //route.name=_this.props.breadcrumbName;
-                        link=_this.props.breadcrumbName;
-                    }
-                }
-
-                var crumbItem = React.createElement(itemElement, {key: route.name + '' + breadcrumbs.length}, {link}, {separator});
-                breadcrumbs.push(crumbItem);
-            }
-        });
-        return React.createElement(wrapperElement, {className: customClass}, {breadcrumbs});
-
+    if(route.indexRoute){
+      name = route.indexRoute.component.displayName || null;
+    }else{
+      name = route.component.displayName || null;
     }
-});
 
-if ("undefined" !== typeof module) module.exports = Breadcrumbs;
+    //check to see if a custom name has been applied to the route
+    if (!name && !!route.name) {
+      name = route.name;
+    }
+
+    //if the name exists and it's in the excludes list exclude this route
+    if (name && this.props.excludes.some(item => item === name)) return null;
+
+    if (!name && this.props.displayMissing) {
+      name = this.props.displayMissingText;
+    }
+
+    return name;
+  }
+
+  _processRoute(route) {
+
+    //if there is no route path defined and we are set to hide these then do so
+    if(!route.path && this.props.hideNoPath) return null;
+
+    let name = this._getDisplayName(route);
+
+    if (name) {
+      let link = React.createElement(Link, {
+        to: route.path,
+        params: route.params
+      }, name);
+      return React.createElement(this.props.itemElement, {key: name}, link, this.props.separator);
+    }
+
+    return null;
+
+  }
+
+  _buildRoutes(routes) {
+    let crumbs = [];
+
+    routes.map(route => {
+      let result = this._processRoute(route);
+      if (result) {
+        crumbs.push(result);
+      }
+
+    });
+
+    return React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
+
+  }
+
+  render() {
+    if (!!this.context && !!this.context.routes) {
+      return this._buildRoutes(this.context.routes);
+    }
+
+  }
+}
+
+/**
+ * @property PropTypes
+ * @description Property types supported by this component
+ * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, itemElement: *, customClass: *, excludes: *}}
+ */
+Breadcrumbs.propTypes = {
+  separator: React.PropTypes.string,
+  displayMissing: React.PropTypes.bool,
+  displayMissingText: React.PropTypes.string,
+  displayName: React.PropTypes.string,
+  breadcrumbName: React.PropTypes.string,
+  wrapperElement: React.PropTypes.string,
+  itemElement: React.PropTypes.string,
+  customClass: React.PropTypes.string,
+  excludes: React.PropTypes.arrayOf(React.PropTypes.string),
+  hideNoPath: React.PropTypes.bool
+};
+
+/**
+ * @property defaultProps
+ * @description sets the default values for propTypes if they are not provided
+ * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, customClass: string}}
+ */
+Breadcrumbs.defaultProps = {
+  separator: " > ",
+  displayMissing: true,
+  displayMissingText: "Missing Name from Route",
+  wrapperElement: "div",
+  itemElement: "span",
+  customClass: "breadcrumbs",
+  excludes: [],
+  hideNoPath: true
+};
+
+/**
+ * @property contextTypes
+ * @description List of objects to incorporate into the context of this class
+ * @type {{routes: *}}
+ */
+Breadcrumbs.contextTypes = {
+  routes: React.PropTypes.array
+};
+
+export default Breadcrumbs;

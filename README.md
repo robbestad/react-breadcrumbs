@@ -14,9 +14,9 @@ Source on [github][5]
 
   The aim is to correlate with react-router.
 
-  Note: The _master_ branch mirrors the _1.0_ branch
+  Note: The _1.0_ branch mirrors the _master_ branch
 
-  Please use the _master_ branch only
+  *Please use the _master_ branch only*
 
   The 0.13 branch is now considered legacy.
 

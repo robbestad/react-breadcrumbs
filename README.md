@@ -10,26 +10,15 @@ Source on [github][5]
 
     % npm install react-breadcrumbs --save
 
-Semver:
-
-0.13 branch
-
-    % npm install react-breadcrumbs@0.13.x --save
-
-1.0.0 beta branch
-
-    % npm install react-breadcrumbs@1.0.x --save
-
 ## Versioning
 
   The aim is to correlate with react-router.
 
-  Note: There are now two branches of react-breadcrumbs,
-  a version for the 0.13-branch of react-router and one for
-  the 1.0.0-beta1. Please take care that you use the one that
-  matches your installed version of React-Router.
+  Note: The _master_ branch mirrors the _1.0_ branch
 
-  *NB!* The _master_ branch mirrors the _0.13_ branch
+  Please use the _master_ branch only
+
+  The 0.13 branch is now considered legacy.
 
 ## Usage
 

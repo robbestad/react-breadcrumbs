@@ -43,9 +43,9 @@ var Breadcrumbs = (function (_React$Component) {
         var name = null;
 
         if (route.indexRoute) {
-          name = route.indexRoute.component.displayName || null;
+          name = route.indexRoute.displayName || null;
         } else {
-          name = route.component.displayName || null;
+          name = route.displayName || null;
         }
 
         //check to see if a custom name has been applied to the route
@@ -102,9 +102,7 @@ var Breadcrumbs = (function (_React$Component) {
     },
     render: {
       value: function render() {
-        if (!!this.context && !!this.context.routes) {
-          return this._buildRoutes(this.context.routes);
-        }
+        return this._buildRoutes(this.props.routes);
       }
     }
   });
@@ -127,7 +125,8 @@ Breadcrumbs.propTypes = {
   itemElement: React.PropTypes.string,
   customClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
-  hideNoPath: React.PropTypes.bool
+  hideNoPath: React.PropTypes.bool,
+  routes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 };
 
 /**

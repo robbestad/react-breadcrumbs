@@ -33,7 +33,7 @@
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
     "react": ">=0.12.2 <0.15.0",
-    "react-router": ">=1.0.0-alpha1 <=1.0.0-rc3"
+    "react-router": ">=1.0.0-alpha1 <=1.0.0-rc4"
   },
   "devDependencies": {
     "gulp": "^3.8.11",

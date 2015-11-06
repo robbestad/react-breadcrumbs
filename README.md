@@ -15,11 +15,10 @@ Source on [github][5]
   The aim is to correlate with react-router.
 
   *The 0.13 branch is now considered legacy. It
-  will not receive any new updates. To install it from
-  npm, use version 0.13.5*
+  will not receive any new updates. To install the last
+  0.13 update from npm, use version 0.13.5*
 
   **Please use the _master_ branch only**
-
 
 ## Usage
 

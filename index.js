@@ -72,13 +72,14 @@ var Breadcrumbs = (function (_React$Component) {
         if (!route.path && this.props.hideNoPath) {
           return null;
         }var name = this._getDisplayName(route);
+        var separator = route.childRoutes ? this.props.separator : "";
 
         if (name) {
           var link = React.createElement(Link, {
             to: route.path,
             params: route.params
           }, name);
-          return React.createElement(this.props.itemElement, { key: name }, link, this.props.separator);
+          return React.createElement(this.props.itemElement, { key: name }, link, separator);
         }
 
         return null;

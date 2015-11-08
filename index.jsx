@@ -48,13 +48,14 @@ class Breadcrumbs extends React.Component {
     if(!route.path && this.props.hideNoPath) return null;
 
     let name = this._getDisplayName(route);
+    let separator = route.childRoutes ? this.props.separator : "";
 
     if (name) {
       let link = React.createElement(Link, {
         to: route.path,
         params: route.params
       }, name);
-      return React.createElement(this.props.itemElement, {key: name}, link, this.props.separator);
+      return React.createElement(this.props.itemElement, {key: name}, link, separator);
     }
 
     return null;

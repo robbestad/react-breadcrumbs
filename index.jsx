@@ -43,22 +43,27 @@ class Breadcrumbs extends React.Component {
   }
 
   _processRoute(route) {
-
     //if there is no route path defined and we are set to hide these then do so
     if(!route.path && this.props.hideNoPath) return null;
 
     let name = this._getDisplayName(route);
     let separator = route.childRoutes ? this.props.separator : "";
-
-    if (name) {
-      let link = React.createElement(Link, {
-        to: route.path,
-        params: route.params
-      }, name);
-      return React.createElement(this.props.itemElement, {key: name}, link, separator);
+    let paramName;
+    if(this.props.params){
+      paramName = Object.keys(this.props.params).map((param) => {
+        return this.props.params[param];
+      })
     }
+    if(!route.childRoutes && paramName) name=paramName.toString();
+        if (name) {
+          var link = React.createElement(Link, {
+            to: route.path,
+            params: route.params
+          }, name);
+          return React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
+        }
 
-    return null;
+   return null;
 
   }
 
@@ -123,7 +128,8 @@ Breadcrumbs.defaultProps = {
  * @type {{routes: *}}
  */
 Breadcrumbs.contextTypes = {
-  routes: React.PropTypes.array
+  routes: React.PropTypes.array,
+  params: React.PropTypes.array
 };
 
 export default Breadcrumbs;

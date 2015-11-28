@@ -69,14 +69,14 @@ var Breadcrumbs = (function (_React$Component) {
       }
     },
     _processRoute: {
-      value: function _processRoute(route) {
+      value: function _processRoute(route, routesLength, crumbsLength, isRoot) {
         var _this = this;
 
         //if there is no route path defined and we are set to hide these then do so
         if (!route.path && this.props.hideNoPath) {
           return null;
         }var name = this._getDisplayName(route);
-        var separator = route.childRoutes ? this.props.separator : "";
+        var separator = "";
         var paramName = undefined;
         if (this.props.params) {
           paramName = Object.keys(this.props.params).map(function (param) {
@@ -84,10 +84,20 @@ var Breadcrumbs = (function (_React$Component) {
           });
         }
         if (!route.childRoutes && paramName) name = paramName.toString();
-        var makeLink = true;
+        var makeLink = isRoot;
+
+        // don't make link if route doesn't have a child route
+        if (makeLink) {
+          makeLink = route.childRoutes ? true : false;
+          makeLink = routesLength !== crumbsLength + 1;
+          separator = routesLength !== crumbsLength + 1 ? this.props.separator : "";
+        }
+
+        // don't make link if route has a disabled breadcrumblink prop
         if (route.hasOwnProperty("breadcrumblink")) {
           makeLink = route.breadcrumblink;
         };
+
         if (name) {
           if (makeLink) {
             var link = React.createElement(Link, {
@@ -108,9 +118,9 @@ var Breadcrumbs = (function (_React$Component) {
         var _this = this;
 
         var crumbs = [];
-
+        var isRoot = routes[1].hasOwnProperty("path");
         routes.map(function (route) {
-          var result = _this._processRoute(route);
+          var result = _this._processRoute(route, routes.length, crumbs.length, isRoot);
           if (result) {
             crumbs.push(result);
           }

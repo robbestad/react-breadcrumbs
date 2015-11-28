@@ -15,6 +15,7 @@ import {Router, Route, Link} from 'react-router'
 class Breadcrumbs extends React.Component {
 
   constructor() {
+    super();
     this.displayName = "Breadcrumbs";
   }
 
@@ -55,15 +56,23 @@ class Breadcrumbs extends React.Component {
       })
     }
     if(!route.childRoutes && paramName) name=paramName.toString();
-        if (name) {
-          var link = React.createElement(Link, {
-            to: route.path,
-            params: route.params
-          }, name);
-          return React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
-        }
+    let makeLink=true;
+    if(route.hasOwnProperty("breadcrumblink")){
+      makeLink = route.breadcrumblink;
+    };
+    if (name) {
+      if(makeLink){
+      var link = React.createElement(Link, {
+        to: route.path,
+        params: route.params
+      }, name);
+      } else {
+        link = name;
+      }
+      return React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
+    }
 
-   return null;
+    return null;
 
   }
 

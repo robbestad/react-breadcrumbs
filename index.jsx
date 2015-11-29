@@ -43,11 +43,17 @@ class Breadcrumbs extends React.Component {
     return name;
   }
 
+  _resolveRouteName(route,paramName){
+    let name = this._getDisplayName(route);
+    if(!route.childRoutes && paramName.toString().length) name=paramName.toString();
+    if(!name && route.name) name=route.name;
+    return name;
+  }
+
   _processRoute(route,routesLength,crumbsLength,isRoot) {
     //if there is no route path defined and we are set to hide these then do so
     if(!route.path && this.props.hideNoPath) return null;
 
-    let name = this._getDisplayName(route);
     let separator = "";
     let paramName;
     if(this.props.params){
@@ -55,21 +61,20 @@ class Breadcrumbs extends React.Component {
         return this.props.params[param];
       })
     }
-    if(!route.childRoutes && paramName) name=paramName.toString();
+    let name = this._resolveRouteName(route,paramName);
     let makeLink=isRoot;
 
     // don't make link if route doesn't have a child route
     if(makeLink){
       makeLink = route.childRoutes ? true : false;
       makeLink = routesLength !== (crumbsLength+1);
-      separator = routesLength !== (crumbsLength+1) ? this.props.separator : "";
     }
+    separator = routesLength !== (crumbsLength+1) ? this.props.separator : "";
 
     // don't make link if route has a disabled breadcrumblink prop
     if(route.hasOwnProperty("breadcrumblink")){
       makeLink = route.breadcrumblink;
     };
-
     if (name) {
       if(makeLink){
         var link = React.createElement(Link, {
@@ -94,7 +99,6 @@ class Breadcrumbs extends React.Component {
       if (result) {
         crumbs.push(result);
       }
-
     });
 
     return React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);

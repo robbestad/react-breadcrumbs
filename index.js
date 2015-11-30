@@ -69,7 +69,9 @@ var Breadcrumbs = (function (_React$Component) {
       }
     },
     _resolveRouteName: {
-      value: function _resolveRouteName(route, paramName) {
+      value: function _resolveRouteName(route) {
+        var paramName = arguments[1] === undefined ? "" : arguments[1];
+
         var name = this._getDisplayName(route);
         if (!route.childRoutes && paramName.toString().length) name = paramName.toString();
         if (!name && route.name) name = route.name;
@@ -84,7 +86,7 @@ var Breadcrumbs = (function (_React$Component) {
         if (!route.path && this.props.hideNoPath) {
           return null;
         }var separator = "";
-        var paramName = undefined;
+        var paramName = "";
         if (this.props.params) {
           paramName = Object.keys(this.props.params).map(function (param) {
             return _this.props.params[param];

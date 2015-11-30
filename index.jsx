@@ -43,7 +43,7 @@ class Breadcrumbs extends React.Component {
     return name;
   }
 
-  _resolveRouteName(route,paramName){
+  _resolveRouteName(route,paramName=""){
     let name = this._getDisplayName(route);
     if(!route.childRoutes && paramName.toString().length) name=paramName.toString();
     if(!name && route.name) name=route.name;
@@ -55,7 +55,7 @@ class Breadcrumbs extends React.Component {
     if(!route.path && this.props.hideNoPath) return null;
 
     let separator = "";
-    let paramName;
+    let paramName="";
     if(this.props.params){
       paramName = Object.keys(this.props.params).map((param) => {
         return this.props.params[param];

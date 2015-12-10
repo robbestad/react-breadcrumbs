@@ -94,7 +94,19 @@ class Breadcrumbs extends React.Component {
   _buildRoutes(routes) {
     let crumbs = [];
     let isRoot = routes[1].hasOwnProperty("path");
-    routes.map(route => {
+    routes.map(route, index => {
+      if (0 < index && 'path' in route && '/' !== route.path.substr(0, 1)) {
+        let parentPath = '';
+
+        for (let i = 0; i < index; i++) {
+            if ('path' in routes[i]) {
+              parentPath += routes[i].path;
+            }
+        }
+
+        route.path = parentPath + route.path;
+      }
+
       let result = this._processRoute(route,routes.length,crumbs.length,isRoot);
       if (result) {
         crumbs.push(result);

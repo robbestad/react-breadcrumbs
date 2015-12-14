@@ -127,7 +127,7 @@ var Breadcrumbs = (function (_React$Component) {
 
         var crumbs = [];
         var isRoot = routes[1].hasOwnProperty("path");
-        routes.map(route, function (index) {
+        routes.map(function (route, index) {
           if (0 < index && "path" in route && "/" !== route.path.substr(0, 1)) {
             var parentPath = "";
 

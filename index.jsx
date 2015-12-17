@@ -69,6 +69,7 @@ class Breadcrumbs extends React.Component {
       makeLink = route.childRoutes ? true : false;
       makeLink = routesLength !== (crumbsLength+1);
     }
+
     separator = routesLength !== (crumbsLength+1) ? this.props.separator : "";
 
     // don't make link if route has a disabled breadcrumblink prop
@@ -95,25 +96,30 @@ class Breadcrumbs extends React.Component {
     let crumbs = [];
     let isRoot = routes[1] && routes[1].hasOwnProperty("path");
     let parentPath = '/';
-    routes.map((route, index) => {
+    routes.map((_route, index) => {
+      let route = JSON.parse(JSON.stringify(_route));
+      if(route.props.path){
+	route.path=route.props.path;
+	route.name=route.props.name;
+      } 
       if (route.path) {
-        if(route.path.charAt(0) === '/') {
-          parentPath = route.path;
-        } else {
-          if (parentPath.charAt(parentPath.length-1) !== '/') {
-            parentPath += '/';
-          }
-          parentPath += route.path;
-        }
+	if(route.path.charAt(0) === '/') {
+	  parentPath = route.path;
+	} else {
+	  if (parentPath.charAt(parentPath.length-1) !== '/') {
+	    parentPath += '/';
+	  }
+	  parentPath += route.path;
+	}
       }
 
       if (0 < index && route.path && route.path.charAt(0) !== '/') {
-        route.path = parentPath;
+	route.path = parentPath;
       }
 
       let result = this._processRoute(route,routes.length,crumbs.length,isRoot);
       if (result) {
-        crumbs.push(result);
+	crumbs.push(result);
       }
     });
 

@@ -4,7 +4,7 @@
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/.bin/babel-tape-runner test/components/breadcrumb-test.js"
   },
   "npmName": "react-breadcrumbs",
   "npmFileMap": [
@@ -36,11 +36,19 @@
     "react-router": "^1.0.2"
   },
   "devDependencies": {
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-tape-runner": "^2.0.0",
+    "compression-webpack-plugin": "^0.2.0",
     "gulp": "^3.9.0",
-    "gulp-babel": "^4.0.0",
-    "gulp-jsx": "^0.9.0",
+    "gulp-babel": "^4.0.1",
+    "gulp-jsx": "^2.0.1",
     "gulp-rename": "^1.2.0",
-    "uglifyjs": "^2.4.10"
+    "path": "^0.12.7",
+    "tape": "^4.2.2",
+    "uglifyjs": "^2.4.10",
+    "webpack": "^1.12.9"
   },
   "dependencies": {
     "lodash": "^3.6.0"

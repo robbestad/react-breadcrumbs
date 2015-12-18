@@ -57,11 +57,9 @@ var Breadcrumbs = (function (_React$Component) {
         }
 
         //if the name exists and it's in the excludes list exclude this route
-        if (name && this.props.excludes.some(function (item) {
-          return item === name;
-        })) {
-          return null;
-        }if (!name && this.props.displayMissing) {
+        //if (name && this.props.excludes.some(item => item === name)) return null;
+
+        if (!name && this.props.displayMissing) {
           name = this.props.displayMissingText;
         }
 
@@ -79,7 +77,7 @@ var Breadcrumbs = (function (_React$Component) {
       }
     },
     _processRoute: {
-      value: function _processRoute(route, routesLength, crumbsLength, isRoot) {
+      value: function _processRoute(route, routesLength, crumbsLength, isRoot, createElement) {
         var _this = this;
 
         //if there is no route path defined and we are set to hide these then do so
@@ -100,6 +98,7 @@ var Breadcrumbs = (function (_React$Component) {
           makeLink = route.childRoutes ? true : false;
           makeLink = routesLength !== crumbsLength + 1;
         }
+
         separator = routesLength !== crumbsLength + 1 ? this.props.separator : "";
 
         // don't make link if route has a disabled breadcrumblink prop
@@ -108,27 +107,33 @@ var Breadcrumbs = (function (_React$Component) {
         };
         if (name) {
           if (makeLink) {
-            var link = React.createElement(Link, {
+            var link = !createElement ? name : React.createElement(Link, {
               to: route.path,
               params: route.params
             }, name);
           } else {
             link = name;
           }
-          return React.createElement(this.props.itemElement, { key: Math.random() * 100 }, link, separator);
+          return !createElement ? link : React.createElement(this.props.itemElement, { key: Math.random() * 100 }, link, separator);
         }
 
         return null;
       }
     },
     _buildRoutes: {
-      value: function _buildRoutes(routes) {
+      value: function _buildRoutes(routes, createElement) {
         var _this = this;
 
         var crumbs = [];
-        var isRoot = routes[1].hasOwnProperty("path");
+        var isRoot = routes[1] && routes[1].hasOwnProperty("path");
         var parentPath = "/";
-        routes.map(function (route, index) {
+        routes.map(function (_route, index) {
+          var route = JSON.parse(JSON.stringify(_route));
+          if ("props" in route && "path" in route.props) {
+            route.path = route.props.path;
+            route.children = route.props.children;
+            route.name = route.props.name;
+          }
           if (route.path) {
             if (route.path.charAt(0) === "/") {
               parentPath = route.path;
@@ -144,18 +149,19 @@ var Breadcrumbs = (function (_React$Component) {
             route.path = parentPath;
           }
 
-          var result = _this._processRoute(route, routes.length, crumbs.length, isRoot);
+          var result = _this._processRoute(route, routes.length, crumbs.length, isRoot, createElement);
           if (result) {
             crumbs.push(result);
           }
         });
-
-        return React.createElement(this.props.wrapperElement, { className: this.props.customClass }, crumbs);
+        return !createElement ? crumbs : React.createElement(this.props.wrapperElement, { className: this.props.customClass }, crumbs);
       }
     },
     render: {
       value: function render() {
-        return this._buildRoutes(this.props.routes);
+        var createElement = arguments[0] === undefined ? true : arguments[0];
+
+        return this._buildRoutes(this.props.routes, createElement);
       }
     }
   });

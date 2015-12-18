@@ -6,7 +6,9 @@ var gulp = require('gulp'),
 gulp.task('default', function(){
         return gulp.src('index.jsx')
                 .pipe(babel())
-                .pipe(jsx())
+                .pipe(jsx({
+                      factory: "React.createElement"
+                    }))
                 .pipe(rename('index.js'))
                 .pipe(gulp.dest('./'));
 });

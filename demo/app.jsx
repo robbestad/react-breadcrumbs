@@ -79,24 +79,29 @@ const Users = exports.Users = React.createClass({
       users: userlist
     }
   },
+  componentWillMount(nextProps){
+    if("users" in this.props){
+      this.setState({users:this.props.users});
+    }
+  },
   render() {
     return (
       <div>
-        <div>
-          <Breadcrumbs routes={this.props.routes} />
-        </div>
-        <h1>User List</h1>
-        <div className="master">
-          <ul>
-            {this.props.users.map(user => (
-              <li key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></li>
-              ))}
-              </ul>
-            </div>
-            <div className="detail">
-              {this.props.children}
-              </div>
-            </div>
+	<div>
+	  <Breadcrumbs routes={this.props.routes} />
+	</div>
+	<h1>User List</h1>
+	<div className="master">
+	  <ul>
+	    {this.state.users.map(user => (
+	      <li key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></li>
+	      ))}
+	      </ul>
+	    </div>
+	    <div className="detail">
+	      {this.props.children}
+	      </div>
+	    </div>
     )
   }
 })
@@ -105,26 +110,15 @@ const User = exports.User = React.createClass({
   render() {
     return (
       <div>
-        <hr/>
-        You're one click away from learning everything we know 
-        about user no {this.props.params.userId}.<br/> 
-        Click{" "}<strong>
-          <Link to={`/users/${this.props.params.userId}/details`} >here</Link></strong> for more details.
-        <br/>
-        {this.props.children}
+	<hr/>
+	You're one click away from learning everything we know 
+	about user no {this.props.params.userId}.<br/> 
+	Click{" "}<strong>
+	  <Link to={`/users/${this.props.params.userId}/details`} >here</Link></strong> for more details.
+	<br/>
+	{this.props.children}
 
       </div>
     )
   }
 })
-
-const Routing = exports.Routing = <Router>
-  <Route path="/" name="App Root" component={App} />    
-  <Route name="Users" path="/users" component={Users}>
-    <Route name="UserLocator" path=":userId" component={User}>
-      <Route name="UserDetails" path="details" component={UserDetails} />
-    </Route>
-  </Route>
-  <Route name="404: No Match for route" path="*" component={NoMatch}/>
-</Router>;
-

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, NoMatch, IndexRoute } from 'react-router'
-import { App, Users, User, UserDetails } from './app'
+import { App, Users, User, UserDetails } from './app.jsx';
 
 export default (
   <Router>

@@ -98,7 +98,7 @@ class Breadcrumbs extends React.Component {
     let parentPath = '/';
     routes.map((_route, index) => {
       let route = JSON.parse(JSON.stringify(_route));
-      if(route.props.path){
+      if('props' in route && 'path' in route.props){
 	route.path=route.props.path;
 	route.name=route.props.name;
       } 

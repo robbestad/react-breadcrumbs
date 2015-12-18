@@ -4,7 +4,9 @@
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/babel-tape-runner test/tests.js"
+    "test": "find test/*.js -print0 | xargs -0 ./node_modules/.bin/babel-tape-runner",
+    "build:dev": "cd demo && ../node_modules/.bin/webpack && cd ..",
+    "watch:dev": "sane './node_modules/.bin/babel-tape-runner test/dom.js' --glob=**/*.js*"
   },
   "npmName": "react-breadcrumbs",
   "npmFileMap": [
@@ -32,7 +34,7 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
-    "react": ">=0.12.2 <0.15.0",
+    "react": ">=0.14.1",
     "react-router": "^1.0.2"
   },
   "devDependencies": {
@@ -41,15 +43,16 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-tape-runner": "^2.0.0",
-    "compression-webpack-plugin": "^0.2.0",
-    "expect": "^1.13.4",
     "gulp": "^3.9.0",
     "gulp-babel": "^4.0.1",
     "gulp-jsx": "^2.0.1",
     "gulp-rename": "^1.2.0",
+    "history": "^1.16.0",
     "path": "^0.12.7",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2",
     "tape": "^4.2.2",
-    "uglifyjs": "^2.4.10",
     "webpack": "^1.12.9"
   },
   "dependencies": {

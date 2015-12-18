@@ -34,7 +34,7 @@ class Breadcrumbs extends React.Component {
     }
 
     //if the name exists and it's in the excludes list exclude this route
-    if (name && this.props.excludes.some(item => item === name)) return null;
+    //if (name && this.props.excludes.some(item => item === name)) return null;
 
     if (!name && this.props.displayMissing) {
       name = this.props.displayMissingText;
@@ -42,7 +42,7 @@ class Breadcrumbs extends React.Component {
 
     return name;
   }
-
+  
   _resolveRouteName(route,paramName=""){
     let name = this._getDisplayName(route);
     if(!route.childRoutes && paramName.toString().length) name=paramName.toString();
@@ -50,7 +50,7 @@ class Breadcrumbs extends React.Component {
     return name;
   }
 
-  _processRoute(route,routesLength,crumbsLength,isRoot) {
+  _processRoute(route,routesLength,crumbsLength,isRoot,createElement) {
     //if there is no route path defined and we are set to hide these then do so
     if(!route.path && this.props.hideNoPath) return null;
 
@@ -78,57 +78,60 @@ class Breadcrumbs extends React.Component {
     };
     if (name) {
       if(makeLink){
-        var link = React.createElement(Link, {
+        var link = !createElement ? name:
+        React.createElement(Link, {
           to: route.path,
           params: route.params
         }, name);
       } else {
         link = name;
       }
-      return React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
+      return !createElement ? link:
+      React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
     }
 
     return null;
 
   }
 
-  _buildRoutes(routes) {
+  _buildRoutes(routes, createElement) {
     let crumbs = [];
     let isRoot = routes[1] && routes[1].hasOwnProperty("path");
     let parentPath = '/';
     routes.map((_route, index) => {
       let route = JSON.parse(JSON.stringify(_route));
       if('props' in route && 'path' in route.props){
-	route.path=route.props.path;
-	route.name=route.props.name;
-      } 
+        route.path=route.props.path;
+        route.children=route.props.children;
+        route.name=route.props.name;
+      }
       if (route.path) {
-	if(route.path.charAt(0) === '/') {
-	  parentPath = route.path;
-	} else {
-	  if (parentPath.charAt(parentPath.length-1) !== '/') {
-	    parentPath += '/';
-	  }
-	  parentPath += route.path;
-	}
+        if(route.path.charAt(0) === '/') {
+          parentPath = route.path;
+        } else {
+          if (parentPath.charAt(parentPath.length-1) !== '/') {
+            parentPath += '/';
+          }
+          parentPath += route.path;
+        }
       }
 
       if (0 < index && route.path && route.path.charAt(0) !== '/') {
-	route.path = parentPath;
+        route.path = parentPath;
       }
 
-      let result = this._processRoute(route,routes.length,crumbs.length,isRoot);
+      let result = this._processRoute(route,routes.length,crumbs.length,isRoot,createElement);
       if (result) {
-	crumbs.push(result);
+        crumbs.push(result);
       }
     });
-
-    return React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
+    return !createElement ? crumbs:
+      React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
 
   }
 
-  render() {
-    return this._buildRoutes(this.props.routes);
+  render(createElement=true) {
+    return this._buildRoutes(this.props.routes, createElement);
   }
 }
 

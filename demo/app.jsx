@@ -85,6 +85,7 @@ const Users = exports.Users = React.createClass({
     }
   },
   render() {
+    console.log(this.props)
     return (
       <div>
 	<div>

@@ -16,6 +16,14 @@ const App = exports.App = React.createClass({
           <Breadcrumbs routes={this.props.routes} />
           <hr/>
           <Link to="users">Users</Link>
+          <hr/>
+          Very long route: <Link to="/parent1">Parent</Link>{" "}
+          <Link to="/parent1/child1">Child1</Link>{" "}
+          <Link to="/parent1/child1/1">Item1</Link>{" "}
+          <Link to="/parent1/child1/2/child2">Child2</Link>{" "}
+          <Link to="/parent1/child1/2/child2/2">Item2</Link>{" "}
+          <Link to="/parent1/child1/2/child2/2/child3">Child3</Link>{" "}
+          
         </div>
       </div>
     )

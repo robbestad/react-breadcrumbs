@@ -2,7 +2,7 @@
  * @class Breadcrumbs
  * @description New breadcrumbs class based on ES6 structure.
  * @exports Breadcrumbs
- * @version 1.0
+ * @version 1.1.11
  * @extends component
  * @requires react
  * @requires react-router
@@ -42,10 +42,10 @@ class Breadcrumbs extends React.Component {
 
     return name;
   }
-  
-  _resolveRouteName(route,paramName=""){
+
+  _resolveRouteName(route){
     let name = this._getDisplayName(route);
-    if(!route.childRoutes && paramName.toString().length) name=paramName.toString();
+    if(!name && route.breadcrumbName) name=route.breadcrumbName;
     if(!name && route.name) name=route.name;
     return name;
   }
@@ -56,12 +56,9 @@ class Breadcrumbs extends React.Component {
 
     let separator = "";
     let paramName="";
-    if(this.props.params){
-      paramName = Object.keys(this.props.params).map((param) => {
-        return this.props.params[param];
-      })
-    }
-    let name = this._resolveRouteName(route,paramName);
+    let pathValue="";
+    let name = this._resolveRouteName(route);
+
     let makeLink=isRoot;
 
     // don't make link if route doesn't have a child route
@@ -70,16 +67,48 @@ class Breadcrumbs extends React.Component {
       makeLink = routesLength !== (crumbsLength+1);
     }
 
+    // set up separator
     separator = routesLength !== (crumbsLength+1) ? this.props.separator : "";
 
     // don't make link if route has a disabled breadcrumblink prop
     if(route.hasOwnProperty("breadcrumblink")){
       makeLink = route.breadcrumblink;
     };
+
+    // find param name (if provided)
+    if(this.props.params){
+      paramName = Object.keys(this.props.params).map((param) => {
+        pathValue=param;
+        return this.props.params[param];
+      })
+    }
+
+    // Replace route param with real param (if provided)
+    let currentKey = route.path.split("/")[route.path.split("/").length-1];
+    let keyValue;
+    route.path.split("/").map((link)=>{
+      if(link.substring(0,1)==":"){
+        if(this.props.params){
+          keyValue = Object.keys(this.props.params).map((param) => {
+            return this.props.params[param];
+          });
+          let pathWithParam = route.path.split("/").map((link)=>{
+            if(link.substring(0,1)==":"){
+              return keyValue.shift();
+            } else {
+              return link;
+            }
+          })
+          route.path=pathWithParam.reduce((start,link)=>{return start+"/"+link;})
+          if(currentKey.substring(0,1)==":") 
+            name=pathWithParam.reduce((start,link)=>{return link;});
+        }
+      }
+    })
     if (name) {
       if(makeLink){
         var link = !createElement ? name:
-        React.createElement(Link, {
+          React.createElement(Link, {
           to: route.path,
           params: route.params
         }, name);
@@ -87,7 +116,7 @@ class Breadcrumbs extends React.Component {
         link = name;
       }
       return !createElement ? link:
-      React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
+        React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
     }
 
     return null;

@@ -19,7 +19,7 @@ major: lint
 jsx: 
 	@$(call lint)
 	gulp	
-	@$(uglify) index.js > dist/react-breadcrumbs.min.js
+	@$(uglify) ./node_modules/.bin/uglifyjs index.js -o dist/react-breadcrumbs.min.js --source-map dist/react-breadcrumbs.min.js.map -p 5 -c -m
 
 prepublish: 
 	@$(call jsx)

@@ -13,16 +13,16 @@ const App = exports.App = React.createClass({
     return (
       <div>
         <div>
-          <Breadcrumbs routes={this.props.routes} />
+          <Breadcrumbs routes={this.props.routes} params={this.props.params} />
           <hr/>
           <Link to="users">Users</Link>
           <hr/>
-          Very long route: <Link to="/parent1">Parent</Link>{" "}
-          <Link to="/parent1/child1">Child1</Link>{" "}
-          <Link to="/parent1/child1/1">Item1</Link>{" "}
-          <Link to="/parent1/child1/2/child2">Child2</Link>{" "}
-          <Link to="/parent1/child1/2/child2/2">Item2</Link>{" "}
-          <Link to="/parent1/child1/2/child2/2/child3">Child3</Link>{" "}
+          Very long route: <Link to="/parent">Parent</Link>{" "}
+          <Link to="/parent/child1">Child1</Link>{" "}
+          <Link to="/parent/child1/item1">Item1</Link>{" "}
+          <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
+          <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
+          <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
           
         </div>
       </div>
@@ -35,7 +35,7 @@ const NoMatch = exports.NoMatch = React.createClass({
     return (
       <div>
         <div>
-          <Breadcrumbs routes={this.props.routes} params={this.props.params} />
+          <Breadcrumbs routes={this.props.routes} />
         </div>
       </div>
     )
@@ -131,3 +131,4 @@ const User = exports.User = React.createClass({
     )
   }
 })
+

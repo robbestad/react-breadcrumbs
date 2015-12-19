@@ -35,7 +35,7 @@ const NoMatch = exports.NoMatch = React.createClass({
     return (
       <div>
         <div>
-          <Breadcrumbs routes={this.props.routes} />
+          <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         </div>
       </div>
     )

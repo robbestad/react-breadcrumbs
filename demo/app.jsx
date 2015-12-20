@@ -28,6 +28,10 @@ const App = exports.App = React.createClass({
             {this.props.children}
             </div>
           </div>
+          <div className="footer ">
+            <a href="https://github.com/svenanders/react-breadcrumbs">To the github repo</a> (or <a href="http://www.robbestad.com/">to the blog</a>)
+          </div>
+
         </div>
     )
   }

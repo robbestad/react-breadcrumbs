@@ -19,13 +19,13 @@ major: lint
 jsx: 
 	@$(call lint)
 	gulp	
-	@$(uglify) ./node_modules/.bin/uglifyjs index.js -o dist/react-breadcrumbs.min.js --source-map dist/react-breadcrumbs.min.js.map -p 5 -c -m
+	@$(uglify) index.js -o dist/react-breadcrumbs.min.js --source-map dist/react-breadcrumbs.min.js.map -p 5 -c drop_console -m
+	cp dist/react-breadcrumbs.min.js index.js
 
 prepublish: 
 	@$(call jsx)
 	@(sh bin/authors)
 	git commit -am "`npm view . version`" --allow-empty
-	@$(call release,patch)
 	
 publish:
 	git push --tags origin HEAD:master

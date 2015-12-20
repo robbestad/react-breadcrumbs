@@ -15,34 +15,35 @@
 
 ## Demo
 
-[DEMO][2]
+[>> TO THE DEMO][2]
 
 The demo shows how the breadcrumbs will use the named routes for parent paths and 
 parameterized paths when provided with :parameter in your routes.
 
 The demo is using this route setup:
 
-     <Router>
-        <Route path="/" name="App Root" component={App} />
-        <Route name="Users" path="/users" component={Users}>
+    <Router>
+      <Route path="/" name="Examples" component={App} >
+        <Route name="Users" path="users" component={Users}>
           <Route name="UserLocator" path=":userId" component={User}>
             <Route name="UserDetails" path="details" component={UserDetails} />
           </Route>
         </Route>
-        <Route name='RouteName1' path='/parent' component={App}>
-         <Route name='RouteName2' path='child1' component={App}>
-           <Route name='RouteName3' path=':item1' component={App}>
-             <Route name='RouteName4' path='child2' component={App}>
-               <Route name='RouteName5' path=':item2' component={App}>
-                 <Route name='RouteName6' path='child3' component={App}>
-                 </Route>
-               </Route>
-             </Route>
-           </Route>
-         </Route>
-       </Route>
-       <Route name="404: No Match for route" path="*" component={NoMatch}/>
-     </Router>
+        <Route name='RouteName1' path='parent' component={Info}>
+          <Route name='RouteName2' path='child1' component={Info}>
+            <Route name='RouteName3' path=':item1' component={Info}>
+              <Route name='RouteName4' path='child2' component={Info}>
+                <Route name='RouteName5' path=':item2' component={Info}>
+                  <Route name='RouteName6' path='child3' component={Info}>
+                  </Route>
+                </Route>
+              </Route>
+            </Route>
+          </Route>
+        </Route>
+      </Route>
+      <Route name="404: No Match for route" path="*" component={NoMatch}/>
+    </Router>
 
 
 ## Usage

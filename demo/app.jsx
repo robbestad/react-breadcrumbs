@@ -11,7 +11,7 @@ var userlist = [
 const App = exports.App = React.createClass({
   render(){
     return (
-      <div>
+      <div className="animated fadeIn">
         <div>
           <Breadcrumbs routes={this.props.routes} params={this.props.params} />
           <div className="content">

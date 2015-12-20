@@ -2134,6 +2134,7 @@ h1 {
 html, body {
   -webkit-font-smoothing: antialiased;
   color: #000;
+  opacity:1;
   font-size: 14px;
   font-family: "Titillium", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: optimizelegibility; 

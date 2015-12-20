@@ -14,19 +14,21 @@ const App = exports.App = React.createClass({
       <div>
         <div>
           <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-          <hr/>
-          Users route: <Link to="users">Users</Link>
-          <hr/>
-          Very long route: <Link to="/parent">Parent</Link>{" "}
-          <Link to="/parent/child1">Child1</Link>{" "}
-          <Link to="/parent/child1/item1">Item1</Link>{" "}
-          <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
-          <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
-          <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
-          <hr/>
-          {this.props.children}
+          <div className="content">
+            <h3>Navigation</h3>
+            Users route: <Link to="users">Users</Link>
+            <hr/>
+            Very long route: <Link to="/parent">Parent</Link>{" "}
+            <Link to="/parent/child1">Child1</Link>{" "}
+            <Link to="/parent/child1/item1">Item1</Link>{" "}
+            <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
+            <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
+            <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
+            <h3>Content</h3>
+            {this.props.children}
+            </div>
+          </div>
         </div>
-      </div>
     )
   }
 })
@@ -36,8 +38,8 @@ const Info = exports.Info = React.createClass({
     return (
       <div>
         <div>
-            The breadcrumbs will use the route names for non-dynamic
-            routes or the parameter value for :item1 and :item2.
+          The breadcrumbs will use the route names for non-dynamic
+          routes or the parameter value for :item1 and :item2.
         </div>
       </div>
     )
@@ -110,18 +112,18 @@ const Users = exports.Users = React.createClass({
     console.log(this.props)
     return (
       <div>
-	<h1>User List</h1>
-	<div className="master">
-	  <ul>
-	    {this.state.users.map(user => (
-	      <li key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></li>
-	      ))}
-	      </ul>
-	    </div>
-	    <div className="detail">
-	      {this.props.children}
-	      </div>
-	    </div>
+        <h1>User List</h1>
+        <div className="master">
+          <ul>
+            {this.state.users.map(user => (
+              <li key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></li>
+              ))}
+              </ul>
+            </div>
+            <div className="detail">
+              {this.props.children}
+              </div>
+            </div>
     )
   }
 })
@@ -130,13 +132,13 @@ const User = exports.User = React.createClass({
   render() {
     return (
       <div>
-	<hr/>
-	You're one click away from learning everything we know 
-	about user no {this.props.params.userId}.<br/> 
-	Click{" "}<strong>
-	  <Link to={`/users/${this.props.params.userId}/details`} >here</Link></strong> for more details.
-	<br/>
-	{this.props.children}
+        <hr/>
+        You're one click away from learning everything we know 
+        about user no {this.props.params.userId}.<br/> 
+        Click{" "}<strong>
+          <Link to={`/users/${this.props.params.userId}/details`} >here</Link></strong> for more details.
+        <br/>
+        {this.props.children}
 
       </div>
     )

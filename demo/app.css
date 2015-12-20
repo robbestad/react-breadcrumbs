@@ -2122,15 +2122,26 @@ body {
       width: 100%;
       display: block;
       left: 0%; } }
+
+  @media screen and (max-width: 600px) {
+    #content {
+font-size:20px;
+      }
+	.footer{
+	font-size:16px;
+}
+ }
+
   @media screen and (min-width: 481px) and (max-width: 1024px) {
     #content {
       width: 100%;
       } }
+
 h1 {
   border-bottom: 1px;
   border-style: none none dashed none;
   border-color: rgba(0, 0, 0, 0.54);
-  color: rgba(0, 0, 0, 0.54); }
+color: rgba(0, 0, 0, 0.54); }
 html, body {
   -webkit-font-smoothing: antialiased;
   color: #000;
@@ -2140,28 +2151,28 @@ html, body {
   text-rendering: optimizelegibility; 
   background: #AAA;
 }
-  html::selection, body::selection {
-    background: #DD574C;
-    color: #fff; }
+html::selection, body::selection {
+  background: #DD574C;
+color: #fff; }
 
 blockquote {
-  display: none; }
+display: none; }
 .footer{
-margin: 30px 0 0 0;
-opacity:0.7;
-text-align:center;
-font-size:12px;
+  padding: 30px 0 0 0;
+  opacity:0.7;
+  text-align:center;
+  background:#fff;
   border-bottom: 0;
   border-top: 1px;
   border-style: dashed none dotted none;
   border-color: rgba(0, 0, 0, 0.54);
- 
+
 }
 hr{
   border-bottom: 1px;
   border-style: none none dashed none;
   border-color: rgba(0, 0, 0, 0.54);
-  color: rgba(0, 0, 0, 0.54); }
+color: rgba(0, 0, 0, 0.54); }
 .breadcrumbs{
   background: #fff;
   padding:10px;

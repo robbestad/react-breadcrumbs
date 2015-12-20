@@ -15,7 +15,7 @@ const App = exports.App = React.createClass({
         <div>
           <Breadcrumbs routes={this.props.routes} params={this.props.params} />
           <hr/>
-          <Link to="users">Users</Link>
+          Users route: <Link to="users">Users</Link>
           <hr/>
           Very long route: <Link to="/parent">Parent</Link>{" "}
           <Link to="/parent/child1">Child1</Link>{" "}
@@ -23,7 +23,21 @@ const App = exports.App = React.createClass({
           <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
           <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
           <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
-          
+          <hr/>
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+})
+
+const Info = exports.Info = React.createClass({
+  render(){
+    return (
+      <div>
+        <div>
+            The breadcrumbs will use the route names for non-dynamic
+            routes or the parameter value for :item1 and :item2.
         </div>
       </div>
     )
@@ -96,9 +110,6 @@ const Users = exports.Users = React.createClass({
     console.log(this.props)
     return (
       <div>
-	<div>
-	  <Breadcrumbs routes={this.props.routes} />
-	</div>
 	<h1>User List</h1>
 	<div className="master">
 	  <ul>

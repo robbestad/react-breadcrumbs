@@ -58,6 +58,9 @@ class Breadcrumbs extends React.Component {
     let paramName="";
     let pathValue="";
     let name = this._resolveRouteName(route);
+    if (name && 
+        'excludes' in this.props &&
+        this.props.excludes.some(item => item === name)) return null;
 
     let makeLink=isRoot;
 
@@ -195,7 +198,7 @@ Breadcrumbs.defaultProps = {
   wrapperElement: "div",
   itemElement: "span",
   customClass: "breadcrumbs",
-  excludes: [],
+  excludes: [''],
   hideNoPath: true
 };
 

@@ -50,3 +50,16 @@ test('Render breadcrumbs', (assert) => {
   assert.end();
 });
 
+test('Render breadcrumbs, removing one with excludes', (assert) => {
+  var builder = new Breadcrumbs;
+  builder.props={routes:UserRoutes,excludes:['UserLocator']};
+  var res = builder.render(false);
+  assert.equal(
+    res.reduce((initialName,name)=>
+               {return initialName+","+name}),
+               'Users',
+               'User Breadcrumbs generated'
+  );
+  assert.end();
+});
+

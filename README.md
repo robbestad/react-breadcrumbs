@@ -93,6 +93,12 @@ You can also exclude specific routes if you want to:
 <Breadcrumbs excludes={['App']} />
 ```
 
+Set the document title to your last item in the breadcrumbs
+
+```jsx
+<Breadcrumbs setDocumentTitle={true} />
+```
+
 This will print all breadcrumbs, except for the one where the route name is `App`.
 
 ```jsx

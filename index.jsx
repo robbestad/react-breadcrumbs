@@ -130,8 +130,35 @@ class Breadcrumbs extends React.Component {
     let crumbs = [];
     let isRoot = routes[1] && routes[1].hasOwnProperty("path");
     let parentPath = '/';
-    routes.map((_route, index) => {
+
+    let routesWithExclude = [];
+    routes.forEach((_route, index) => {
       let route = JSON.parse(JSON.stringify(_route));
+      if('props' in route && 'path' in route.props){
+        route.path=route.props.path;
+        route.children=route.props.children;
+        route.name=route.props.name;
+      }
+      if (route.path) {
+        if(route.path.charAt(0) === '/') {
+          parentPath = route.path;
+        } else {
+          if (parentPath.charAt(parentPath.length-1) !== '/') {
+            parentPath += '/';
+          }
+          parentPath += route.path;
+        }
+      }
+      if (0 < index && route.path && route.path.charAt(0) !== '/') {
+        route.path = parentPath;
+      }
+      let name = this._resolveRouteName(route);
+      if(!('excludes' in this.props && this.props.excludes.some(item => item === name)))
+        routesWithExclude.push(route);
+    });
+    routes=routesWithExclude;
+    routes.map((route, index) => {
+      if(!route) return null;
       if('props' in route && 'path' in route.props){
         route.path=route.props.path;
         route.children=route.props.children;

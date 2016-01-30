@@ -5,9 +5,10 @@ install link:
 	@npm $@
 
 lint:
-	jsxhint -c .jshintrc ./index.js
+	eslint ./index.jsx
 
 patch: lint
+	git commit -am "`npm view . version`" --allow-empty
 	@$(call release,patch)
 
 minor: lint 
@@ -25,7 +26,6 @@ jsx:
 prepublish: 
 	@$(call jsx)
 	@(sh bin/authors)
-	git commit -am "`npm view . version`" --allow-empty
 	
 publish:
 	git push --tags origin HEAD:master

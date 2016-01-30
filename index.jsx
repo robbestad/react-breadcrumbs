@@ -184,8 +184,11 @@ class Breadcrumbs extends React.Component {
         crumbs.push(result);
       }
     });
+    if(this.props.setDocumentTitle)
+        document.title = crumbs[crumbs.length-1].props.children[0];
+
     return !createElement ? crumbs:
-      React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
+        React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
 
   }
 
@@ -210,7 +213,8 @@ Breadcrumbs.propTypes = {
   customClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,
-  routes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  routes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  setDocumentTitle: React.PropTypes.bool
 };
 
 /**
@@ -226,7 +230,8 @@ Breadcrumbs.defaultProps = {
   itemElement: "span",
   customClass: "breadcrumbs",
   excludes: [''],
-  hideNoPath: true
+  hideNoPath: true,
+  setDocumentTitle: false
 };
 
 /**

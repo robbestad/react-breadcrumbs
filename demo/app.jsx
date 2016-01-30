@@ -13,7 +13,7 @@ const App = exports.App = React.createClass({
     return (
       <div className="animated fadeIn">
         <div>
-          <Breadcrumbs routes={this.props.routes} params={this.props.params} />
+          <Breadcrumbs routes={this.props.routes} params={this.props.params} setDocumentTitle={true}/>
           <div className="content">
             <h3>Navigation</h3>
             Users route: <Link to="users">Users</Link>

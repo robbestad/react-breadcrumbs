@@ -11,7 +11,6 @@
  */
 import React from 'react'
 import {Router, Route, Link} from 'react-router'
-import FrozenHead from 'react-frozenhead';
 
 class Breadcrumbs extends React.Component {
 
@@ -187,7 +186,6 @@ class Breadcrumbs extends React.Component {
     });
     if('setDocumentTitle' in this.props && this.props.setDocumentTitle){
         document.title = crumbs[crumbs.length-1].props.children[0];
-        React.createElement(FrozenHead, { title: crumbs[crumbs.length-1].props.children[0] });
     }
 
     return !createElement ? crumbs:

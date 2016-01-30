@@ -72,11 +72,12 @@ class Breadcrumbs extends React.Component {
 
     // set up separator
     separator = routesLength !== (crumbsLength+1) ? this.props.separator : "";
+    if(!makeLink) separator = "";
 
     // don't make link if route has a disabled breadcrumblink prop
     if(route.hasOwnProperty("breadcrumblink")){
       makeLink = route.breadcrumblink;
-    };
+    }
 
     // find param name (if provided)
     if(this.props.params){
@@ -185,7 +186,6 @@ class Breadcrumbs extends React.Component {
       }
     });
     if('setDocumentTitle' in this.props && this.props.setDocumentTitle){
-      console.log(this.props);
         document.title = crumbs[crumbs.length-1].props.children[0];
     }
 

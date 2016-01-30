@@ -7,7 +7,8 @@ install link:
 lint:
 	eslint ./index.jsx
 
-patch: lint
+patch:  lint
+	make prepublish
 	@$(call release,patch)
 
 minor: lint 

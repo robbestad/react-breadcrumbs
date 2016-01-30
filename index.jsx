@@ -187,6 +187,8 @@ class Breadcrumbs extends React.Component {
     if('setDocumentTitle' in this.props && this.props.setDocumentTitle){
         document.title = crumbs[crumbs.length-1].props.children[0];
         parent.document.title = crumbs[crumbs.length-1].props.children[0];
+        document.getElementsByTagName('title')[0].innerHTML = crumbs[crumbs.length-1].props.children[0];
+
     }
 
     return !createElement ? crumbs:

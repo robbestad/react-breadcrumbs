@@ -186,10 +186,10 @@ class Breadcrumbs extends React.Component {
       }
     });
     if (ExecutionEnvironment.canUseDOM){
-      if(document){
-      if('setDocumentTitle' in this.props && this.props.setDocumentTitle) {
-        document.title = crumbs[crumbs.length-1].props.children[0];
-      }
+      if(window && window.document){
+        if('setDocumentTitle' in this.props && this.props.setDocumentTitle) {
+        window.document.title = crumbs[crumbs.length-1].props.children[0];
+        }
       }
     }
 

@@ -93,7 +93,7 @@ You can also exclude specific routes if you want to:
 <Breadcrumbs excludes={['App']} />
 ```
 
-Set the document title to your last item in the breadcrumbs
+Starting with v1.3.4, set the document title to your last item in the breadcrumbs
 
 ```jsx
 <Breadcrumbs setDocumentTitle={true} />

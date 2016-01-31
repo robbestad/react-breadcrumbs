@@ -44,6 +44,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-tape-runner": "^2.0.0",
     "eslint": "^1.10.3",
+    "exenv": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
     "gulp-jsx": "^2.0.1",

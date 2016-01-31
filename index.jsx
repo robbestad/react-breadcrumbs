@@ -11,6 +11,7 @@
  */
 import React from 'react'
 import {Router, Route, Link} from 'react-router'
+import ExecutionEnvironment from 'exenv';
 
 class Breadcrumbs extends React.Component {
 
@@ -185,7 +186,7 @@ class Breadcrumbs extends React.Component {
         crumbs.push(result);
       }
     });
-    if('setDocumentTitle' in this.props && this.props.setDocumentTitle){
+    if( (ExecutionEnvironment.canUseDOM) && ('setDocumentTitle' in this.props && this.props.setDocumentTitle) ){
         document.title = crumbs[crumbs.length-1].props.children[0];
     }
 

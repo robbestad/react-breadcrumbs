@@ -6,7 +6,6 @@
  * @extends component
  * @requires react
  * @requires react-router
- * @requires lodash
  *
  */
 import React from 'react'
@@ -186,12 +185,16 @@ class Breadcrumbs extends React.Component {
         crumbs.push(result);
       }
     });
-    if( (ExecutionEnvironment.canUseDOM && document) && ('setDocumentTitle' in this.props && this.props.setDocumentTitle) ){
+    if (ExecutionEnvironment.canUseDOM){
+      if(document){
+      if('setDocumentTitle' in this.props && this.props.setDocumentTitle) {
         document.title = crumbs[crumbs.length-1].props.children[0];
+      }
+      }
     }
 
     return !createElement ? crumbs:
-        React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
+      React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
 
   }
 

@@ -46,7 +46,7 @@
     "babel-tape-runner": "^2.0.0",
     "eslint": "^1.10.3",
     "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
+    "gulp-babel": "^6.1.2",
     "gulp-jsx": "^2.0.1",
     "gulp-rename": "^1.2.0",
     "history": "^1.16.0",
@@ -58,7 +58,5 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
-  "dependencies": {
-    "lodash": "^3.6.0"
-  }
+  "dependencies": {}
 }

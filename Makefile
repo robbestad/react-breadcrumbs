@@ -12,9 +12,11 @@ patch:  lint
 	@$(call release,patch)
 
 minor: lint 
+	make prepublish
 	@$(call release,minor)
 
 major: lint 
+	make prepublish
 	@$(call release,major)
 
 jsx: 

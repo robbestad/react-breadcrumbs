@@ -35,7 +35,6 @@
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
     "react": ">=0.14.1",
-    "exenv": "^1.2.0",
     "react-router": "^1.0.2"
   },
   "devDependencies": {
@@ -55,5 +54,7 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "exenv": "^1.2.0"
+  }
 }

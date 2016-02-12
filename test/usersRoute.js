@@ -26,7 +26,7 @@ var UserRoutes=[
     ]
   },
   {
-    "name": "User locator",
+    "name": "User-locator",
     "path": ":userId",
     "childRoutes": [
       {
@@ -44,7 +44,7 @@ test('Render breadcrumbs', (assert) => {
   assert.equal(
     res.reduce((initialName,name)=>
                {return initialName+","+name}),
-               'Users,User locator',
+               'Users,User-locator',
                'User Breadcrumbs generated'
   );
   assert.end();
@@ -52,7 +52,7 @@ test('Render breadcrumbs', (assert) => {
 
 test('Render breadcrumbs, removing one with excludes', (assert) => {
   var builder = new Breadcrumbs;
-  builder.props={routes:UserRoutes,excludes:['User locator']};
+  builder.props={routes:UserRoutes,excludes:['User-locator']};
   var res = builder.render(false);
   assert.equal(
     res.reduce((initialName,name)=>

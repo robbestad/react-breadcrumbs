@@ -114,7 +114,7 @@ class Breadcrumbs extends React.Component {
       if(this.props.prettify){
         // Note: this could be replaced with a more complex prettifier
         console.log('prettifying')
-        name = name.replace(/-/g, / /);
+        name = name.replace(/-/g, ' ');
         name = name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
       }
 

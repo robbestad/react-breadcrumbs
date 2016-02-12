@@ -110,6 +110,14 @@ class Breadcrumbs extends React.Component {
       }
     })
     if (name) {
+
+      if(this.props.prettify){
+        // Note: this could be replaced with a more complex prettifier
+        console.log('prettifying')
+        name = name.replace("-", " ");
+        name = name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
+
       if(makeLink){
         var link = !createElement ? name:
           React.createElement(Link, {
@@ -211,6 +219,7 @@ class Breadcrumbs extends React.Component {
 Breadcrumbs.propTypes = {
   separator: React.PropTypes.string,
   displayMissing: React.PropTypes.bool,
+  prettify: React.PropTypes.bool,
   displayMissingText: React.PropTypes.string,
   displayName: React.PropTypes.string,
   breadcrumbName: React.PropTypes.string,
@@ -236,6 +245,7 @@ Breadcrumbs.defaultProps = {
   itemElement: "span",
   customClass: "breadcrumbs",
   excludes: [''],
+  prettify: false,
   hideNoPath: true,
   setDocumentTitle: false
 };

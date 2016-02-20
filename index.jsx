@@ -240,7 +240,7 @@ Breadcrumbs.propTypes = {
 Breadcrumbs.defaultProps = {
   separator: " > ",
   displayMissing: true,
-  displayMissingText: "Missing Name from Route",
+  displayMissingText: "Missing name prop from Route",
   wrapperElement: "div",
   itemElement: "span",
   customClass: "breadcrumbs",
@@ -260,4 +260,4 @@ Breadcrumbs.contextTypes = {
   params: React.PropTypes.array
 };
 
-export default Breadcrumbs;
+module.exports = Breadcrumbs;

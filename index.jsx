@@ -104,7 +104,7 @@ class Breadcrumbs extends React.Component {
             }
           })
           route.path=pathWithParam.reduce((start,link)=>{return start+"/"+link;})
-          if(currentKey.substring(0,1)==":") 
+          if(!route.staticName && currentKey.substring(0,1)==":")
             name=pathWithParam.reduce((start,link)=>{return link;});
         }
       }

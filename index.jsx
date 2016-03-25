@@ -260,4 +260,4 @@ Breadcrumbs.contextTypes = {
   params: React.PropTypes.array
 };
 
-module.exports = Breadcrumbs;
+export default Breadcrumbs;

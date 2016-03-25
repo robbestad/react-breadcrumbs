@@ -49,6 +49,13 @@ The demo is using this route setup:
 </Router>
 ```
 
+Routes with parameterized paths default to using the parameter value as the breadcrumb name. However, there may be a case where you want to override this behavior.  
+If you want to force the route to use the name value provided you can add the `staticName` prop to the `Route`:
+
+```jsx
+<Route name="UserLocator" staticName={true} path=":userId" component={User}>
+```
+
 ## Usage
 
 ```jsx

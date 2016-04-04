@@ -94,19 +94,16 @@ Another optional is _breadcrumbName_:
 
 The point of this property is to provide a method to set a breadcrumb name for the final breadcrumb.
 
-You can also exclude specific routes if you want to:
-
 ```jsx
 <Breadcrumbs excludes={['App']} />
 ```
-
-Starting with v1.3.4, set the document title to your last item in the breadcrumbs
+This will print all breadcrumbs, except for the one where the route name is `App`.
 
 ```jsx
 <Breadcrumbs setDocumentTitle={true} />
 ```
 
-This will print all breadcrumbs, except for the one where the route name is `App`.
+Starting with v1.3.4, this will set the document title to your last item in the breadcrumbs.
 
 ```jsx
 <Breadcrumbs displayMissing="true|false" displayMissingText="This title is missing" />

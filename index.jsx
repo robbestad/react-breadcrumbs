@@ -118,6 +118,7 @@ class Breadcrumbs extends React.Component {
         name = name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
       }
 
+      var itemClass = this.props.itemClass;
       if(makeLink){
         var link = !createElement ? name:
           React.createElement(Link, {
@@ -126,9 +127,10 @@ class Breadcrumbs extends React.Component {
         }, name);
       } else {
         link = name;
+        itemClass += ' ' + this.props.activeItemClass;
       }
       return !createElement ? link:
-        React.createElement(this.props.itemElement, { className: this.props.itemClass, key: Math.random()*100 }, link, separator);
+        React.createElement(this.props.itemElement, { className: itemClass, key: Math.random()*100 }, link, separator);
     }
 
     return null;
@@ -202,7 +204,7 @@ class Breadcrumbs extends React.Component {
     }
 
     return !createElement ? crumbs:
-      React.createElement(this.props.wrapperElement, {className: this.props.wrapperClass || this.props.customClass}, crumbs);
+      React.createElement(this.props.wrapperElement, {className: this.props.customClass || this.props.wrapperClass}, crumbs);
 
   }
 
@@ -214,7 +216,7 @@ class Breadcrumbs extends React.Component {
 /**
  * @property PropTypes
  * @description Property types supported by this component
- * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, itemElement: *, itemClass: *, wrapperClass: *, excludes: *}}
+ * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *, excludes: *}}
  */
 Breadcrumbs.propTypes = {
   separator: React.PropTypes.oneOfType([
@@ -227,10 +229,10 @@ Breadcrumbs.propTypes = {
   displayName: React.PropTypes.string,
   breadcrumbName: React.PropTypes.string,
   wrapperElement: React.PropTypes.string,
+  wrapperClass: React.PropTypes.string,
   itemElement: React.PropTypes.string,
   itemClass: React.PropTypes.string,
-  customClass: React.PropTypes.string,
-  wrapperClass: React.PropTypes.string,
+  activeItemClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,
   routes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -250,7 +252,7 @@ Breadcrumbs.defaultProps = {
   wrapperClass: "breadcrumbs",
   itemElement: "span",
   itemClass: "",
-  customClass: "breadcrumbs",
+  activeItemClass: "",
   excludes: [''],
   prettify: false,
   hideNoPath: true,

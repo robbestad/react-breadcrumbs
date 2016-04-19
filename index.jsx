@@ -217,7 +217,10 @@ class Breadcrumbs extends React.Component {
  * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, itemElement: *, customClass: *, excludes: *}}
  */
 Breadcrumbs.propTypes = {
-  separator: React.PropTypes.string,
+  separator: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.string
+  ]),
   displayMissing: React.PropTypes.bool,
   prettify: React.PropTypes.bool,
   displayMissingText: React.PropTypes.string,

@@ -75,7 +75,7 @@ MyComponent = React.createClass({
 });
 ```
 
-Optionally, you can add this prop to replace the default separator:
+Optionally, you can add this prop (string or React element) to replace the default separator:
 
 ```jsx
 <Breadcrumbs separator=" | " />

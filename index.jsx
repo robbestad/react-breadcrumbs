@@ -58,7 +58,7 @@ class Breadcrumbs extends React.Component {
     let paramName="";
     let pathValue="";
     let name = this._resolveRouteName(route);
-    if (name && 
+    if (name &&
         'excludes' in this.props &&
         this.props.excludes.some(item => item === name)) return null;
 
@@ -106,6 +106,10 @@ class Breadcrumbs extends React.Component {
           route.path=pathWithParam.reduce((start,link)=>{return start+"/"+link;})
           if(!route.staticName && currentKey.substring(0,1)==":")
             name=pathWithParam.reduce((start,link)=>{return link;});
+
+          if (typeof route.prettifyParam === 'function'){
+            name = route.prettifyParam(name);
+          }
         }
       }
     })
@@ -120,15 +124,15 @@ class Breadcrumbs extends React.Component {
 
       if(makeLink){
         var link = !createElement ? name:
-          React.createElement(Link, {
-          to: route.path,
-          params: route.params
-        }, name);
+            React.createElement(Link, {
+              to: route.path,
+              params: route.params
+            }, name);
       } else {
         link = name;
       }
       return !createElement ? link:
-        React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
+          React.createElement(this.props.itemElement, { key: Math.random()*100 }, link, separator);
     }
 
     return null;
@@ -143,10 +147,14 @@ class Breadcrumbs extends React.Component {
     let routesWithExclude = [];
     routes.forEach((_route, index) => {
       let route = JSON.parse(JSON.stringify(_route));
+      if (typeof _route.prettifyParam === 'function'){
+        route.prettifyParam = _route.prettifyParam;
+      }
       if('props' in route && 'path' in route.props){
         route.path=route.props.path;
         route.children=route.props.children;
         route.name=route.props.name;
+        route.prettifyParam=route.props.prettifyParam;
       }
       if (route.path) {
         if(route.path.charAt(0) === '/') {
@@ -196,13 +204,13 @@ class Breadcrumbs extends React.Component {
     if (ExecutionEnvironment.canUseDOM){
       if(window && window.document){
         if('setDocumentTitle' in this.props && this.props.setDocumentTitle) {
-        window.document.title = crumbs[crumbs.length-1].props.children[0];
+          window.document.title = crumbs[crumbs.length-1].props.children[0];
         }
       }
     }
 
     return !createElement ? crumbs:
-      React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
+        React.createElement(this.props.wrapperElement, {className: this.props.customClass}, crumbs);
 
   }
 

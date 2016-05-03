@@ -106,6 +106,10 @@ class Breadcrumbs extends React.Component {
           route.path=pathWithParam.reduce((start,link)=>{return start+"/"+link;})
           if(!route.staticName && currentKey.substring(0,1)==":")
             name=pathWithParam.reduce((start,link)=>{return link;});
+
+          if (typeof route.prettifyParam === 'function'){
+            name = route.prettifyParam(name);
+          }
         }
       }
     })
@@ -145,10 +149,14 @@ class Breadcrumbs extends React.Component {
     let routesWithExclude = [];
     routes.forEach((_route, index) => {
       let route = JSON.parse(JSON.stringify(_route));
+      if (typeof _route.prettifyParam === 'function'){
+        route.prettifyParam = _route.prettifyParam;
+      }
       if('props' in route && 'path' in route.props){
         route.path=route.props.path;
         route.children=route.props.children;
         route.name=route.props.name;
+        route.prettifyParam=route.props.prettifyParam;
       }
       if (route.path) {
         if(route.path.charAt(0) === '/') {
@@ -216,7 +224,7 @@ class Breadcrumbs extends React.Component {
 /**
  * @property PropTypes
  * @description Property types supported by this component
- * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *, excludes: *}}
+ * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
  */
 Breadcrumbs.propTypes = {
   separator: React.PropTypes.oneOfType([
@@ -232,6 +240,7 @@ Breadcrumbs.propTypes = {
   wrapperClass: React.PropTypes.string,
   itemElement: React.PropTypes.string,
   itemClass: React.PropTypes.string,
+  customClass: React.PropTypes.string,  
   activeItemClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,
@@ -242,7 +251,7 @@ Breadcrumbs.propTypes = {
 /**
  * @property defaultProps
  * @description sets the default values for propTypes if they are not provided
- * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string}}
+ * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string, customClass: string}}
  */
 Breadcrumbs.defaultProps = {
   separator: " > ",
@@ -253,6 +262,7 @@ Breadcrumbs.defaultProps = {
   itemElement: "span",
   itemClass: "",
   activeItemClass: "",
+  customClass: "breadcrumbs",
   excludes: [''],
   prettify: false,
   hideNoPath: true,

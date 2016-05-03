@@ -120,10 +120,10 @@ These properties allow you to override the defauly ol and li elements to specify
 and markup needs.
 
 ```jsx
-<Breadcrumbs customClass="breadcrumbs" />
+<Breadcrumbs wrapperClass="breadcrumbs" itemClass="step" />
 ```
 
-This property allows you to override the default class set on the breadcrumbs node so you can specify your own.
+These properties allow you to override the default class set on the breadcrumbs node and item elements.
 
 ```jsx
 <Breadcrumbs hideNoPath="true|false" />

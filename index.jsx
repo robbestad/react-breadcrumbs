@@ -22,10 +22,14 @@ class Breadcrumbs extends React.Component {
   _getDisplayName(route) {
     let name = null;
 
+    if (typeof route.getDisplayName === 'function') {
+      name = route.getDisplayName();
+    }
+
     if(route.indexRoute) {
-      name = route.indexRoute.displayName || null;
+      name = name || route.indexRoute.displayName || null;
     } else {
-      name = route.displayName || null;
+      name = name || route.displayName || null;
     }
 
     //check to see if a custom name has been applied to the route
@@ -148,7 +152,7 @@ class Breadcrumbs extends React.Component {
 
     let routesWithExclude = [];
     routes.forEach((_route, index) => {
-      let route = JSON.parse(JSON.stringify(_route));
+      let route = Object.assign({}, _route);
       if (typeof _route.prettifyParam === 'function'){
         route.prettifyParam = _route.prettifyParam;
       }
@@ -240,7 +244,7 @@ Breadcrumbs.propTypes = {
   wrapperClass: React.PropTypes.string,
   itemElement: React.PropTypes.string,
   itemClass: React.PropTypes.string,
-  customClass: React.PropTypes.string,  
+  customClass: React.PropTypes.string,
   activeItemClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,

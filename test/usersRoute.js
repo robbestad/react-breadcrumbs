@@ -26,6 +26,9 @@ var UserRoutes=[
     ]
   },
   {
+    "name": "Route without path"
+  },
+  {
     "name": "User-locator",
     "path": ":userId",
     "childRoutes": [

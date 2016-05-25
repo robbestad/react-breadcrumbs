@@ -172,7 +172,7 @@ class Breadcrumbs extends React.Component {
         route.path = parentPath;
       }
       let name = this._resolveRouteName(route);
-      if(!('excludes' in this.props && this.props.excludes.some(item => item === name)))
+      if(route.path && !('excludes' in this.props && this.props.excludes.some(item => item === name)))
         routesWithExclude.push(route);
     });
     routes=routesWithExclude;
@@ -240,7 +240,7 @@ Breadcrumbs.propTypes = {
   wrapperClass: React.PropTypes.string,
   itemElement: React.PropTypes.string,
   itemClass: React.PropTypes.string,
-  customClass: React.PropTypes.string,  
+  customClass: React.PropTypes.string,
   activeItemClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,

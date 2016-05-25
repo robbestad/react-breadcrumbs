@@ -266,7 +266,6 @@ Breadcrumbs.defaultProps = {
   itemElement: "span",
   itemClass: "",
   activeItemClass: "",
-  customClass: "breadcrumbs",
   excludes: [''],
   prettify: false,
   hideNoPath: true,

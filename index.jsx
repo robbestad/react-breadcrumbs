@@ -22,10 +22,14 @@ class Breadcrumbs extends React.Component {
   _getDisplayName(route) {
     let name = null;
 
+    if (typeof route.getDisplayName === 'function') {
+      name = route.getDisplayName();
+    }
+
     if(route.indexRoute) {
-      name = route.indexRoute.displayName || null;
+      name = name || route.indexRoute.displayName || null;
     } else {
-      name = route.displayName || null;
+      name = name || route.displayName || null;
     }
 
     //check to see if a custom name has been applied to the route
@@ -148,7 +152,7 @@ class Breadcrumbs extends React.Component {
 
     let routesWithExclude = [];
     routes.forEach((_route, index) => {
-      let route = JSON.parse(JSON.stringify(_route));
+      let route = Object.assign({}, _route);
       if (typeof _route.prettifyParam === 'function'){
         route.prettifyParam = _route.prettifyParam;
       }
@@ -172,7 +176,7 @@ class Breadcrumbs extends React.Component {
         route.path = parentPath;
       }
       let name = this._resolveRouteName(route);
-      if(!('excludes' in this.props && this.props.excludes.some(item => item === name)))
+      if(route.path && !('excludes' in this.props && this.props.excludes.some(item => item === name)))
         routesWithExclude.push(route);
     });
     routes=routesWithExclude;
@@ -212,7 +216,7 @@ class Breadcrumbs extends React.Component {
     }
 
     return !createElement ? crumbs:
-      React.createElement(this.props.wrapperElement, {className: this.props.wrapperClass}, crumbs);
+      React.createElement(this.props.wrapperElement, {className: this.props.customClass || this.props.wrapperClass}, crumbs);
 
   }
 
@@ -224,7 +228,7 @@ class Breadcrumbs extends React.Component {
 /**
  * @property PropTypes
  * @description Property types supported by this component
- * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *, excludes: *}}
+ * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
  */
 Breadcrumbs.propTypes = {
   separator: React.PropTypes.oneOfType([
@@ -240,6 +244,7 @@ Breadcrumbs.propTypes = {
   wrapperClass: React.PropTypes.string,
   itemElement: React.PropTypes.string,
   itemClass: React.PropTypes.string,
+  customClass: React.PropTypes.string,
   activeItemClass: React.PropTypes.string,
   excludes: React.PropTypes.arrayOf(React.PropTypes.string),
   hideNoPath: React.PropTypes.bool,
@@ -250,7 +255,7 @@ Breadcrumbs.propTypes = {
 /**
  * @property defaultProps
  * @description sets the default values for propTypes if they are not provided
- * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string}}
+ * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string, customClass: string}}
  */
 Breadcrumbs.defaultProps = {
   separator: " > ",

@@ -66,7 +66,7 @@ class Breadcrumbs extends React.Component {
         'excludes' in this.props &&
         this.props.excludes.some(item => item === name)) return null;
 
-    let makeLink=isRoot;
+    let makeLink=true;
 
     // don't make link if route doesn't have a child route
     if(makeLink){

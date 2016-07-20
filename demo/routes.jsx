@@ -1,9 +1,10 @@
 import React from 'react'
 import { Router, Route, NoMatch, IndexRoute } from 'react-router'
 import { App, Info, Users, User, UserDetails } from './app.jsx';
+import { hashHistory } from 'react-router'
 
 export default (
-  <Router>
+  <Router history={hashHistory}>
     <Route path="/" name="Examples" component={App} >
       <Route name="Users" path="users" component={Users}>
         <Route name="UserLocator" path=":userId" component={User}>

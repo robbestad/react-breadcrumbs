@@ -25,7 +25,7 @@ parameterized paths when provided with :parameter in your routes.
 The demo is using this route setup:
 
 ```jsx
-<Router>
+<Router history={hashHistory}>
   <Route path="/" name="Examples" component={App} >
     <Route name="Users" path="users" component={Users}>
       <Route name="UserLocator" path=":userId" component={User}>

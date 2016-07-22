@@ -113,10 +113,10 @@ This property set allows you determine if you want to display routes in the hier
 default = true. When true, uses the displayMissingText property as an override to the default text.
 
 ```jsx
-<Breadcrumbs wrapperElement="div" itemElement="span" />
+<Breadcrumbs wrapperElement="ol" itemElement="li" />
 ```
 
-These properties allow you to override the defauly ol and li elements to specify an alternate set based on your styling
+These properties allow you to override the default div and span elements to specify an alternate set based on your styling
 and markup needs.
 
 ```jsx

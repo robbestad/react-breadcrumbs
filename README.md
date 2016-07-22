@@ -106,6 +106,13 @@ This will print all breadcrumbs, except for the one where the route name is `App
 Starting with v1.3.4, this will set the document title to your last item in the breadcrumbs.
 
 ```jsx
+<Breadcrumbs createElement={false} />
+```
+
+This property allows you to choose whether a wrapper element is created around the breadcrumb. When false,
+no wrapper element is created, allowing you to create your own wrapper with custom props.
+
+```jsx
 <Breadcrumbs displayMissing="true|false" displayMissingText="This title is missing" />
 ```
 
@@ -136,7 +143,7 @@ hide or show these in the breadcrumbs.
 
 ## Styling
 
-The breadcrumbs are set up with a div with the class name "breadcrumbs".
+The breadcrumbs are set up in a div with the class name "breadcrumbs".
 
 [1]: https://facebook.github.io/react
 [2]: http://breadcrumbs.surge.sh/index.html

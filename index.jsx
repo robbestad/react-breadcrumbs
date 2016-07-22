@@ -219,21 +219,22 @@ class Breadcrumbs extends React.Component {
 
   }
 
-  render(createElement=true) {
-    return this._buildRoutes(this.props.routes, createElement);
+  render() {
+    return this._buildRoutes(this.props.routes, this.props.createElement);
   }
 }
 
 /**
  * @property PropTypes
  * @description Property types supported by this component
- * @type {{separator: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
+ * @type {{separator: *, createElement: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
  */
 Breadcrumbs.propTypes = {
   separator: React.PropTypes.oneOfType([
     React.PropTypes.element,
     React.PropTypes.string
   ]),
+  createElement: React.PropTypes.bool,
   displayMissing: React.PropTypes.bool,
   prettify: React.PropTypes.bool,
   displayMissingText: React.PropTypes.string,
@@ -258,6 +259,7 @@ Breadcrumbs.propTypes = {
  */
 Breadcrumbs.defaultProps = {
   separator: " > ",
+  createElement: true,
   displayMissing: true,
   displayMissingText: "Missing name prop from Route",
   wrapperElement: "div",

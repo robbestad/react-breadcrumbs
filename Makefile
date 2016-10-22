@@ -5,7 +5,7 @@ install link:
 	@npm $@
 
 lint:
-	eslint ./index.jsx
+	$(BIN)/eslint ./index.jsx
 
 patch:  lint
 	make prepublish

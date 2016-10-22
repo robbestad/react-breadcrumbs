@@ -1,7 +1,7 @@
 #!/bin/bash
-postcss --use autoprefixer app.css > dist/app.css
+../node_modules/.bin/postcss --use autoprefixer app.css > dist/app.css
 cp index.html dist/index.html
-webpack
+../node_modules/.bin/webpack
 cd dist
-minify app.css > app.min.css
+../../node_modules/.bin/minify app.css > app.min.css
 surge

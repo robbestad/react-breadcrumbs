@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'development') {
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
+        drop_console: true,
         warnings: false
       }
     })

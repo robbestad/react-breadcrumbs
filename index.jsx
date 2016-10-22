@@ -175,7 +175,7 @@ class Breadcrumbs extends React.Component {
         route.path = parentPath;
       }
       let name = this._resolveRouteName(route);
-      if(route.path && !('excludes' in this.props && this.props.excludes.some(item => item === name)))
+      if ((this.props.displayMissing || name) && route.path && !('excludes' in this.props && this.props.excludes.some(item => item === name)))
         routesWithExclude.push(route);
     });
     routes=routesWithExclude;

@@ -1,10 +1,14 @@
-{ "env": {
+{
+  "env": {
     "browser": false,
-    "node": true,
-    "es6": true
+      "node": true,
+      "es6": true
   },
-
-  "ecmaFeatures": {
-    "modules": true
-  }
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+	"jsx": true
+      }
+    }
 }

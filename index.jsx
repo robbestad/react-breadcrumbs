@@ -129,7 +129,7 @@ class Breadcrumbs extends React.Component {
       var itemClass = this.props.itemClass;
       if(makeLink){
         var link = !createElement ? name:
-          React.createElement(Link, {
+          React.createElement(this.props.Link || Link, {
           to: route.path,
         }, name);
       } else {

@@ -273,14 +273,4 @@ Breadcrumbs.defaultProps = {
   setDocumentTitle: false
 };
 
-/**
- * @property contextTypes
- * @description List of objects to incorporate into the context of this class
- * @type {{routes: *}}
- */
-Breadcrumbs.contextTypes = {
-  routes: React.PropTypes.array,
-  params: React.PropTypes.array
-};
-
 module.exports = Breadcrumbs;

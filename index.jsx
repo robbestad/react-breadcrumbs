@@ -23,7 +23,7 @@ class Breadcrumbs extends React.Component {
     let name = null;
 
     if (typeof route.getDisplayName === 'function') {
-      name = route.getDisplayName();
+      name = route.getDisplayName(this.props.params);
     }
 
     if(route.indexRoute) {

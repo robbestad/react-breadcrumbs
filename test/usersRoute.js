@@ -2,6 +2,7 @@ import React from 'react';
 import { Route }from 'react-router';
 import Breadcrumbs from '../index.jsx';
 import test from 'tape';
+import ReactTestUtils from 'react-addons-test-utils';
 
 var userlist = [
   {id:"1", name:"John"},
@@ -39,6 +40,9 @@ var UserRoutes=[
     ]
   }
 ];
+
+var prepend = <section />;
+var append = <section />;
 
 test('Render breadcrumbs', (assert) => {
   var builder = new Breadcrumbs;
@@ -79,3 +83,29 @@ test('Render breadcrumbs, prettify words', (assert) => {
   assert.end();
 });
 
+test('Render breadcrumbs and prepend element child', (assert) => {
+  var renderer = ReactTestUtils.createRenderer();
+  renderer.render(<Breadcrumbs routes={UserRoutes} prepend={prepend} />);
+  const res = renderer.getRenderOutput();
+  // 1 for breadcrumbs, 1 for prepend
+  assert.equal(res.props.children.length, 2);
+  assert.end();
+});
+
+test('Render breadcrumbs and append element child', (assert) => {
+  var renderer = ReactTestUtils.createRenderer();
+  renderer.render(<Breadcrumbs routes={UserRoutes} append={append} />);
+  const res = renderer.getRenderOutput();
+  // 1 for breadcrumbs, 1 for prepend
+  assert.equal(res.props.children.length, 2);
+  assert.end();
+});
+
+test('Render breadcrumbs and prepend and append element child', (assert) => {
+  var renderer = ReactTestUtils.createRenderer();
+  renderer.render(<Breadcrumbs routes={UserRoutes} prepend={prepend} append={append} />);
+  const res = renderer.getRenderOutput();
+  // 1 for breadcrumbs, 1 for prepend, 1 for append
+  assert.equal(res.props.children.length, 3);
+  assert.end();
+});

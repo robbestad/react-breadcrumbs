@@ -14,8 +14,8 @@ import ExecutionEnvironment from 'exenv';
 
 class Breadcrumbs extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.displayName = "Breadcrumbs";
   }
 
@@ -45,6 +45,36 @@ class Breadcrumbs extends React.Component {
     }
 
     return name;
+  }
+
+  _addKeyToElement (el) {
+    return (el && !el.key && el.type)
+      ? Object.assign({}, el, { key: Math.random()*100 })
+      : el;
+  }
+
+  _addKeyToArrayElements (item, thisArr) {
+    while (item.length) thisArr.push(this._addKeyToElement(item.shift()))
+
+    return thisArr;
+  }
+
+  _processCustomElements (item) {
+    if (Object.prototype.toString.call(item) === '[object Array]')
+      return this._addKeyToArrayElements(item, addedEls);
+    if (item) return this._addKeyToElement(item);
+    return null;
+  }
+
+  _AppendAndPrependElements(originalBreadCrumbs){
+    let crumbs = [];
+    let prepend = this._processCustomElements(originalBreadCrumbs.shift());
+    let append = this._processCustomElements(originalBreadCrumbs.pop());
+    if (prepend) crumbs.unshift(prepend)
+    crumbs.push(originalBreadCrumbs[0][0]);
+    if (append) crumbs.push(append);
+
+    return crumbs;
   }
 
   _resolveRouteName(route){
@@ -144,7 +174,7 @@ class Breadcrumbs extends React.Component {
 
   }
 
-  _buildRoutes(routes, createElement) {
+  _buildRoutes(routes, createElement, prepend, append) {
     let crumbs = [];
     let isRoot = routes[1] && routes[1].hasOwnProperty("path");
     let parentPath = '/';
@@ -206,6 +236,9 @@ class Breadcrumbs extends React.Component {
         crumbs.push(result);
       }
     });
+
+
+
     if (ExecutionEnvironment.canUseDOM){
       if(window && window.document){
         if('setDocumentTitle' in this.props && this.props.setDocumentTitle) {
@@ -214,13 +247,21 @@ class Breadcrumbs extends React.Component {
       }
     }
 
+    crumbs = this.props.prepend || this.props.prepend
+      ? this._AppendAndPrependElements([ this.props.prepend, crumbs, this.props.append ])
+      : crumbs;
+
     return !createElement ? crumbs:
-      React.createElement(this.props.wrapperElement, {className: this.props.customClass || this.props.wrapperClass}, crumbs);
+      React.createElement(
+        this.props.wrapperElement,
+        { className: this.props.customClass || this.props.wrapperClass },
+        crumbs
+      );
 
   }
 
   render() {
-    return this._buildRoutes(this.props.routes, this.props.createElement);
+    return this._buildRoutes(this.props.routes, this.props.createElement, this.props.prepend, this.props.append);
   }
 }
 
@@ -230,6 +271,14 @@ class Breadcrumbs extends React.Component {
  * @type {{separator: *, createElement: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
  */
 Breadcrumbs.propTypes = {
+  prepend: React.PropTypes.oneOfType([
+    React.PropTypes.node,
+    React.PropTypes.bool,
+  ]),
+  append:React.PropTypes.oneOfType([
+    React.PropTypes.node,
+    React.PropTypes.bool,
+  ]),
   separator: React.PropTypes.oneOfType([
     React.PropTypes.element,
     React.PropTypes.string
@@ -258,6 +307,8 @@ Breadcrumbs.propTypes = {
  * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string, customClass: string}}
  */
 Breadcrumbs.defaultProps = {
+  prepend: false,
+  append: false,
   separator: " > ",
   createElement: true,
   displayMissing: true,

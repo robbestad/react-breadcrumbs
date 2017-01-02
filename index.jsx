@@ -53,28 +53,26 @@ class Breadcrumbs extends React.Component {
       : el;
   }
 
-  _addKeyToArrayElements (item, thisArr) {
-    while (item.length) thisArr.push(this._addKeyToElement(item.shift()))
-
-    return thisArr;
+  _addKeyToArrayElements (item) {
+    return item.map((el) => this._addKeyToElement(el));
   }
 
-  _processCustomElements (item) {
-    if (Object.prototype.toString.call(item) === '[object Array]')
-      return this._addKeyToArrayElements(item, addedEls);
-    if (item) return this._addKeyToElement(item);
-    return null;
+  _processCustomElements (items) {
+    return items.map((el) => {
+      if (!el) return null;
+      if (Array.isArray(el)) return this._addKeyToArrayElements(el);
+      return this._addKeyToElement(el);
+    });
   }
 
-  _AppendAndPrependElements(originalBreadCrumbs){
+  _appendAndPrependElements(originalBreadCrumbs){
     let crumbs = [];
-    let prepend = this._processCustomElements(originalBreadCrumbs.shift());
-    let append = this._processCustomElements(originalBreadCrumbs.pop());
-    if (prepend) crumbs.unshift(prepend)
-    crumbs.push(originalBreadCrumbs[0][0]);
-    if (append) crumbs.push(append);
+    let appendAndPrepend = this._processCustomElements([ originalBreadCrumbs.shift(), originalBreadCrumbs.pop() ]);
+    if (appendAndPrepend[0]) crumbs.unshift(appendAndPrepend[0]);
+    crumbs.push(originalBreadCrumbs[0]);
+    if (appendAndPrepend[1]) crumbs.push(appendAndPrepend[1]);
 
-    return crumbs;
+    return crumbs.reduce( ( acc, cur ) => acc.concat(cur), [] ).filter((e) => e);
   }
 
   _resolveRouteName(route){
@@ -247,7 +245,7 @@ class Breadcrumbs extends React.Component {
       }
     }
 
-    if (prepend || prepend) crumbs = this._AppendAndPrependElements([ prepend, crumbs, append ]);
+    if (prepend || append) crumbs = this._appendAndPrependElements([ prepend, crumbs, append ]);
 
     return !createElement ? crumbs:
       React.createElement(

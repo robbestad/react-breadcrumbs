@@ -138,7 +138,7 @@ These properties allow you to override the default class set on the breadcrumbs 
 
 These properties allow you to append and/or prepend an arbitrary amount of react elements
 ```jsx
-<Breadcrumbs prepend={<YourComponent />} append={<this>too</this>}/>
+<Breadcrumbs prepend={<SingleComponent />} append={[<this>too</this>, <this>also</this]}/>
 ```
 
 In some cases React-Router may not have a path in the parent node. This is a valid use case when you want to wrap components

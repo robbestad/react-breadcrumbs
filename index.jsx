@@ -247,9 +247,7 @@ class Breadcrumbs extends React.Component {
       }
     }
 
-    crumbs = this.props.prepend || this.props.prepend
-      ? this._AppendAndPrependElements([ this.props.prepend, crumbs, this.props.append ])
-      : crumbs;
+    if (prepend || prepend) crumbs = this._AppendAndPrependElements([ prepend, crumbs, append ]);
 
     return !createElement ? crumbs:
       React.createElement(
@@ -257,7 +255,6 @@ class Breadcrumbs extends React.Component {
         { className: this.props.customClass || this.props.wrapperClass },
         crumbs
       );
-
   }
 
   render() {
@@ -268,7 +265,7 @@ class Breadcrumbs extends React.Component {
 /**
  * @property PropTypes
  * @description Property types supported by this component
- * @type {{separator: *, createElement: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *}}
+ * @type {{separator: *, createElement: *, displayMissing: *, displayName: *, breadcrumbName: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *, append: *, prepend: *}}
  */
 Breadcrumbs.propTypes = {
   prepend: React.PropTypes.oneOfType([
@@ -304,7 +301,7 @@ Breadcrumbs.propTypes = {
 /**
  * @property defaultProps
  * @description sets the default values for propTypes if they are not provided
- * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string, customClass: string}}
+ * @type {{separator: string, displayMissing: boolean, wrapperElement: string, itemElement: string, wrapperClass: string, customClass: string, prepend: false, append: false}}
  */
 Breadcrumbs.defaultProps = {
   prepend: false,

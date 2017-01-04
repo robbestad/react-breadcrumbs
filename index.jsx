@@ -240,9 +240,15 @@ Breadcrumbs.propTypes = {
   displayMissingText: React.PropTypes.string,
   displayName: React.PropTypes.string,
   breadcrumbName: React.PropTypes.string,
-  wrapperElement: React.PropTypes.string,
+  wrapperElement: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.string
+  ]),
   wrapperClass: React.PropTypes.string,
-  itemElement: React.PropTypes.string,
+  itemElement: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.string
+  ]),
   itemClass: React.PropTypes.string,
   customClass: React.PropTypes.string,
   activeItemClass: React.PropTypes.string,

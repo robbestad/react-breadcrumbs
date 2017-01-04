@@ -19,7 +19,7 @@ npm install react-breadcrumbs --save
 
 [>> TO THE DEMO][2]
 
-The demo shows how the breadcrumbs will use the named routes for parent paths and 
+The demo shows how the breadcrumbs will use the named routes for parent paths and
 parameterized paths when provided with :parameter in your routes.
 
 The demo is using this route setup:
@@ -65,7 +65,7 @@ MyComponent = React.createClass({
   render: function() {
     return (
       <div>
-        <Breadcrumbs 
+        <Breadcrumbs
           routes={this.props.routes}
           params={this.props.params}
         />
@@ -134,6 +134,11 @@ These properties allow you to override the default class set on the breadcrumbs 
 
 ```jsx
 <Breadcrumbs hideNoPath="true|false" />
+```
+
+These properties allow you to append and/or prepend an arbitrary amount of react elements
+```jsx
+<Breadcrumbs prepend={<SingleComponent />} append={[<this>too</this>, <this>also</this]}/>
 ```
 
 In some cases React-Router may not have a path in the parent node. This is a valid use case when you want to wrap components

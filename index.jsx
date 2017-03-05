@@ -96,7 +96,7 @@ class Breadcrumbs extends React.Component {
     return name;
   }
 
-  _processRoute(route, routesLength, crumbsLength, isRoot, createElement) {
+  _processRoute(route, routesLength, crumbsLength, createElement) {
     // if there is no route path defined and we are set to hide these then do so
     if (!route.path && this.props.hideNoPath) {
       return null;
@@ -133,87 +133,92 @@ class Breadcrumbs extends React.Component {
     let currentKey = route.path.split('/')[route.path.split('/').length - 1];
     let keyValue;
     route.path.split('/').forEach((link) => {
-      if (link.substring(0, 1) === ':') {
-        if (this.props.params) {
-          keyValue = Object.keys(this.props.params).map((param) => {
-            return this.props.params[param];
-          });
-          let pathWithParam = route.path.split('/').map((link) => {
-            if (link.substring(0, 1) === ':') {
-              return keyValue.shift();
-            }
-            return link;
-          });
-          route.path = pathWithParam.reduce((start, link) => {
-            return start + '/' + link;
-          });
-          if (!route.staticName && currentKey.substring(0, 1) === ':') {
-            name = pathWithParam.reduce((start, link) => {
-              return link;
-            });
-          }
-
-          if (typeof route.prettifyParam === 'function') {
-            name = route.prettifyParam(name);
-          }
-        }
+      // if this is not a param, or we've been given no params to replace with,
+      // we need not do anything
+      if (link.substring(0, 1) !== ':' || !this.props.params) {
+        return;
       }
-    });
-    if (name) {
-      if (this.props.prettify) {
-        // Note: this could be replaced with a more complex prettifier
-        name = name.replace(/-/g, ' ');
-        name = name.replace(/\w\S*/g, function (txt) {
-          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+
+      keyValue = Object.keys(this.props.params).map((param) => {
+        return this.props.params[param];
+      });
+      let pathWithParam = route.path.split('/').map((link) => {
+        if (link.substring(0, 1) === ':') {
+          return keyValue.shift();
+        }
+        return link;
+      });
+      route.path = pathWithParam.reduce((start, link) => {
+        return start + '/' + link;
+      });
+      if (!route.staticName && currentKey.substring(0, 1) === ':') {
+        name = pathWithParam.reduce((start, link) => {
+          return link;
         });
       }
 
-      var link = name;
-      var itemClass = this.props.itemClass;
-      if (makeLink) {
-        if (createElement) {
-          link = React.createElement(
-            this.props.Link || Link,
-            { 'to': route.path },
-            name
-          );
-        }
-      } else {
-        itemClass += ' ' + this.props.activeItemClass;
+      if (typeof route.prettifyParam === 'function') {
+        name = route.prettifyParam(name);
       }
+    });
 
-      if (!createElement) {
-        return link;
-      }
-      return React.createElement(
-        this.props.itemElement,
-        { 'className': itemClass, 'key': Math.random() * 100 },
-        link,
-        separator
-      );
+    if (!name) {
+      return null;
     }
 
-    return null;
+    if (this.props.prettify) {
+      // Note: this could be replaced with a more complex prettifier
+      name = name.replace(/-/g, ' ');
+      name = name.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
+
+    var link = name;
+    var itemClass = this.props.itemClass;
+    if (makeLink) {
+      if (createElement) {
+        link = React.createElement(
+          this.props.Link || Link,
+          { 'to': route.path },
+          name
+        );
+      }
+    } else {
+      itemClass += ' ' + this.props.activeItemClass;
+    }
+
+    if (!createElement) {
+      return link;
+    }
+    return React.createElement(
+      this.props.itemElement,
+      { 'className': itemClass, 'key': Math.random() * 100 },
+      link,
+      separator
+    );
   }
 
   _buildRoutes(routes, createElement, prepend, append) {
     let crumbs = [];
-    let isRoot = routes[1] && Object.prototype.hasOwnProperty.call(routes[1], 'path');
     let parentPath = '/';
 
-    let routesWithExclude = [];
-    routes.forEach((_route, index) => {
-      let route = Object.assign({}, _route);
-      if (typeof _route.prettifyParam === 'function') {
-        route.prettifyParam = _route.prettifyParam;
-      }
-      if ('props' in route && 'path' in route.props) {
-        route.path = route.props.path;
-        route.children = route.props.children;
-        route.name = route.props.name;
-        route.prettifyParam = route.props.prettifyParam;
-      }
-      if (route.path) {
+    // iterate over the initial list of routes and remove all that don't apply
+    routes = routes
+      .map((_route, index) => {
+        let route = Object.assign({}, _route);
+        if (typeof _route.prettifyParam === 'function') {
+          route.prettifyParam = _route.prettifyParam;
+        }
+        if ('props' in route && 'path' in route.props) {
+          route.path = route.props.path;
+          route.children = route.props.children;
+          route.name = route.props.name;
+          route.prettifyParam = route.props.prettifyParam;
+        }
+        if (!route.path) {
+          return null;
+        }
         if (route.path.charAt(0) === '/') {
           parentPath = route.path;
         } else {
@@ -222,52 +227,31 @@ class Breadcrumbs extends React.Component {
           }
           parentPath += route.path;
         }
-      }
-      if (index > 0 && route.path && route.path.charAt(0) !== '/') {
-        route.path = parentPath;
-      }
-      let name = this._resolveRouteName(route);
-      if ((this.props.displayMissing || name) && route.path && !('excludes' in this.props && this.props.excludes.some((item) => item === name))) {
-        routesWithExclude.push(route);
-      }
-    });
-    routes = routesWithExclude;
-    routes.forEach((route, index) => {
-      if (!route) {
+        if (index > 0 && route.path.charAt(0) !== '/') {
+          route.path = parentPath;
+        }
+        let name = this._resolveRouteName(route);
+        if ((this.props.displayMissing || name) && !('excludes' in this.props && this.props.excludes.some((item) => item === name))) {
+          return route;
+        }
         return null;
-      }
-      if ('props' in route && 'path' in route.props) {
-        route.path = route.props.path;
-        route.children = route.props.children;
-        route.name = route.props.name;
-      }
-      if (route.path) {
-        if (route.path.charAt(0) === '/') {
-          parentPath = route.path;
-        } else {
-          if (parentPath.charAt(parentPath.length - 1) !== '/') {
-            parentPath += '/';
-          }
-          parentPath += route.path;
-        }
-      }
+      })
+      .filter((route) => (Boolean(route)));
 
-      if (index > 0 && route.path && route.path.charAt(0) !== '/') {
-        route.path = parentPath;
-      }
+    // iterate over the pruned list of routes and build the crumbs for each
+    crumbs = routes
+      .map((route) => {
+        return this._processRoute(route, routes.length, crumbs.length, createElement);
+      })
+      .filter((crumb) => (Boolean(crumb)));
 
-      let result = this._processRoute(route, routes.length, crumbs.length, isRoot, createElement);
-      if (result) {
-        crumbs.push(result);
-      }
-    });
-
-    if (ExecutionEnvironment.canUseDOM) {
-      if (window && window.document) {
-        if ('setDocumentTitle' in this.props && this.props.setDocumentTitle && crumbs.length > 0) {
-          window.document.title = crumbs[crumbs.length - 1].props.children[0];
-        }
-      }
+    if (ExecutionEnvironment.canUseDOM
+        && window
+        && window.document
+        && 'setDocumentTitle' in this.props
+        && this.props.setDocumentTitle
+        && crumbs.length > 0) {
+      window.document.title = crumbs[crumbs.length - 1].props.children[0];
     }
 
     if (prepend || append) {

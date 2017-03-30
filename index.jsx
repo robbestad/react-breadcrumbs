@@ -140,7 +140,7 @@ class Breadcrumbs extends React.Component {
             name=pathWithParam.reduce((start,link)=>{return link;});
 
           if (typeof route.prettifyParam === 'function'){
-            name = route.prettifyParam(name);
+            name = route.prettifyParam(name, this.props.params);
           }
         }
       }

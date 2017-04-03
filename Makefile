@@ -22,8 +22,8 @@ major: lint
 jsx: 
 	@$(call lint)
 	./node_modules/.bin/babel index.jsx > index.js
-	@$(uglify) index.js -o dist/react-breadcrumbs.min.js --source-map dist/react-breadcrumbs.min.js.map -p 5 -c drop_console -m
-	cp dist/react-breadcrumbs.min.js index.js
+	#@$(uglify) index.js -o dist/react-breadcrumbs.min.js --source-map dist/react-breadcrumbs.min.js.map -p 5 -c drop_console -m
+	#cp dist/react-breadcrumbs.min.js index.js
 
 prepublish: 
 	make jsx

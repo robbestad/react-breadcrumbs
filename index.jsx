@@ -158,7 +158,7 @@ class Breadcrumbs extends React.Component {
       }
 
       if (typeof route.prettifyParam === 'function') {
-        name = route.prettifyParam(name);
+        name = route.prettifyParam(name, this.props.params);
       }
     });
 

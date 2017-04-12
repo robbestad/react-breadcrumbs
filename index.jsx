@@ -279,7 +279,7 @@ class Breadcrumbs extends React.Component {
  * @type {{separator: *, createElement: *, displayMissing: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *, append: *, prepend: *, params: *, Link: *}}
  */
 Breadcrumbs.propTypes = {
-  'params': React.PropTypes.object,
+  'params': React.PropTypes.object.isRequired,
   'prepend': React.PropTypes.oneOfType([
     React.PropTypes.node,
     React.PropTypes.bool

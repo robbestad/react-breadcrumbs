@@ -19,6 +19,7 @@
     "indent": ["error", 2],
     "max-params": 0,
     "eol-last": 0,
+    "semi": 0,
     "unicorn/filename-case": 0,
     "arrow-parens": [
       "error",

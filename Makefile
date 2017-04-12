@@ -31,7 +31,6 @@ prepublish:
 	git commit -am "`npm view . version`" --allow-empty
 
 publish:
-	git commit -am "`npm view . version`" --allow-empty
 	git push --tags origin HEAD:master
 	npm publish
 

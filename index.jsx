@@ -12,9 +12,9 @@
  */
 
 import React from 'react'
-import { Link } from 'react-router'
+import {Link} from 'react-router'
 import ExecutionEnvironment from 'exenv'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 class Breadcrumbs extends React.Component {
 
@@ -27,7 +27,7 @@ class Breadcrumbs extends React.Component {
     let name = null
 
     if (typeof route.getDisplayName === 'function') {
-      name = route.getDisplayName()
+      name = route.getDisplayName.bind(null, this.props.params)()
     }
 
     if (route.indexRoute) {
@@ -53,7 +53,7 @@ class Breadcrumbs extends React.Component {
 
   _addKeyToElement(el) {
     return (el && !el.key && el.type)
-      ? Object.assign({}, el, { 'key': Math.random() * 100 })
+      ? Object.assign({}, el, {'key': Math.random() * 100})
       : el
   }
 
@@ -151,10 +151,15 @@ class Breadcrumbs extends React.Component {
       route.path = pathWithParam.reduce((start, link) => {
         return start + '/' + link
       })
+
       if (!route.staticName && currentKey.substring(0, 1) === ':') {
+        if (typeof route.getDisplayName === 'function') {
+          name = route.getDisplayName.bind(null, this.props.params)()
+        } else {
         name = pathWithParam.reduce((start, link) => {
           return link
         })
+        }
       }
 
       if (typeof route.prettifyParam === 'function') {
@@ -180,7 +185,7 @@ class Breadcrumbs extends React.Component {
       if (createElement) {
         link = React.createElement(
           this.props.Link || Link,
-          { 'to': route.path },
+          {'to': route.path},
           name
         )
       }
@@ -193,7 +198,7 @@ class Breadcrumbs extends React.Component {
     }
     return React.createElement(
       this.props.itemElement,
-      { 'className': itemClass, 'key': Math.random() * 100 },
+      {'className': itemClass, 'key': Math.random() * 100},
       link,
       separator
     )
@@ -264,7 +269,7 @@ class Breadcrumbs extends React.Component {
 
     return React.createElement(
       this.props.wrapperElement,
-      { 'className': this.props.customClass || this.props.wrapperClass },
+      {'className': this.props.customClass || this.props.wrapperClass},
       crumbs
     )
   }
@@ -280,7 +285,7 @@ class Breadcrumbs extends React.Component {
  * @type {{separator: *, createElement: *, displayMissing: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *, append: *, prepend: *, params: *, Link: *}}
  */
 Breadcrumbs.propTypes = {
-  'params': PropTypes.object.isRequired,
+  'params': PropTypes.object,
   'prepend': PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.bool

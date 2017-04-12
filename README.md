@@ -62,6 +62,14 @@ You can then use the `getDisplayName` prop for dynamic labels as well:
 <Route name="UserLocator" component={User} getDisplayName={() => `Current time is ${new DateTime()}`} />
 ```
 
+You can also access props from the component itself to name the crumb dynamically, like so (from *routes.jsx* in the demo folder):
+
+```jsx
+    <Route name="UserLocator" path=":userId" component={User}
+               getDisplayName={param => Number(param.userId) === 1 ? "John" : "Rambo"}>
+```
+
+
 ## Usage
 
 ```jsx

@@ -11,7 +11,7 @@
  *
  */
 import React from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import ExecutionEnvironment from 'exenv';
 
 class Breadcrumbs extends React.Component {
@@ -51,7 +51,7 @@ class Breadcrumbs extends React.Component {
 
   _addKeyToElement(el) {
     return (el && !el.key && el.type)
-      ? Object.assign({}, el, { 'key': Math.random() * 100 })
+      ? Object.assign({}, el, {'key': Math.random() * 100})
       : el;
   }
 
@@ -105,8 +105,8 @@ class Breadcrumbs extends React.Component {
     let separator = '';
     let name = this._resolveRouteName(route);
     if (name
-        && 'excludes' in this.props
-        && this.props.excludes.some((item) => item === name)) {
+      && 'excludes' in this.props
+      && this.props.excludes.some((item) => item === name)) {
       return null;
     }
 
@@ -180,7 +180,7 @@ class Breadcrumbs extends React.Component {
       if (createElement) {
         link = React.createElement(
           this.props.Link || Link,
-          { 'to': route.path },
+          {'to': route.path},
           name
         );
       }
@@ -193,7 +193,7 @@ class Breadcrumbs extends React.Component {
     }
     return React.createElement(
       this.props.itemElement,
-      { 'className': itemClass, 'key': Math.random() * 100 },
+      {'className': itemClass, 'key': Math.random() * 100},
       link,
       separator
     );
@@ -246,12 +246,12 @@ class Breadcrumbs extends React.Component {
       .filter((crumb) => (Boolean(crumb)));
 
     if (ExecutionEnvironment.canUseDOM
-        && window
-        && window.document
-        && 'setDocumentTitle' in this.props
-        && this.props.setDocumentTitle
-        && crumbs.length > 0) {
-      window.document.title = crumbs[crumbs.length - 1].props.children[0];
+      && window
+      && window.document
+      && 'setDocumentTitle' in this.props
+      && this.props.setDocumentTitle
+      && crumbs.length > 0) {
+      window.document.title = crumbs[crumbs.length - 1].props.children[0].props.children
     }
 
     if (prepend || append) {
@@ -264,7 +264,7 @@ class Breadcrumbs extends React.Component {
 
     return React.createElement(
       this.props.wrapperElement,
-      { 'className': this.props.customClass || this.props.wrapperClass },
+      {'className': this.props.customClass || this.props.wrapperClass},
       crumbs
     );
   }

@@ -10,6 +10,7 @@ var userlist = [
 
 const App = exports.App = React.createClass({
   render(){
+    console.log(this.props.params)
     return (
       <div className="animated fadeIn">
         <div>

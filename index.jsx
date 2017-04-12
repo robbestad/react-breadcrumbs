@@ -34,13 +34,13 @@ class Breadcrumbs extends React.Component {
       name = name || route.displayName || null
     }
 
-    // check to see if a custom name has been applied to the route
+    // Check to see if a custom name has been applied to the route
     if (!name && Boolean(route.name)) {
       name = route.name
     }
 
-    // if the name exists and it's in the excludes list exclude this route
-    // if (name && this.props.excludes.some(item => item === name)) return null
+    // If the name exists and it's in the excludes list exclude this route
+    // If (name && this.props.excludes.some(item => item === name)) return null
 
     if (!name && this.props.displayMissing) {
       name = this.props.displayMissingText
@@ -97,7 +97,7 @@ class Breadcrumbs extends React.Component {
   }
 
   _processRoute(route, routesLength, lastCrumb, createElement) {
-    // if there is no route path defined and we are set to hide these then do so
+    // If there is no route path defined and we are set to hide these then do so
     if (!route.path && this.props.hideNoPath) {
       return null
     }
@@ -112,18 +112,18 @@ class Breadcrumbs extends React.Component {
 
     let makeLink = true
 
-    // don't make link if route doesn't have a child route
+    // Don't make link if route doesn't have a child route
     if (makeLink) {
       makeLink = Boolean(route.childRoutes)
     }
 
-    // set up separator
+    // Set up separator
     separator = lastCrumb ? '' : this.props.separator
     if (!makeLink) {
       separator = ''
     }
 
-    // don't make link if route has a disabled breadcrumblink prop
+    // Don't make link if route has a disabled breadcrumblink prop
     if (Object.prototype.hasOwnProperty.call(route, 'breadcrumblink')) {
       makeLink = route.breadcrumblink
     }
@@ -132,8 +132,7 @@ class Breadcrumbs extends React.Component {
     let currentKey = route.path.split('/')[route.path.split('/').length - 1]
     let keyValue
     route.path.split('/').forEach((link) => {
-      // if this is not a param, or we've been given no params to replace with,
-      // we need not do anything
+      // If this is not a param, or we've been given no params to replace with, we need not do anything
       if (link.substring(0, 1) !== ':' || !this.props.params) {
         return
       }
@@ -202,7 +201,7 @@ class Breadcrumbs extends React.Component {
     let crumbs = []
     let parentPath = '/'
 
-    // iterate over the initial list of routes and remove all that don't apply
+    // Iterate over the initial list of routes and remove all that don't apply
     routes = routes
       .map((_route, index) => {
         let route = Object.assign({}, _route)
@@ -237,10 +236,10 @@ class Breadcrumbs extends React.Component {
       })
       .filter((route) => (Boolean(route)))
 
-    // iterate over the pruned list of routes and build the crumbs for each
+    // Iterate over the pruned list of routes and build the crumbs for each
     crumbs = routes
       .map((route, idx) => {
-        return this._processRoute(route, routes.length, routes.length === idx + 1 , createElement)
+        return this._processRoute(route, routes.length, routes.length === idx + 1, createElement)
       })
       .filter((crumb) => (Boolean(crumb)))
 

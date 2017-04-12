@@ -56,6 +56,12 @@ If you want to force the route to use the name value provided you can add the `s
 <Route name="UserLocator" staticName={true} path=":userId" component={User}>
 ```
 
+You can then use the `getDisplayName` prop for dynamic labels as well:
+
+```jsx
+<Route name="UserLocator" component={User} getDisplayName={() => `Current time is ${new DateTime()}`} />
+```
+
 ## Usage
 
 ```jsx
@@ -149,6 +155,31 @@ hide or show these in the breadcrumbs.
 ## Styling
 
 The breadcrumbs are set up in a div with the class name "breadcrumbs".
+
+
+## Dynamic and Asynchronous data
+
+Sometimes you could like to display in the breadcrumbs something taken from a server-size call; in this case route params are meaningful for a database instead of something for being displayed in a breadcrumbs (a common case when you are working with a RESTful API).
+In this case you would like to display something more complex in the breadcrumbs instead of the raw param.
+
+You can use the `getDisplayName` prop combined with `staticName` to handle parametrized paths (example below suppose Redux usage):
+
+```jsx
+<Route name="UserLocator" component={User} staticName={true} getDisplayName={() => store.getStore().something.foo} />
+```
+
+You can also handle asynchronous loading of data in the store:
+
+```jsx
+<Route name="UserLocator" component={User} staticName={true} getDisplayName={() => store.getStore().something.foo || '...'} />
+```
+
+Probably initially data in the store will be empty, so in this case you need to trigger a re-render when data change.
+Just pass proper params to the Breadcrumbs:
+
+```jsx
+<Breadcrumbs something={something} />
+```
 
 [1]: https://facebook.github.io/react
 [2]: http://breadcrumbs.surge.sh/index.html

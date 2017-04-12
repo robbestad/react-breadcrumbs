@@ -5,8 +5,7 @@ var isProd = process.env.NODE_ENV === 'production';
 var plugins = [
   new webpack.DefinePlugin({
     'process.env': {NODE_ENV: '"production"'}
-  }),
-  new webpack.optimize.OccurenceOrderPlugin()
+  })
 ];
 
 if (process.env.NODE_ENV !== 'development') {

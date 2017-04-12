@@ -50,8 +50,8 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
-    "react": ">=0.13.2 || ^15.2.1",
-    "react-router": ">2.5.0 || ^3.0.0-beta.1"
+    "react": ">=0.13.2 || <16.x",
+    "react-router": ">2.5.0 || <4.x"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
@@ -73,10 +73,11 @@
     "nyc": "^10.1.2",
     "postcss": "^5.2.5",
     "postcss-cli": "^3.1.1",
+    "prop-types": "^15.5.7",
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-router": "^2.0.0",
+    "react-router": "3.x",
     "tape": "^4.2.2",
     "uglifyjs": "^2.4.10",
     "webpack": "^1.13.2",

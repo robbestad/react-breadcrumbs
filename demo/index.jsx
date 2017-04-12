@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Breadcrumbs from '../index.jsx';
+
 var userlist = [
   {id:"1", name:"John"},
   {id:"2", name:"Rambo"},

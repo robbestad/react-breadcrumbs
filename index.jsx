@@ -4,15 +4,17 @@
  * @class Breadcrumbs
  * @description New breadcrumbs class based on ES6 structure.
  * @exports Breadcrumbs
- * @version 1.1.11
+ * @version 1.6
  * @extends component
  * @requires react
  * @requires react-router
  *
  */
+
 import React from 'react'
 import { Link } from 'react-router'
 import ExecutionEnvironment from 'exenv'
+import PropTypes from "prop-types"
 
 class Breadcrumbs extends React.Component {
 
@@ -278,43 +280,43 @@ class Breadcrumbs extends React.Component {
  * @type {{separator: *, createElement: *, displayMissing: *, wrapperElement: *, wrapperClass: *, itemElement: *, itemClass: *, activeItemClass: *,  customClass: *,excludes: *, append: *, prepend: *, params: *, Link: *}}
  */
 Breadcrumbs.propTypes = {
-  'params': React.PropTypes.object.isRequired,
-  'prepend': React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.bool
+  'params': PropTypes.object.isRequired,
+  'prepend': PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.bool
   ]),
-  'append': React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.bool
+  'append': PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.bool
   ]),
-  'separator': React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.string
+  'separator': PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
   ]),
-  'createElement': React.PropTypes.bool,
-  'Link': React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.string
+  'createElement': PropTypes.bool,
+  'Link': PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
   ]),
-  'displayMissing': React.PropTypes.bool,
-  'prettify': React.PropTypes.bool,
-  'displayMissingText': React.PropTypes.string,
-  'wrapperElement': React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.string
+  'displayMissing': PropTypes.bool,
+  'prettify': PropTypes.bool,
+  'displayMissingText': PropTypes.string,
+  'wrapperElement': PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
   ]),
-  'wrapperClass': React.PropTypes.string,
-  'itemElement': React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.string
+  'wrapperClass': PropTypes.string,
+  'itemElement': PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string
   ]),
-  'itemClass': React.PropTypes.string,
-  'customClass': React.PropTypes.string,
-  'activeItemClass': React.PropTypes.string,
-  'excludes': React.PropTypes.arrayOf(React.PropTypes.string),
-  'hideNoPath': React.PropTypes.bool,
-  'routes': React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  'setDocumentTitle': React.PropTypes.bool
+  'itemClass': PropTypes.string,
+  'customClass': PropTypes.string,
+  'activeItemClass': PropTypes.string,
+  'excludes': PropTypes.arrayOf(PropTypes.string),
+  'hideNoPath': PropTypes.bool,
+  'routes': PropTypes.arrayOf(PropTypes.object).isRequired,
+  'setDocumentTitle': PropTypes.bool
 }
 
 /**

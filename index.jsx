@@ -96,7 +96,7 @@ class Breadcrumbs extends React.Component {
     return name
   }
 
-  _processRoute(route, routesLength, crumbsLength, createElement) {
+  _processRoute(route, routesLength, lastCrumb, createElement) {
     // if there is no route path defined and we are set to hide these then do so
     if (!route.path && this.props.hideNoPath) {
       return null
@@ -115,11 +115,10 @@ class Breadcrumbs extends React.Component {
     // don't make link if route doesn't have a child route
     if (makeLink) {
       makeLink = Boolean(route.childRoutes)
-      makeLink = routesLength !== (crumbsLength + 1)
     }
 
     // set up separator
-    separator = routesLength === (crumbsLength + 1) ? '' : this.props.separator
+    separator = lastCrumb ? '' : this.props.separator
     if (!makeLink) {
       separator = ''
     }
@@ -240,8 +239,8 @@ class Breadcrumbs extends React.Component {
 
     // iterate over the pruned list of routes and build the crumbs for each
     crumbs = routes
-      .map((route) => {
-        return this._processRoute(route, routes.length, crumbs.length, createElement)
+      .map((route, idx) => {
+        return this._processRoute(route, routes.length, routes.length === idx + 1 , createElement)
       })
       .filter((crumb) => (Boolean(crumb)))
 
@@ -250,7 +249,7 @@ class Breadcrumbs extends React.Component {
       && window.document
       && 'setDocumentTitle' in this.props
       && this.props.setDocumentTitle
-      && crumbs.length > 0) {
+      && crumbs[crumbs.length - 1].props.children[0] > 0) {
       window.document.title = crumbs[crumbs.length - 1].props.children[0].props.children
     }
 

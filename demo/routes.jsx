@@ -16,7 +16,7 @@ export default (
           <Route name='RouteName3' path=':item1' component={Info}>
             <Route name='RouteName4' path='child2' component={Info}>
               <Route name='RouteName5' path=':item2' component={Info}>
-                <Route name='RouteName6' path='child3' component={Info}>
+                <Route name='RouteName6' path='child3' component={Info} getDisplayName={() => "A fixed displayname from routes"}>
                 </Route>
               </Route>
             </Route>

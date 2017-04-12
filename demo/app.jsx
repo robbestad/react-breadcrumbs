@@ -15,7 +15,6 @@ const App = exports.App = React.createClass({
         <div>
           <Breadcrumbs routes={this.props.routes}
                        params={this.props.params}
-                       getDisplayName={() => Math.random() * 1000 }
                        setDocumentTitle={true}/>
           <div className="content">
             <h3>Navigation</h3>
@@ -116,7 +115,6 @@ const Users = exports.Users = React.createClass({
     }
   },
   render() {
-    console.log(this.props)
     return (
       <div>
         <h1>User List</h1>

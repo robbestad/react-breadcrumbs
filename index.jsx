@@ -12,7 +12,7 @@
  */
 
 import React from 'react'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 import ExecutionEnvironment from 'exenv'
 import PropTypes from 'prop-types'
 
@@ -53,7 +53,7 @@ class Breadcrumbs extends React.Component {
 
   _addKeyToElement(el) {
     return (el && !el.key && el.type)
-      ? Object.assign({}, el, {'key': Math.random() * 100})
+      ? Object.assign({}, el, { 'key': Math.random() * 100 })
       : el
   }
 
@@ -156,9 +156,9 @@ class Breadcrumbs extends React.Component {
         if (typeof route.getDisplayName === 'function') {
           name = route.getDisplayName.bind(null, this.props.params)()
         } else {
-        name = pathWithParam.reduce((start, link) => {
-          return link
-        })
+          name = pathWithParam.reduce((start, link) => {
+            return link
+          })
         }
       }
 
@@ -185,7 +185,7 @@ class Breadcrumbs extends React.Component {
       if (createElement) {
         link = React.createElement(
           this.props.Link || Link,
-          {'to': route.path},
+          { 'to': route.path },
           name
         )
       }
@@ -198,7 +198,7 @@ class Breadcrumbs extends React.Component {
     }
     return React.createElement(
       this.props.itemElement,
-      {'className': itemClass, 'key': Math.random() * 100},
+      { 'className': itemClass, 'key': Math.random() * 100 },
       link,
       separator
     )
@@ -269,7 +269,7 @@ class Breadcrumbs extends React.Component {
 
     return React.createElement(
       this.props.wrapperElement,
-      {'className': this.props.customClass || this.props.wrapperClass},
+      { 'className': this.props.customClass || this.props.wrapperClass },
       crumbs
     )
   }

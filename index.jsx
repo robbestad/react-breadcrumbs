@@ -342,4 +342,4 @@ Breadcrumbs.defaultProps = {
   'setDocumentTitle': false
 }
 
-module.exports = Breadcrumbs
+export default Breadcrumbs

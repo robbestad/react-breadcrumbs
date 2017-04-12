@@ -1,6 +1,6 @@
 {
   "name": "react-breadcrumbs",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Automatic breadcrumbs for react-router",
   "main": "index.js",
   "scripts": {

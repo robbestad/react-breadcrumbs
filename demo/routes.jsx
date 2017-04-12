@@ -8,7 +8,7 @@ export default (
     <Route path="/" name="Examples" component={App} >
       <Route name="Users" path="users" component={Users}>
         <Route name="UserLocator" path=":userId" component={User}>
-          <Route name="UserDetails" path="details" component={UserDetails} />
+          <Route name="UserDetails" path="details(/:baz)" component={UserDetails} />
         </Route>
       </Route>
       <Route name='RouteName1' path='parent' component={Info}>

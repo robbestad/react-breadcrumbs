@@ -8,4 +8,4 @@ var userlist = [
 import { IndexRoute, Router, Route, Link } from 'react-router'
 import Routes from './routes.jsx';
 
-render(Routes, document.getElementById('app'));
+render(<Routes />, document.getElementById('app'));

@@ -20,6 +20,9 @@ class Breadcrumbs extends React.Component {
 
   constructor(props) {
     super(props)
+
+    debugger
+
     this.displayName = 'Breadcrumbs'
   }
 
@@ -275,6 +278,7 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
+    if(!this.props.params) return null
     return this._buildRoutes(this.props.routes, this.props.createElement, this.props.prepend, this.props.append)
   }
 }

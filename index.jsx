@@ -179,13 +179,19 @@ class Breadcrumbs extends React.Component {
       })
     }
 
+    let linkProps = {};
+
+    if (Object.prototype.hasOwnProperty.call(route, 'linkProps')) {
+      linkProps = route.linkProps
+    }
+
     var link = name
     var itemClass = this.props.itemClass
     if (makeLink) {
       if (createElement) {
         link = React.createElement(
           this.props.Link || Link,
-          { 'to': route.path },
+          Object.assign({ 'to': route.path }, linkProps),
           name
         )
       }

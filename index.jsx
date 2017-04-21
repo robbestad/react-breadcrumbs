@@ -300,19 +300,19 @@ Breadcrumbs.propTypes = {
   ]),
   'createElement': PropTypes.bool,
   'Link': PropTypes.oneOfType([
-    PropTypes.element,
+    PropTypes.func,
     PropTypes.string
   ]),
   'displayMissing': PropTypes.bool,
   'prettify': PropTypes.bool,
   'displayMissingText': PropTypes.string,
   'wrapperElement': PropTypes.oneOfType([
-    PropTypes.element,
+    PropTypes.func,
     PropTypes.string
   ]),
   'wrapperClass': PropTypes.string,
   'itemElement': PropTypes.oneOfType([
-    PropTypes.element,
+    PropTypes.func,
     PropTypes.string
   ]),
   'itemClass': PropTypes.string,

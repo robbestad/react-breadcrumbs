@@ -50,8 +50,9 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "peerDependencies": {
-    "react": ">=0.13.2 || <16.x",
-    "react-router": ">2.5.0 || <4.x"
+    "react": "^15.0.0",
+    "react-router-dom": "^4.0.0",
+    "prop-types": "^15.5.7"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
@@ -76,7 +77,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.3.2",
     "react-dom": "^15.5.4",
-    "react-router": "3.x",
+    "react-router-dom": "^4.1.1",
     "react-test-renderer": "^15.5.4",
     "tape": "^4.6.3",
     "uglifyjs": "^2.4.10",
@@ -84,6 +85,8 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
-    "exenv": "^1.2.0"
+    "lodash.isequal": "^4.5.0",
+    "redux": "^3.6.0",
+    "uuid": "^3.0.1"
   }
 }

@@ -196,11 +196,13 @@ class Breadcrumbs extends React.Component {
     if (!createElement) {
       return link
     }
+
+    let children = (this.props.rtl) ? [separator, link] :  [link, separator];
+
     return React.createElement(
       this.props.itemElement,
       { 'className': itemClass, 'key': Math.random() * 100 },
-      link,
-      separator
+      ...children
     )
   }
 
@@ -246,9 +248,15 @@ class Breadcrumbs extends React.Component {
     // Iterate over the pruned list of routes and build the crumbs for each
     crumbs = routes
       .map((route, idx) => {
-        return this._processRoute(route, routes.length, routes.length === idx + 1, createElement)
+        let lastCrumb = this.props.rtl ? 0 : routes.length
+        return this._processRoute(route, routes.length, lastCrumb == idx + 1, createElement)
       })
       .filter((crumb) => (Boolean(crumb)))
+
+    if (this.props.rtl) {
+      crumbs = crumbs.reverse();
+    }
+
 
     if (ExecutionEnvironment.canUseDOM
       && window
@@ -321,7 +329,8 @@ Breadcrumbs.propTypes = {
   'excludes': PropTypes.arrayOf(PropTypes.string),
   'hideNoPath': PropTypes.bool,
   'routes': PropTypes.arrayOf(PropTypes.object).isRequired,
-  'setDocumentTitle': PropTypes.bool
+  'setDocumentTitle': PropTypes.bool,
+  'rtl': PropTypes.bool,
 }
 
 /**
@@ -344,7 +353,8 @@ Breadcrumbs.defaultProps = {
   'excludes': [''],
   'prettify': false,
   'hideNoPath': true,
-  'setDocumentTitle': false
+  'setDocumentTitle': false,
+  'rtl': false
 }
 
 export default Breadcrumbs

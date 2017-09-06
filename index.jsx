@@ -248,8 +248,8 @@ class Breadcrumbs extends React.Component {
     // Iterate over the pruned list of routes and build the crumbs for each
     crumbs = routes
       .map((route, idx) => {
-        let lastCrumb = this.props.rtl ? 0 : idx + 1
-        return this._processRoute(route, routes.length, routes.length === lastCrumb, createElement)
+        let lastCrumb = this.props.rtl ? 0 : routes.length
+        return this._processRoute(route, routes.length, lastCrumb == idx + 1, createElement)
       })
       .filter((crumb) => (Boolean(crumb)))
 

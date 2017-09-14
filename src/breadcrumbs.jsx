@@ -1,66 +1,90 @@
+// Import External Dependencies
 import React from 'react'
 import PropTypes from 'prop-types'
+
+// TODO: Use imitation nav link instead to remove react-router-dom dep
 import { NavLink } from 'react-router-dom'
+
+// Import Utilities
 import Store from './store'
 
+// Specify BEM block name
 const block = 'breadcrumbs'
 
+// Create and export the component
 export default class Breadcrumbs extends React.Component {
-	static propTypes = {
-		className: PropTypes.string,
-		hidden: PropTypes.bool
-	}
+    static propTypes = {
+        className: PropTypes.string,
+        hidden: PropTypes.bool,
+        separator: PropTypes.node,
+        wrapper: PropTypes.oneOfType([ 
+            PropTypes.func, 
+            PropTypes.instanceOf(React.Component) 
+        ])
+    }
 
-	static defaultProps = {
-		className: '',
-		hidden: true
-	}
+    static defaultProps = {
+        className: '',
+        hidden: false,
+        separator: '>',
+        wrapper: props => (
+            <nav { ...props }>
+                { props.children }
+            </nav>
+        )
+    }
 
-	_unsubscribe = null
+    _unsubscribe = null
 
-	render() {
-		let { className, hidden } = this.props,
-			hiddenMod = hidden ? `${block}--hidden` : '',
-			crumbs = Store.getState()
+    render() {
+        let { className, hidden, wrapper: Wrapper } = this.props,
+            hiddenMod = hidden ? `${block}--hidden` : '',
+            crumbs = Store.getState()
 
-		// TODO: Allow custom wrapper with normal attributes/props
-		return (
-			<div>
-				<nav className={ `${block} ${hiddenMod} ${className}` }>
-					<div className={ `${block}__inner` }>
-						{ 
-							crumbs.sort((a, b) => {
-								return a.pathname.length - b.pathname.length
-							}).map(crumb => (
-								<NavLink
-									exact
-									key={ crumb.id }
-									className={ `${block}__crumb` }
-									activeClassName={ `${block}__crumb--active` }
-									to={{ 
-										pathname: crumb.pathname,
-										search: crumb.search,
-										state: crumb.state
-									}}>
-									{ crumb.title }
-								</NavLink>
-							))
-						}
-					</div>
-				</nav>
+        return (
+            <div className={ className }>
+                <Wrapper className={ `${block} ${hiddenMod}` }>
+                    <div className={ `${block}__inner` }>
+                        { 
+                            crumbs.sort((a, b) => {
+                                return a.pathname.length - b.pathname.length
+                            }).map((crumb, i) => (
+                                <span key={ crumb.id } className={ `${block}__section` }>
+                                    <NavLink
+                                        exact
+                                        className={ `${block}__crumb` }
+                                        activeClassName={ `${block}__crumb--active` }
+                                        to={{ 
+                                            pathname: crumb.pathname,
+                                            search: crumb.search,
+                                            state: crumb.state
+                                        }}>
+                                        { crumb.title }
+                                    </NavLink>
 
-				{ this.props.children }
-			</div>
-		)
-	}
+                                    { i < crumbs.length - 1 ? (
+                                        <span className={ `${block}__separator` }>
+                                            { this.props.separator }
+                                        </span>
+                                    ) : null }
+                                </span>
+                            ))
+                        }
+                    </div>
+                </Wrapper>
 
-	componentWillMount() {
-		this._unsubscribe = Store.subscribe(() => {
-			this.forceUpdate()
-		})
-	}
+                { this.props.children }
+            </div>
+        )
+    }
 
-	componentWillUnmount() {
-		this._unsubscribe()
-	}
+    componentWillMount() {
+        this._unsubscribe = Store.subscribe(() => {
+            this.forceUpdate()
+        })
+    }
+
+    componentWillUnmount() {
+        this._unsubscribe()
+    }
 }

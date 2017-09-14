@@ -1,8 +1,15 @@
 {
-  "presets": ["es2015", "react"],
+  "presets": [
+    [ "es2015", { "modules": false } ],
+    "stage-0", 
+    "react"
+  ],
   "env": {
     "test": {
-      "plugins": ["istanbul"]
+      "plugins": [
+      	"istanbul",
+      	"transform-object-rest-spread"
+      ]
     }
   }
 }

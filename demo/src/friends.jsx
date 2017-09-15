@@ -5,6 +5,14 @@ import { Switch, NavLink } from 'react-router-dom'
 // Import Components
 import CrumbRoute from './crumb-route.jsx'
 
+// Define a small friend page
+const Friend = props => (
+	<div className="friend">
+		<h3>{ props.name }</h3>
+		<p>More information about { props.name }...</p>
+	</div>
+)
+
 // Create and export the component
 export default ({
 	location,
@@ -22,10 +30,10 @@ export default ({
 		</ul>
 
 		<Switch>
-			<CrumbRoute title="Alice" path={ `${match.url}/alice` } render={ props => <span>About Alice...</span> } />
-			<CrumbRoute title="Frank" path={ `${match.url}/frank` } render={ props => <span>About Frank...</span> } />
-			<CrumbRoute title="Jane" path={ `${match.url}/jane` } render={ props => <span>About Jane...</span> } />
-			<CrumbRoute title="Matt" path={ `${match.url}/matt` } render={ props => <span>About Matt...</span> } />
+			<CrumbRoute title="Alice" path={ `${match.url}/alice` } render={ props => <Friend name="Alice" /> } />
+			<CrumbRoute title="Frank" path={ `${match.url}/frank` } render={ props => <Friend name="Frank" /> } />
+			<CrumbRoute title="Jane" path={ `${match.url}/jane` } render={ props => <Friend name="Jane" /> } />
+			<CrumbRoute title="Matt" path={ `${match.url}/matt` } render={ props => <Friend name="Matt" /> } />
 		</Switch>
 	</div>
 )

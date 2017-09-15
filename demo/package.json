@@ -4,7 +4,8 @@
   "description": "A small demo of the react-breadcrumbs package.",
   "main": "n/a",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",

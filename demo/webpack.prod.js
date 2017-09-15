@@ -1,15 +1,28 @@
-var webpack = require('webpack');
-var path = require('path');
-var isProd = process.env.NODE_ENV === 'production';
+const webpack = require('webpack');
+const path = require('path');
 
-var plugins = [
-  new webpack.DefinePlugin({
-    'process.env': {NODE_ENV: '"production"'}
-  })
-];
-
-if (process.env.NODE_ENV !== 'development') {
-  plugins.push(
+module.exports = {
+  entry: './src/index.jsx',
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {NODE_ENV: '"production"'}
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
@@ -17,24 +30,17 @@ if (process.env.NODE_ENV !== 'development') {
         warnings: false
       }
     })
-  );
-}
-
-module.exports = {
-  devtool: !isProd && 'eval',
-  entry: './index.jsx',
+  ],
   output: {
-    path: __dirname,
-    filename: './dist/bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
-  module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
-  },
-  plugins: plugins
+  devServer: {
+    port: 3000,
+    hot: true,
+    inline: true,
+    compress: true,
+    historyApiFallback: true,
+    contentBase: 'dist/'
+  }
 }

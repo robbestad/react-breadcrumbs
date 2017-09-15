@@ -14,8 +14,8 @@ npm install --save react-breadcrumbs
 ## Demo
 
 The `/demo` directory and live demo site provide one example of how this 
-package can be used. See the [`/demo/src`][3] for the code powering the
-small site.
+package can be used. See the [`/demo`][3] for the code powering the small 
+site.
 
 [>> TO THE LIVE DEMO][4]
 
@@ -62,6 +62,6 @@ title: <CustomComponent title="Home" icon="house" />
 
 [1]: https://facebook.github.io/react
 [2]: https://github.com/rackt/react-router
-[3]: https://github.com/svenanders/react-breadcrumbs/tree/master/demo/src
+[3]: https://github.com/svenanders/react-breadcrumbs/tree/master/demo
 [4]: http://breadcrumbs.surge.sh/index.html
 [5]: https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/location.md

@@ -11,7 +11,8 @@ import { Dispatch } from './store'
 export default class Breadcrumb extends React.Component {
 	static propTypes = {
 		data: PropTypes.object.isRequired,
-		hidden: PropTypes.bool
+		hidden: PropTypes.bool,
+		children: PropTypes.element.isRequired
 	}
 
 	static defaultProps = {

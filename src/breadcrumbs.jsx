@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// TODO: Use imitation nav link instead to remove react-router-dom dep
+// TODO: Use imitation and allow it to be passed as a prop
 import { NavLink } from 'react-router-dom'
 
 // Import Utilities
@@ -19,7 +19,15 @@ export default class Breadcrumbs extends React.Component {
         separator: PropTypes.node,
         wrapper: PropTypes.oneOfType([ 
             PropTypes.func, 
-            PropTypes.instanceOf(React.Component) 
+            PropTypes.instanceOf(
+                React.Component
+            ) 
+        ]),
+        children: PropTypes.oneOfType([
+            PropTypes.node,
+            PropTypes.arrayOf(
+                PropTypes.node
+            )
         ])
     }
 

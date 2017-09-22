@@ -28,7 +28,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    port: 3000,
+    port: 3030,
     hot: true,
     inline: true,
     compress: true,

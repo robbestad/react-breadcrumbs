@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: '"production"'}
+      'process.env': { NODE_ENV: '"production"' }
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -34,13 +34,5 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
-  },
-  devServer: {
-    port: 3000,
-    hot: true,
-    inline: true,
-    compress: true,
-    historyApiFallback: true,
-    contentBase: 'dist/'
   }
 }

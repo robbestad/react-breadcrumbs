@@ -1,10 +1,2 @@
 node_modules/
-.flowconfig
-.test
-.sass-cache/
 npm-debug.log
-spec.js
-.idea
-
-.nyc_output/
-coverage/

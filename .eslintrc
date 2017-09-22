@@ -1,10 +1,12 @@
 {
-  "extends": ["xo", "xo-react/space"],
-  "env": {
-    "browser": false,
-      "node": true,
-      "es6": true
-  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -12,66 +14,12 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "unicorn"
-  ],
+  "env": {
+    "browser": false,
+    "node": true,
+    "es6": true
+  },
   "rules": {
-    "indent": ["error", 2],
-    "max-params": 0,
-    "eol-last": 0,
-    "semi": 0,
-    "unicorn/filename-case": 0,
-    "arrow-parens": [
-      "error",
-      "always"
-    ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
-    "operator-linebreak": [
-      "error",
-      "before"
-    ],
-    "import/no-unassigned-import": 0,
-    "no-use-extend-native/no-use-extend-native": 0,
-    "no-constant-condition": 0,
-    "quote-props": [
-      "error",
-      "always"
-    ],
-    "require-jsdoc": 0,
-    "valid-jsdoc": [
-      "error",
-      {
-        "matchDescription": ".+",
-        "requireParamDescription": true,
-        "requireReturn": false,
-        "requireReturnType": true,
-        "requireReturnDescription": true,
-        "prefer": {
-          "arg": "param",
-          "argument": "param",
-          "return": "returns",
-          "virtual": "abstract"
-        },
-        "preferType": {
-          "boolean": "Boolean",
-          "number": "Number",
-          "object": "Object",
-          "string": "String"
-        }
-      }
-    ],
-    "no-console": "error",
-    "no-unused-vars": [
-      "warn",
-      {
-        "args": "none"
-      }
-    ],
-    "unicorn/no-abusive-eslint-disable": 0,
-    "camelcase": 0,
-    "new-cap": 0
+    "semi": [ 2, "never" ]
   }
 }

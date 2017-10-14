@@ -3,22 +3,23 @@
 [React][1] component use to generate a breadcrumb trail (compatible with 
 [React Router][2]).
 
-
 ## Installation
 
 ```sh
 npm install --save react-breadcrumbs
 ```
 
+Note: this version is only compatible with React-Router v4 and up. If you
+need a version that is compatible with React-Router v3 and below, use
+```
+npm install --save react-breadcrumbs@1.6.x
+```
 
 ## Demo
 
-The `/demo` directory and live demo site provide one example of how this 
+The `/demo` directory provide one example of how this 
 package can be used. See the [`/demo`][3] for the code powering the small 
 site.
-
-[>> TO THE LIVE DEMO][4]
-
 
 ## Usage
 

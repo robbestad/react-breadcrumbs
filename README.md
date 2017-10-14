@@ -60,9 +60,16 @@ title: <span title="Hovered!">Home</span>
 title: <CustomComponent title="Home" icon="house" />
 ```
 
+### Authors
+
+This project would not have been where it is today without massive contributions from 
+a whole lot of people ([`AUTHORS`][6]). Suport for React Router v4 support was written
+entirely by ([`@skipjack`][7]).
 
 [1]: https://facebook.github.io/react
 [2]: https://github.com/rackt/react-router
 [3]: https://github.com/svenanders/react-breadcrumbs/tree/master/demo
 [4]: http://breadcrumbs.surge.sh/index.html
 [5]: https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/location.md
+[6]: https://github.com/svenanders/react-breadcrumbs/tree/master/AUTHORS
+[7]: https://github.com/skipjack

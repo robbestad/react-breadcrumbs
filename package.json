@@ -1,11 +1,11 @@
 {
   "name": "react-breadcrumbs",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Automatic breadcrumbs for react-router",
   "author": "Sven Anders Robbestad <anders@robbestad.com>",
   "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "dist/react-breadcrumbs.min.js",
   "scripts": {
     "build": "webpack",
     "release": "standard-version"

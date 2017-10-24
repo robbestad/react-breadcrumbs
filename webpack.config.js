@@ -51,6 +51,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'react-breadcrumbs.min.js'
+    filename: 'react-breadcrumbs.min.js',
+    library: 'react-breadcrumbs',
+    libraryTarget: 'umd'
   }
 }

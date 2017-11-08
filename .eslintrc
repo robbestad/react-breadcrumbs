@@ -1,10 +1,12 @@
 {
   "extends": [
+    "prettier",
     "eslint:recommended",
     "plugin:react/recommended"
   ],
   "plugins": [
-    "react"
+    "react",
+    "prettier"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -17,7 +19,8 @@
   "env": {
     "browser": false,
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "rules": {
     "semi": [ 2, "never" ]

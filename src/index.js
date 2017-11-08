@@ -1,2 +1,2 @@
-export Breadcrumb from './breadcrumb.jsx'
-export Breadcrumbs from './breadcrumbs.jsx'
+export Breadcrumb from "./breadcrumb.jsx"
+export Breadcrumbs from "./breadcrumbs.jsx"

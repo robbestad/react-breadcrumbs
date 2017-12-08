@@ -12,11 +12,12 @@ export default class Breadcrumb extends React.Component {
 	static propTypes = {
 		data: PropTypes.object.isRequired,
 		hidden: PropTypes.bool,
-		children: PropTypes.element.isRequired
+		children: PropTypes.element
 	}
 
 	static defaultProps = {
-		hidden: false
+		hidden: false,
+		children: null
 	}
 
 	state = {
@@ -24,7 +25,7 @@ export default class Breadcrumb extends React.Component {
 	}
 
 	render() {
-		return this.props.children || null
+		return this.props.children
 	}
 
 	componentDidMount() {

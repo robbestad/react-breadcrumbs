@@ -24,7 +24,7 @@ export default class Breadcrumb extends React.Component {
 	}
 
 	render() {
-		return this.props.children
+		return this.props.children || null
 	}
 
 	componentDidMount() {

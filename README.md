@@ -1,6 +1,6 @@
 # React Breadcrumbs
 
-[React][1] component use to generate a breadcrumb trail (compatible with 
+[React][1] component use to generate a breadcrumb trail (compatible with
 [React Router][2]).
 
 ## Installation
@@ -17,8 +17,8 @@ npm install --save react-breadcrumbs@1.6.x
 
 ## Demo
 
-The `/demo` directory provide one example of how this 
-package can be used. See the [`/demo`][3] for the code powering the small 
+The `/demo` directory provide one example of how this
+package can be used. See the [`/demo`][3] for the code powering the small
 site.
 
 ## Usage
@@ -40,7 +40,7 @@ The top-level `<Breadcrumbs>` component accepts the following `props`:
 - `data` (object): An extended [location descriptor][5]. See below...
 - `hidden` (bool): Hide an individual breadcrumb (rarely needed).
 
-The `data` object allows any valid [location descriptor][5] key (e.g. 
+The `data` object allows any valid [location descriptor][5] key (e.g.
 `pathname` or `search`) as well as a `title` prop:
 
 ``` js
@@ -51,8 +51,8 @@ The `data` object allows any valid [location descriptor][5] key (e.g.
 }
 ```
 
-The fact that the `title` can be any valid `PropTypes.node` makes allows
-a huge amount of customization. The following values are all valid:
+The fact that the `title` can be any valid `PropTypes.node` allows for a huge
+amount of customization. The following values are all valid:
 
 ``` jsx
 title: 'Home'
@@ -62,7 +62,7 @@ title: <CustomComponent title="Home" icon="house" />
 
 ### Authors
 
-This project would not have been where it is today without massive contributions from 
+This project would not have been where it is today without massive contributions from
 a whole lot of people ([`AUTHORS`][6]). Suport for React Router v4 support was written
 entirely by ([`@skipjack`][7]).
 

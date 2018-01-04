@@ -32,9 +32,9 @@
     "trail"
   ],
   "peerDependencies": {
-    "prop-types": "^15.5.7",
-    "react": "^15.0.0",
-    "react-router-dom": "^4.0.0"
+    "react": "^15.0.0 || ^16.0.0",
+    "react-router-dom": "^4.0.0",
+    "prop-types": "^15.5.7"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

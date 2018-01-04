@@ -6,10 +6,19 @@ import { Route } from 'react-router-dom';
 import { Breadcrumb } from '../../src/index.js';
 
 // Create and export the component
-export default ({ component: Component, render, ...props }) => (
+export default ({
+	component: Component,
+	includeSearch = false,
+	render,
+	...props
+}) => (
   <Route { ...props } render={ routeProps => (
-    <Breadcrumb data={{ title: props.title, pathname: props.path }}>
-      { Component ? <Component { ...routeProps } /> : render(routeProps) }
+    <Breadcrumb data={{
+    	title: props.title,
+    	pathname: routeProps.match.path,
+    	search: includeSearch ? routeProps.location.search : null
+    }}>
+    	{ Component ? <Component { ...routeProps } /> : render(routeProps) }
     </Breadcrumb>
   )} />
 )

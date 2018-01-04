@@ -17,7 +17,8 @@ import './app.css';
 export default class App extends React.Component {
   render() {
     return (
-      <Breadcrumbs className="demo">
+      <div className="demo">
+        <Breadcrumbs className="demo__crumbs" />
         <main className="demo__main">
           <h1>Breadcrumbs Demo</h1>
           <p>Use the links below to jump around the site and watch the breadcrumbs update...</p>
@@ -37,7 +38,7 @@ export default class App extends React.Component {
             </Switch>
           </div>
         </main>
-      </Breadcrumbs>
+      </div>
     )
   }
 }

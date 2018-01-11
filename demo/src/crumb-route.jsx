@@ -15,7 +15,7 @@ export default ({
   <Route { ...props } render={ routeProps => (
     <Breadcrumb data={{
     	title: props.title,
-    	pathname: routeProps.match.path,
+    	pathname: routeProps.match.url,
     	search: includeSearch ? routeProps.location.search : null
     }}>
     	{ Component ? <Component { ...routeProps } /> : render(routeProps) }

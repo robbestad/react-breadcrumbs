@@ -34,5 +34,8 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     contentBase: 'dist/'
+  },
+  resolve: {
+    extensions: [".js", ".jsx"]
   }
 }

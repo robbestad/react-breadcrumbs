@@ -2,17 +2,17 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.jsx',
-  module: {
+  entry:   './src/index.jsx',
+  module:  {
     loaders: [
       {
-        test: /\.jsx?$/,
-        use: 'babel-loader',
+        test:    /\.jsx?$/,
+        use:     'babel-loader',
         exclude: /node_modules/
       },
       {
         test: /\.css/,
-        use: [
+        use:  [
           'style-loader',
           'css-loader'
         ]
@@ -21,18 +21,21 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: '"production"' }
+      'process.env': {NODE_ENV: '"production"'}
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        screw_ie8: true,
+        screw_ie8:    true,
         drop_console: true,
-        warnings: false
+        warnings:     false
       }
     })
   ],
-  output: {
-    path: path.resolve(__dirname, 'dist'),
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
+  output:  {
+    path:     path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   }
 }

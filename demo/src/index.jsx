@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 // Import Components
 import App from './app.jsx';
+import Friends from './friends.jsx';
 import CrumbRoute from './crumb-route.jsx';
 
 // Define element and render method

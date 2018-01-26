@@ -3,7 +3,7 @@ import React from 'react'
 import {Switch, NavLink, Route} from 'react-router-dom'
 
 // Import Components
-import CrumbRoute from './crumb-route.jsx'
+import CrumbRoute from '../crumb-route.jsx'
 
 // Define a small friend page
 import Friend from "./friend"

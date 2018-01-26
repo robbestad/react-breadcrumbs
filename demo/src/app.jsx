@@ -6,7 +6,7 @@ import {Switch, NavLink, Route} from 'react-router-dom'
 import {Breadcrumbs} from '../../src/index.js';
 import CrumbRoute from './crumb-route.jsx'
 import Friends from './friends.jsx'
-import YourFriends from "./your-friends"
+import YourFriends from "./friends/index"
 
 import Events from './events.jsx'
 import Locations from './locations.jsx'
@@ -28,7 +28,7 @@ export default class App extends React.Component {
               <Route path="/" exact render={props => [<h1 key={"title"}>Breadcrumbs Demo</h1>,
                 <p key={"description"}> Use the links below to jump around the site and watch the breadcrumbs update...</p>,
                 <ul key={"links"} className="demo__links">
-                  <li><NavLink to="/yourfriends">Your friends</NavLink></li>
+                  <li><NavLink to="/yourfriends">Friends (non-nested)</NavLink></li>
                     <li><NavLink to="/friends">Friends</NavLink></li>
                   <li><NavLink to="/events">Events</NavLink></li>
                   <li><NavLink to="/locations">Locations</NavLink></li>

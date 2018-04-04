@@ -60,6 +60,28 @@ title: <span title="Hovered!">Home</span>
 title: <CustomComponent title="Home" icon="house" />
 ```
 
+### Integration with redux
+
+It is possible to integrate breadcrumbs with your own redux store
+
+
+First, connect reducer to your store
+``` jsx
+import {crumbs} from "react-breadcrumbs"
+
+const rootReducer = combineReducers({
+    ...
+    crumbs
+})
+```
+then use ConnectedBreadcrumb and ConnectedBreadcrumbs instead of standard components:
+``` jsx
+import { ConnectedBreadcrumb as Breadcrumb  } from 'react-breadcrumbs'
+import { ConnectedBreadcrumb as Breadcrumb  } from 'react-breadcrumbs'
+```
+
+That is it!
+
 ### Authors
 
 This project would not have been where it is today without massive contributions from

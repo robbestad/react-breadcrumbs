@@ -1,6 +1,7 @@
 // Import External Dependencies
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 // TODO: Use imitation and allow it to be passed as a prop
 import { NavLink } from 'react-router-dom'
@@ -12,7 +13,7 @@ import Store from './store'
 const block = 'breadcrumbs'
 
 // Create and export the component
-export default class Breadcrumbs extends React.Component {
+class Breadcrumbs extends React.Component {
     static propTypes = {
         className: PropTypes.string,
         hidden: PropTypes.bool,
@@ -28,8 +29,10 @@ export default class Breadcrumbs extends React.Component {
             PropTypes.arrayOf(
                 PropTypes.node
             )
-        ])
+        ]),
+        crumbs: PropTypes.array
     }
+
 
     static defaultProps = {
         className: '',
@@ -47,7 +50,7 @@ export default class Breadcrumbs extends React.Component {
     render() {
         let { className, hidden, wrapper: Wrapper } = this.props,
             hiddenMod = hidden ? `${block}--hidden` : '',
-            crumbs = Store.getState()
+            crumbs = this.props.crumbs || Store.getState()
 
         return (
             <div className={ className }>
@@ -95,4 +98,13 @@ export default class Breadcrumbs extends React.Component {
     componentWillUnmount() {
         this._unsubscribe()
     }
+}
+
+const mapStateToProps = state => ({crumbs: state.crumbs})
+
+const ConnectedBreadcrumbs = connect(mapStateToProps)(Breadcrumbs)
+
+export {
+    Breadcrumbs as default,
+    ConnectedBreadcrumbs
 }

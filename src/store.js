@@ -20,7 +20,7 @@ let crumbs = (state = [], action) => {
                 return crumb.id !== action.payload.id
             })
 
-        default: 
+        default:
             return state
     }
 }
@@ -28,6 +28,11 @@ let crumbs = (state = [], action) => {
 // Create the store
 let store = createStore(crumbs)
 
+const Dispatch = store.dispatch
+
 // Export store and Dispatch method
-export default store
-export var Dispatch = store.dispatch
+export {
+    store as default,
+    crumbs,
+    Dispatch
+}

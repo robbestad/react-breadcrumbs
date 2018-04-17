@@ -1,5 +1,5 @@
 {
-  "name": "react-breadcrumbs",
+  "name": "breadcrumbs-react",
   "version": "2.1.5",
   "description": "Automatic breadcrumbs for react-router",
   "author": "Sven Anders Robbestad <anders@robbestad.com>",

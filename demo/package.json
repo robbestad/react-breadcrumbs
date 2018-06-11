@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/svenanders/react-breadcrumbs#readme",
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
     "style-loader": "^0.18.2",

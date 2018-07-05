@@ -15,6 +15,15 @@ import './app.css';
 
 // Create and export the component
 export default class App extends React.Component {
+  /**
+   * Handle breadcrumb render
+   * @param {[{}]} crumbs
+   * @return {[{}]}
+   */
+  handleCrumbs = (crumbs) => {
+    // Remove first crumb
+    return crumbs.filter((c, i) => i !== 0)
+  }
   render() {
     return (
       <div className="demo">

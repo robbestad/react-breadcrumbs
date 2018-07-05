@@ -33,6 +33,7 @@ The top-level `<Breadcrumbs>` component accepts the following `props`:
 
 - `className` (string): A class name for the outer wrapper element.
 - `hidden` (bool): Hide the inner breadcrumbs wrapper.
+- `setCrumbs` (func): A `function(crumbs: [Object]): [Object]` which will be called before crumbs are rendered.
 - `wrapper` (func|class): A react component to use for the inner wrapper.
 
 ### Breadcrumb

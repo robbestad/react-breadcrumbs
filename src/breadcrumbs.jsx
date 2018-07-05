@@ -17,11 +17,12 @@ export default class Breadcrumbs extends React.Component {
         className: PropTypes.string,
         hidden: PropTypes.bool,
         separator: PropTypes.node,
-        wrapper: PropTypes.oneOfType([ 
-            PropTypes.func, 
+        setCrumbs: PropTypes.func,
+        wrapper: PropTypes.oneOfType([
+            PropTypes.func,
             PropTypes.instanceOf(
                 React.Component
-            ) 
+            )
         ]),
         children: PropTypes.oneOfType([
             PropTypes.node,
@@ -35,6 +36,7 @@ export default class Breadcrumbs extends React.Component {
         className: '',
         hidden: false,
         separator: '>',
+        setCrumbs: undefined,
         wrapper: props => (
             <nav { ...props }>
                 { props.children }
@@ -45,24 +47,28 @@ export default class Breadcrumbs extends React.Component {
     _unsubscribe = null
 
     render() {
-        let { className, hidden, wrapper: Wrapper } = this.props,
+        let { className, hidden, wrapper: Wrapper, setCrumbs } = this.props,
             hiddenMod = hidden ? `${block}--hidden` : '',
             crumbs = Store.getState()
+
+        crumbs = crumbs.sort((a, b) => {
+          return a.pathname.length - b.pathname.length
+        })
+
+        if (setCrumbs) crumbs = setCrumbs(crumbs)
 
         return (
             <div className={ className }>
                 <Wrapper className={ `${block} ${hiddenMod}` }>
                     <div className={ `${block}__inner` }>
-                        { 
-                            crumbs.sort((a, b) => {
-                                return a.pathname.length - b.pathname.length
-                            }).map((crumb, i) => (
+                        {
+                            crumbs.map((crumb, i) => (
                                 <span key={ crumb.id } className={ `${block}__section` }>
                                     <NavLink
                                         exact
                                         className={ `${block}__crumb` }
                                         activeClassName={ `${block}__crumb--active` }
-                                        to={{ 
+                                        to={{
                                             pathname: crumb.pathname,
                                             search: crumb.search,
                                             state: crumb.state

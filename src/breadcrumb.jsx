@@ -3,16 +3,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import UUID from 'uuid'
 import IsEqual from 'lodash.isequal'
+import { connect } from 'react-redux'
 
 // Import Utilities
 import { Dispatch } from './store'
 
 // Create and export the component
-export default class Breadcrumb extends React.Component {
+class Breadcrumb extends React.Component {
 	static propTypes = {
 		data: PropTypes.object.isRequired,
 		hidden: PropTypes.bool,
-		children: PropTypes.element
+		children: PropTypes.element,
+		dispatch: PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -21,12 +23,19 @@ export default class Breadcrumb extends React.Component {
 	}
 
 	state = {
-		id: UUID.v4()
+		id: UUID.v4(),
+		dispatch: Dispatch
 	}
 
 	render() {
 		return this.props.children
 	}
+
+    componentWillMount() {
+		if (this.props.dispatch) {
+			this.state.dispatch = this.props.dispatch
+        }
+    }
 
 	componentDidMount() {
 		let { data, hidden } = this.props
@@ -58,6 +67,7 @@ export default class Breadcrumb extends React.Component {
 		)
 	}
 
+
 	/**
 	 * Dispatch the given `action`
 	 * 
@@ -65,11 +75,19 @@ export default class Breadcrumb extends React.Component {
 	 * @param  {object} data   - The breadcrumb data to pass
 	 */
 	_dispatch(action, data) {
-		let { id } = this.state
-
-		Dispatch({
+		const { id, dispatch } = this.state
+		dispatch({
 			type: action,
 			payload: { id, ...data }
 		})
 	}
+}
+
+const mapDispatchToProps = dispatch => ({dispatch})
+
+const ConnectedBreadcrumb = connect(null, mapDispatchToProps)(Breadcrumb)
+
+export {
+	Breadcrumb as default,
+    ConnectedBreadcrumb
 }

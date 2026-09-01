@@ -1,6 +1,6 @@
 {
   "name": "react-breadcrumbs",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Automatic breadcrumbs for React Router",
   "author": "Sven Anders Robbestad <anders@robbestad.com>",
   "license": "ISC",

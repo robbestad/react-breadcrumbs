@@ -1,6 +1,7 @@
 node_modules/
 dist/
 demo/dist/
+.vercel/
 *.log
 .DS_Store
 .idea

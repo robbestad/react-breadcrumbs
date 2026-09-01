@@ -2,9 +2,9 @@
 
 Automatic breadcrumb trails for [React Router](https://reactrouter.com) 7.
 
-v3 is a rewrite: TypeScript, React 19, no Redux, accessible markup, and two ways
-to build a trail. v2 (`react-breadcrumbs@2`) remains on npm for React 15/16 and
-React Router 4/5 apps.
+v3 is a rewrite: TypeScript, React 19, no Redux, zero runtime dependencies,
+accessible markup, and two ways to build a trail. v2 (`react-breadcrumbs@2`)
+remains on npm for React 15/16 and React Router 4/5 apps.
 
 ## Install
 
@@ -12,7 +12,7 @@ React Router 4/5 apps.
 npm install react-breadcrumbs
 ```
 
-Peer dependencies: `react` and `react-dom` ≥ 19, `react-router` ≥ 7.
+Zero runtime dependencies. Requires `react` and `react-dom` ≥ 19, `react-router` ≥ 7.
 
 ```js
 import {

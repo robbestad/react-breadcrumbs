@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2026-09-02
+
+### Docs
+
+- State that the package has zero runtime dependencies.
+
+### CI
+
+- Fix GitHub Pages deploys that failed when a workflow re-run uploaded a second `github-pages` artifact.
+
+### Demo
+
+- Add Vercel config so the Vite demo can be deployed as a static SPA.
+
 ## [3.0.0] - 2026-09-01
 
 Rewrite for React 19 and React Router 7. v2 remains available as `react-breadcrumbs@2`.

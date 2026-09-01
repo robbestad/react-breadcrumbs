@@ -1,62 +1,81 @@
 {
   "name": "react-breadcrumbs",
-  "version": "2.1.7",
-  "description": "Automatic breadcrumbs for react-router",
+  "version": "3.0.0",
+  "description": "Automatic breadcrumbs for React Router",
   "author": "Sven Anders Robbestad <anders@robbestad.com>",
-  "homepage": "https://github.com/svenanders/react-breadcrumbs",
   "license": "ISC",
-  "main": "dist/react-breadcrumbs.min.js",
-  "scripts": {
-    "build": "webpack",
-    "release": "standard-version"
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
   },
-  "npmFileMap": [
-    {
-      "basePath": "/dist/",
-      "files": [
-        "*.js"
-      ]
-    }
+  "files": [
+    "dist"
   ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "build": "tsup",
+    "build:demo": "vite build --config demo/vite.config.ts",
+    "preview": "vite preview --config demo/vite.config.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src demo/src e2e",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/svenanders/react-breadcrumbs.git"
+    "url": "git+https://github.com/robbestad/react-breadcrumbs.git"
   },
   "bugs": {
-    "url": "https://github.com/svenanders/react-breadcrumbs/issues"
+    "url": "https://github.com/robbestad/react-breadcrumbs/issues"
   },
+  "homepage": "https://github.com/robbestad/react-breadcrumbs",
   "keywords": [
     "react-component",
     "breadcrumbs",
     "react",
+    "react-router",
     "trail"
   ],
   "peerDependencies": {
-    "react": "^15.0.0 || ^16.0.0",
-    "react-router-dom": "^4.0.0 || ^5.0.0",
-    "prop-types": "^15.5.7"
+    "react": ">=19",
+    "react-dom": ">=19",
+    "react-router": ">=7"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.0.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^3.17.0",
-    "eslint-loader": "^1.9.0",
-    "eslint-plugin-react": "^7.3.0",
-    "prop-types": "^15.5.8",
-    "react": "^15.3.2",
-    "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1",
-    "standard-version": "^6.0.1",
-    "webpack": "^3.5.6"
-  },
-  "dependencies": {
-    "lodash.isequal": "^4.5.0",
-    "redux": "^3.6.0",
-    "uuid": "^3.0.1"
+    "@eslint/js": "^9.35.0",
+    "@playwright/test": "^1.55.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "eslint": "^9.35.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.8.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0",
+    "vite": "^7.1.4",
+    "vitest": "^3.2.4"
   }
 }

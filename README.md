@@ -1,76 +1,152 @@
 # React Breadcrumbs
 
-[React][1] component use to generate a breadcrumb trail (compatible with
-[React Router][2]).
+Automatic breadcrumb trails for [React Router](https://reactrouter.com) 7.
 
-## Installation
+v3 is a rewrite: TypeScript, React 19, no Redux, accessible markup, and two ways
+to build a trail. v2 (`react-breadcrumbs@2`) remains on npm for React 15/16 and
+React Router 4/5 apps.
+
+## Install
 
 ```sh
-npm install --save react-breadcrumbs
+npm install react-breadcrumbs
 ```
 
-Note: this version is only compatible with React-Router v4 and up. If you
-need a version that is compatible with React-Router v3 and below, use
-```
-npm install --save react-breadcrumbs@1.6.x
-```
+Peer dependencies: `react` and `react-dom` ≥ 19, `react-router` ≥ 7.
 
-## Demo
-
-The `/demo` directory provide one example of how this
-package can be used. See the [`/demo`][3] for the code powering the small
-site.
+```js
+import {
+  Breadcrumb,
+  BreadcrumbProvider,
+  Breadcrumbs,
+} from 'react-breadcrumbs'
+import 'react-breadcrumbs/styles.css'
+```
 
 ## Usage
 
-This package exposes two components, a `<Breadcrumbs>` component to wrap
-the entire application and a `<Breadcrumb>` component to use throughout
-the different sections (e.g. `<Route>`s) within the application.
+Wrap the tree in `BreadcrumbProvider` **inside** a data router
+(`createBrowserRouter` / `createMemoryRouter`). Render `<Breadcrumbs />` once.
+Register a crumb wherever a section mounts:
 
-### Breadcrumbs
+```tsx
+import { Breadcrumb, BreadcrumbProvider, Breadcrumbs } from 'react-breadcrumbs'
+import { Outlet } from 'react-router'
 
-The top-level `<Breadcrumbs>` component accepts the following `props`:
+export function Root() {
+  return (
+    <BreadcrumbProvider>
+      <Breadcrumb data={{ title: 'Home', pathname: '/' }}>
+        <Breadcrumbs />
+        <Outlet />
+      </Breadcrumb>
+    </BreadcrumbProvider>
+  )
+}
 
-- `className` (string): A class name for the outer wrapper element.
-- `hidden` (bool): Hide the inner breadcrumbs wrapper.
-- `setCrumbs` (func): A `function(crumbs: [Object]): [Object]` which will be called before crumbs are rendered.
-- `wrapper` (func|class): A react component to use for the inner wrapper.
-
-### Breadcrumb
-
-- `data` (object): An extended [location descriptor][5]. See below...
-- `hidden` (bool): Hide an individual breadcrumb (rarely needed).
-
-The `data` object allows any valid [location descriptor][5] key (e.g.
-`pathname` or `search`) as well as a `title` prop:
-
-``` js
-{
-  title: 'Home', // Any valid `PropTypes.node`
-  pathname: '/',
-  // ... any other location descriptor values
+export function Friends() {
+  return (
+    <Breadcrumb data={{ title: 'Friends', pathname: '/friends' }}>
+      <h1>Friends</h1>
+      <Outlet />
+    </Breadcrumb>
+  )
 }
 ```
 
-The fact that the `title` can be any valid `PropTypes.node` allows for a huge
-amount of customization. The following values are all valid:
+`title` can be any React node — a string, a `<span>`, or a custom component.
 
-``` jsx
-title: 'Home'
-title: <span title="Hovered!">Home</span>
-title: <CustomComponent title="Home" icon="house" />
+### Route handles
+
+React Router 7 can declare crumbs on the route. Use `source="route"` (or
+`"merged"`) to read them through `useMatches()`:
+
+```tsx
+{
+  path: 'friends/:name',
+  loader: friendLoader,
+  handle: {
+    crumb: (match) => match.data.name,
+  },
+}
+
+<Breadcrumbs source="route" />
 ```
 
-### Authors
+Registered crumbs still win on the same pathname when `source="merged"`.
 
-This project would not have been where it is today without massive contributions from
-a whole lot of people ([`AUTHORS`][6]). Suport for React Router v4 support was written
-entirely by ([`@skipjack`][7]).
+### Async titles
 
-[1]: https://facebook.github.io/react
-[2]: https://github.com/rackt/react-router
-[3]: https://github.com/svenanders/react-breadcrumbs/tree/master/demo
-[4]: http://breadcrumbs.surge.sh/index.html
-[5]: https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/location.md
-[6]: https://github.com/svenanders/react-breadcrumbs/tree/master/AUTHORS
-[7]: https://github.com/skipjack
+Because `<Breadcrumb>` re-registers when `data` changes, a title can start as a
+placeholder and update when a loader or fetch resolves:
+
+```tsx
+function Friend() {
+  const friend = useLoaderData()
+  return (
+    <Breadcrumb data={{ title: friend.name, pathname: `/friends/${friend.slug}` }}>
+      <h1>{friend.name}</h1>
+    </Breadcrumb>
+  )
+}
+```
+
+### Custom links (from historical PR #100)
+
+```tsx
+<Breadcrumbs linkComponent={Link} />
+
+<Breadcrumb
+  data={{ title: 'Home', pathname: '/' }}
+  linkProps={{ 'data-analytics': 'crumb-home' }}
+/>
+```
+
+### RTL
+
+There is no `rtl` prop. The default stylesheet uses logical properties
+(`margin-inline-end`), so the trail follows `dir="rtl"` on the document.
+
+### Props
+
+**`<Breadcrumbs>`**
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `className` | `string` | Outer wrapper |
+| `hidden` | `boolean` | Hides the trail |
+| `separator` | `ReactNode` | Default `›` |
+| `setCrumbs` | `(crumbs) => crumbs` | Rewrite the list before render |
+| `wrapper` | component | Default is `<nav aria-label="Breadcrumb">` |
+| `linkComponent` | component | Default is React Router `NavLink` |
+| `source` | `'registered' \| 'route' \| 'merged'` | Default `'registered'` |
+
+**`<Breadcrumb>`**
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `data` | `{ title, pathname, search?, state? }` | Required |
+| `hidden` | `boolean` | Skip this crumb |
+| `linkProps` | object | Spread onto the link for this crumb |
+
+The last crumb is not a link. It gets `aria-current="page"`.
+
+## Demo
+
+```sh
+npm install
+npm run dev
+```
+
+## Migrating from v2
+
+- Add `<BreadcrumbProvider>` above `<Breadcrumbs>` and `<Breadcrumb>`.
+- Install `react-router` ≥ 7 (not `react-router-dom` v5).
+- Import CSS from `react-breadcrumbs/styles.css`.
+- `exact` / `activeClassName` are gone; the current page is a `<span>`.
+- The default wrapper is `<nav>` / `<ol>` / `<li>`, not `<div>` / `<span>`.
+- The package is ESM-only. There is no UMD bundle.
+
+## License
+
+ISC
